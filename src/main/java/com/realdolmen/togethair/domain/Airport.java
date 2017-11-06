@@ -20,7 +20,6 @@ public class Airport {
 	
 	@ManyToOne
 	private Country country;
-	private Duration duration;
 	
 	public long getId() {
 		return id;
@@ -42,11 +41,4 @@ public class Airport {
 		this.country = country;
 	}
 	
-	public Duration getDuration() {
-		return duration;
-	}
-	
-	public void setDuration(Duration duration) {
-		this.duration = duration;
-	}
 }

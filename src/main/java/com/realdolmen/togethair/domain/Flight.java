@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.domain;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,25 @@ public class Flight {
 	private Airport from;
 	@ManyToOne
 	private Airport to;
+	
+	private Duration duration;
 	private LocalDateTime departureDateTime;
+	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public Duration getDuration() {
+		return duration;
+	}
+	
+	public void setDuration(Duration duration) {
+		this.duration = duration;
+	}
 	
 	public FlightCompany getFlightCompany() {
 		return flightCompany;

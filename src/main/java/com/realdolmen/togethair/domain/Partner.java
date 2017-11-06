@@ -1,9 +1,6 @@
 package com.realdolmen.togethair.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -14,7 +11,7 @@ public class Partner extends User {
 	@GeneratedValue
 	private long id;
 	
-	@OneToMany
+	@ManyToOne
 	private FlightCompany company;
 	
 	public FlightCompany getCompany() {
