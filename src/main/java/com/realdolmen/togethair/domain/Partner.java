@@ -7,9 +7,6 @@ import javax.persistence.*;
  */
 @Entity
 public class Partner extends User {
-	@Id
-	@GeneratedValue
-	private long id;
 	
 	@ManyToOne
 	private FlightCompany company;
