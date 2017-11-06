@@ -1,4 +1,4 @@
-package main.domain;
+package com.realdolmen.togetair.domain;
 
 /**
  * Created by GWTBF10 on 6/11/2017.

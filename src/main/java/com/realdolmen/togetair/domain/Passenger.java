@@ -1,4 +1,4 @@
-package main.domain;
+package com.realdolmen.togetair.domain;
 
 import java.time.LocalDate;
 
