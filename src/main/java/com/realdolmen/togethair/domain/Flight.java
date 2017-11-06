@@ -1,12 +1,21 @@
 package com.realdolmen.togethair.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
  */
+@Entity
 public class Flight {
+	
+	@Id
+	@GeneratedValue
+	private long id;
+	
 	private FlightCompany flightCompany;
 	private List<Seat> seats;
 	private Airport from;

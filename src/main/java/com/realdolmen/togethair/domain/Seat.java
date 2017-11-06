@@ -1,9 +1,19 @@
 package com.realdolmen.togethair.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Created by GWTBF10 on 6/11/2017.
  */
+@Entity
 public class Seat {
+	
+	@Id
+	@GeneratedValue
+	private long id;
+	
 	private String location;
 	private float price;
 	private Enum<TraveClassName> travelClassName;
