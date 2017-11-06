@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -16,6 +17,7 @@ public class Seat {
 	
 	private String location;
 	private float price;
+	@Enumerated
 	private Enum<TraveClassName> travelClassName;
 	
 	public String getLocation() {

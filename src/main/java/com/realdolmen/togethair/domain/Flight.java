@@ -1,8 +1,6 @@
 package com.realdolmen.togethair.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,9 +14,13 @@ public class Flight {
 	@GeneratedValue
 	private long id;
 	
+	@ManyToOne
 	private FlightCompany flightCompany;
+	@OneToMany
 	private List<Seat> seats;
+	@ManyToOne
 	private Airport from;
+	@ManyToOne
 	private Airport to;
 	private LocalDateTime departureDateTime;
 	

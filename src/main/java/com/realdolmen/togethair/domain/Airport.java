@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.Duration;
 
 /**
@@ -16,6 +17,8 @@ public class Airport {
 	private long id;
 	
 	private String code;
+	
+	@ManyToOne
 	private Country country;
 	private Duration duration;
 	
