@@ -11,7 +11,7 @@ public class Country {
 	@GeneratedValue
 	private long id;
 	
-	@ManyToOne
+	@Enumerated
 	private Region region;
 	private String name;
 	
