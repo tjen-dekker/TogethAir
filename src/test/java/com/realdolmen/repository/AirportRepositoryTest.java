@@ -6,8 +6,13 @@ import com.realdolmen.togethair.domain.City;
 import com.realdolmen.togethair.domain.Country;
 import com.realdolmen.togethair.domain.Region;
 import com.realdolmen.togethair.repositories.AirportRepository;
+import com.realdolmen.togethair.repositories.AirportRepositoryImpl;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -19,8 +24,8 @@ public class AirportRepositoryTest extends AbstractRepositoryTest {
 
     @Before
     public void initializeRepository() {
-        airportRepository = new AirportRepository();
-        airportRepository.setEm(em);
+
+        airportRepository = new AirportRepositoryImpl(em);
     }
 
     @Test

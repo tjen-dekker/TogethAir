@@ -1,19 +1,20 @@
-package com.realdolmen.togethair.repostiories;
+package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Airport;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public class AirportRepository {
+public class AirportRepositoryImpl implements AirportRepository{
 
-    EntityManager em;
+    private EntityManager em;
 
     public List<Airport> findAll(){
         return em.createQuery("select a from Airport a", Airport.class).getResultList();
     }
 
-    public Airport findById(long id){
+    public Airport findById(Long id){
         return em.find(Airport.class, id);
     }
 
@@ -22,8 +23,10 @@ public class AirportRepository {
         return airport;
     }
 
+    public AirportRepositoryImpl() {
+    }
 
-    public void setEm(EntityManager em) {
+    public AirportRepositoryImpl(EntityManager em) {
         this.em = em;
     }
 }
