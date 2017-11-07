@@ -1,10 +1,14 @@
 package com.realdolmen.togethair.domain;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
+@ManagedBean
+@SessionScoped
 public class Passenger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +16,8 @@ public class Passenger {
 	
 	private String lastName;
 	private String firstName;
-	private LocalDate birthDate;
+	@Temporal(TemporalType.DATE)
+	private Date birthDate;
 	@OneToOne
 	private Seat seat;
 
@@ -33,9 +38,9 @@ public class Passenger {
 		this.firstName = firstName;
 	}
 	
-	public LocalDate getBirthDate() {return birthDate;}
+	public Date getBirthDate() {return birthDate;}
 	
-	public void setBirthDate(LocalDate birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 

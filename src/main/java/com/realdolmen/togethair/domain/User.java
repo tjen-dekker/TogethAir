@@ -1,21 +1,27 @@
 package com.realdolmen.togethair.domain;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@ManagedBean
+@SessionScoped
 public abstract class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+	@OneToMany
+	private List<Booking> bookings;
 
 	private String firstName;
 	private String lastName;
 
 
-	private String name;
+	private String userName;
 	private String password;
 	private String email;
 
@@ -41,5 +47,13 @@ public abstract class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }
