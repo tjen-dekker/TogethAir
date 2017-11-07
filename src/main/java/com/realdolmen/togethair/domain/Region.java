@@ -13,7 +13,6 @@ public enum Region {
 
     @Override
     public String toString() {
-        //todo implement tostring for pretty representation of options
-        return super.toString();
+        return super.toString().toLowerCase().replace('_','-');
     }
 }

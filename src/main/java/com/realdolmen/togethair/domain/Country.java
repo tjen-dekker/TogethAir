@@ -8,12 +8,30 @@ import javax.persistence.*;
 @Entity
 public class Country {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@Enumerated
 	private Region region;
 	private String name;
-	
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
