@@ -48,6 +48,8 @@ public class Passenger {
 	}
 
 	public void setSeat(Seat seat) {
+		//TODO make sure the seat is actually available
 		this.seat = seat;
+		seat.setAvailable(false);
 	}
 }
