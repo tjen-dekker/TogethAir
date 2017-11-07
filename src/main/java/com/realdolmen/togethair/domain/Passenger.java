@@ -1,8 +1,6 @@
 package com.realdolmen.togethair.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -11,12 +9,15 @@ import java.time.LocalDate;
 @Entity
 public class Passenger {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	private String name;
 	private String firstName;
 	private LocalDate birthDate;
+	@OneToOne
+	private Seat seat;
+
 	
 	public String getName() {
 		return name;
@@ -40,5 +41,13 @@ public class Passenger {
 	
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	public Seat getSeat() {
+		return seat;
+	}
+
+	public void setSeat(Seat seat) {
+		this.seat = seat;
 	}
 }

@@ -1,10 +1,7 @@
 package com.realdolmen.togethair.domain;
 
 import javax.inject.Inject;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.Duration;
 
 /**
@@ -13,13 +10,13 @@ import java.time.Duration;
 @Entity
 public class Airport {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	private String code;
 	
 	@ManyToOne
-	private Country country;
+	private City city;
 	
 	public long getId() {
 		return id;
@@ -33,12 +30,12 @@ public class Airport {
 		this.code = code;
 	}
 	
-	public Country getCountry() {
-		return country;
+	public City getCountry() {
+		return city;
 	}
 	
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setCountry(City country) {
+		this.city = city;
 	}
 	
 }

@@ -1,9 +1,6 @@
 package com.realdolmen.togethair.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -12,13 +9,13 @@ import javax.persistence.Id;
 public class Seat {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	private String location;
 	private float price;
-	@Enumerated
-	private Enum<TraveClassName> travelClassName;
+	@Enumerated @Column(name = "class")
+	private TravelClass travelClassName;
 	
 	public String getLocation() {
 		return location;
@@ -36,11 +33,11 @@ public class Seat {
 		this.price = price;
 	}
 	
-	public Enum<TraveClassName> getTravelClassName() {
+	public TravelClass getTravelClassName() {
 		return travelClassName;
 	}
 	
-	public void setTravelClassName(Enum<TraveClassName> travelClassName) {
+	public void setTravelClassName(TravelClass travelClassName) {
 		this.travelClassName = travelClassName;
 	}
 }

@@ -1,5 +1,8 @@
 package com.realdolmen;
 
+import com.realdolmen.togethair.domain.Partner;
+import com.realdolmen.togethair.domain.User;
+import org.junit.Before;
 import org.junit.BeforeClass;
 
 import javax.persistence.EntityManager;
@@ -17,7 +20,20 @@ public class Test {
         emf = Persistence.createEntityManagerFactory("persistenceUnit");
     }
 
+    @Before
+    public void initializeEntityManagerWithTransaction() {
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+    }
+
     @org.junit.Test
-    public void testy(){}
+    public void testy(){
+        User u = new Partner();
+        u.setEmail("test");
+        em.persist(u);
+        em.flush();
+        em.close();
+        emf.close();
+    }
 
 }

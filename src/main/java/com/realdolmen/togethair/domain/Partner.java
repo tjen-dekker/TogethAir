@@ -2,9 +2,7 @@ package com.realdolmen.togethair.domain;
 
 import javax.persistence.*;
 
-/**
- * Created by GWTBF10 on 6/11/2017.
- */
+
 @Entity
 public class Partner extends User {
 	
