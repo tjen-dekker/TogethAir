@@ -14,16 +14,16 @@ public class Passenger {
 	@GeneratedValue
 	private long id;
 	
-	private String name;
+	private String lastName;
 	private String firstName;
 	private LocalDate birthDate;
 	
 	public String getName() {
-		return name;
+		return lastName;
 	}
 	
 	public void setName(String name) {
-		this.name = name;
+		this.lastName = lastName;
 	}
 	
 	public String getFirstName() {
