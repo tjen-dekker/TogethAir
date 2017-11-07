@@ -2,6 +2,7 @@ package com.realdolmen.repository;
 
 import com.realdolmen.AbstractRepositoryTest;
 import com.realdolmen.togethair.domain.Airport;
+import com.realdolmen.togethair.domain.City;
 import com.realdolmen.togethair.domain.Country;
 import com.realdolmen.togethair.domain.Region;
 import com.realdolmen.togethair.repostiories.AirportRepository;
@@ -26,10 +27,12 @@ public class AirportRepositoryTest extends AbstractRepositoryTest {
     public void doesRepositoryPersist() throws Exception {
         Airport airport = new Airport();
         Country country = new Country();
+        City city = new City();
+        city.setCountry(country);
         country.setName("Belgium");
         country.setRegion(Region.WESTERN_EUROPE);
         airport.setCode("ABA125");
-        airport.setCountry(country);
+        airport.setCity(city);
         airportRepository.create(airport);
         Airport airport1 = em.find(Airport.class, airport.getId());
         assertNotNull(airport1);
