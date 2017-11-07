@@ -1,4 +1,4 @@
-package com.realdolmen;
+package java.com.realdolmen;
 
 import org.junit.BeforeClass;
 
