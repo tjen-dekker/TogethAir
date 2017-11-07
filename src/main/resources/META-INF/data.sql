@@ -1,6 +1,3 @@
-#
-# TABLE STRUCTURE FOR: country
-#
 
 INSERT INTO country (`id`, `name`, `region`) VALUES (1, 'Christmas Island', 0);
 INSERT INTO country (`id`, `name`, `region`) VALUES (2, 'Qatar', 0);
@@ -102,12 +99,6 @@ INSERT INTO country (`id`, `name`, `region`) VALUES (97, 'Papua New Guinea', 3);
 INSERT INTO country (`id`, `name`, `region`) VALUES (98, 'Mongolia', 3);
 INSERT INTO country (`id`, `name`, `region`) VALUES (99, 'Slovakia (Slovak Republic)', 3);
 INSERT INTO country (`id`, `name`, `region`) VALUES (100, 'French Polynesia', 3);
-
-
-#
-# TABLE STRUCTURE FOR: city
-#
-
 
 INSERT INTO city (`id`, `name`, `country_id`) VALUES (1, 'Sofiaville', 73);
 INSERT INTO city (`id`, `name`, `country_id`) VALUES (2, 'Lake Shemarshire', 28);
@@ -381,9 +372,6 @@ INSERT INTO flightcompany (`id`, `name`) VALUES (18, 'Collier and Sons');
 INSERT INTO flightcompany (`id`, `name`) VALUES (19, 'Grimes-Ortiz');
 INSERT INTO flightcompany (`id`, `name`) VALUES (20, 'Zemlak, Hane and Heller');
 
-#
-# TABLE STRUCTURE FOR: airport
-#
 
 INSERT INTO airport (`id`, `code`, `city_id`) VALUES (2, 'bho', 112);
 INSERT INTO airport (`id`, `code`, `city_id`) VALUES (3, 'xhw', 24);
@@ -645,11 +633,6 @@ INSERT INTO airport (`id`, `code`, `city_id`) VALUES (258, 'qqh', 190);
 INSERT INTO airport (`id`, `code`, `city_id`) VALUES (259, 'wbl', 229);
 INSERT INTO airport (`id`, `code`, `city_id`) VALUES (260, 'fuk', 107);
 INSERT INTO airport (`id`, `code`, `city_id`) VALUES (261, 'uro', 55);
-
-
-#
-# TABLE STRUCTURE FOR: seat
-#
 
 
 INSERT INTO seat (`id`, `location`, `price`, `class`) VALUES (1, '9g', '2405.03', 2);
@@ -1914,11 +1897,6 @@ INSERT INTO seat (`id`, `location`, `price`, `class`) VALUES (1259, '4f', '997.2
 INSERT INTO seat (`id`, `location`, `price`, `class`) VALUES (1260, '4j', '100.98', 2);
 
 
-#
-# TABLE STRUCTURE FOR: passenger
-#
-
-
 
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (1, '1992-07-05', 'Lenore', 'Aufderhar', 798);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (2, '2016-07-07', 'Philip', 'Watsica', 568);
@@ -1997,7 +1975,6 @@ INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VA
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (75, '1996-12-19', 'Destany', 'Orn', 991);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (76, '2013-12-26', 'Stuart', 'Heller', 1232);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (77, '1986-06-04', 'Jude', 'Hilpert', 962);
-INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (78, '2006-06-26', 'Seth', 'O\'Reilly', 1090);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (79, '2000-11-06', 'Allie', 'Senger', 1235);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (80, '2005-09-11', 'Myrtle', 'Corkery', 588);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (81, '2007-09-25', 'Vaughn', 'Rau', 322);
@@ -2017,7 +1994,6 @@ INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VA
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (95, '1980-01-12', 'Alize', 'Stamm', 739);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (96, '1984-12-13', 'Jayda', 'Block', 444);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (97, '1970-09-13', 'Kelli', 'Nolan', 412);
-INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (98, '1993-09-20', 'Lilyan', 'O\'Reilly', 335);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (99, '1991-12-14', 'Jamie', 'Zboncak', 680);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (100, '1996-09-11', 'Hosea', 'Waelchi', 68);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (101, '2006-10-21', 'Scarlett', 'Turner', 964);
@@ -2042,7 +2018,6 @@ INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VA
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (120, '2010-10-30', 'Zita', 'Kreiger', 786);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (121, '2010-08-17', 'Elsa', 'Cruickshank', 644);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (122, '2006-08-02', 'Amir', 'Stoltenberg', 343);
-INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (123, '2015-10-21', 'Alanna', 'O\'Keefe', 197);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (124, '1973-07-26', 'Gust', 'Thiel', 1253);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (125, '2006-10-25', 'Bonnie', 'Bosco', 398);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (126, '2000-03-07', 'Delphia', 'Rowe', 936);
@@ -2059,14 +2034,11 @@ INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VA
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (137, '1973-12-06', 'Nella', 'Hoeger', 477);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (138, '1996-06-02', 'Celestine', 'Stiedemann', 600);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (139, '1983-08-21', 'Adella', 'Hane', 1050);
-INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (140, '1992-07-31', 'Nyasia', 'O\'Connell', 1232);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (141, '2012-04-06', 'Elliot', 'Armstrong', 374);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (142, '1993-06-12', 'Lexie', 'Beatty', 914);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (143, '2015-01-09', 'Yoshiko', 'Marks', 1047);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (144, '2007-01-07', 'Destiny', 'Stark', 503);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (145, '1971-10-27', 'Maribel', 'Emmerich', 410);
-INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (146, '1982-05-21', 'Reid', 'O\'Reilly', 1138);
-INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (147, '2007-01-09', 'Lennie', 'O\'Conner', 800);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (148, '1983-01-04', 'Serena', 'Waters', 1043);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (149, '1976-11-04', 'Shad', 'Kohler', 347);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (150, '1999-08-11', 'Grayce', 'Nader', 641);
@@ -2091,9 +2063,6 @@ INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VA
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (169, '1976-08-19', 'Clementine', 'Moen', 305);
 INSERT INTO passenger (`id`, `birthDate`, `firstName`, `lastName`, `seat_id`) VALUES (170, '2002-04-26', 'Violet', 'Feest', 1258);
 
-#
-# TABLE STRUCTURE FOR: booking
-#
 
 INSERT INTO booking (`Id`) VALUES (00);
 INSERT INTO booking (`Id`) VALUES (01);
@@ -2196,19 +2165,6 @@ INSERT INTO booking (`Id`) VALUES (97);
 INSERT INTO booking (`Id`) VALUES (98);
 INSERT INTO booking (`Id`) VALUES (99);
 
-
-
-
-
-
-
-
-
-#
-# TABLE STRUCTURE FOR: booking_passenger
-#
-
-
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (00, 22);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (01, 82);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (02, 83);
@@ -2221,7 +2177,6 @@ INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (09, 76);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (10, 110);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (11, 122);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (11, 128);
-INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (11, 146);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (12, 115);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (15, 55);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (16, 154);
@@ -2315,14 +2270,6 @@ INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (97, 23);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (97, 31);
 INSERT INTO booking_passenger (`Booking_Id`, `passengers_id`) VALUES (99, 17);
 
-
-
-
-
-
-#
-# TABLE STRUCTURE FOR: flight
-#
 
 INSERT INTO flight (`id`, `departureDateTime`, `duration`, `flightCompany_id`, `from_id`, `to_id`) VALUES (1, '1955-08-28 14:45:19', '1', 1, 160, 222);
 INSERT INTO flight (`id`, `departureDateTime`, `duration`, `flightCompany_id`, `from_id`, `to_id`) VALUES (2, '1941-04-19 17:23:45', '1', 15, 21, 12);
@@ -2484,12 +2431,6 @@ INSERT INTO flight (`id`, `departureDateTime`, `duration`, `flightCompany_id`, `
 INSERT INTO flight (`id`, `departureDateTime`, `duration`, `flightCompany_id`, `from_id`, `to_id`) VALUES (158, '2017-06-02 07:00:50', '2', 17, 252, 6);
 INSERT INTO flight (`id`, `departureDateTime`, `duration`, `flightCompany_id`, `from_id`, `to_id`) VALUES (159, '2003-09-27 08:19:27', '5', 6, 200, 120);
 INSERT INTO flight (`id`, `departureDateTime`, `duration`, `flightCompany_id`, `from_id`, `to_id`) VALUES (160, '1944-02-27 13:36:39', '8', 10, 66, 144);
-
-
-#
-# TABLE STRUCTURE FOR: flight_seat
-#
-
 
 INSERT INTO flight_seat (`Flight_id`, `seats_id`) VALUES (1, 115);
 INSERT INTO flight_seat (`Flight_id`, `seats_id`) VALUES (1, 314);
@@ -3300,15 +3241,6 @@ INSERT INTO flight_seat (`Flight_id`, `seats_id`) VALUES (160, 1230);
 
 
 
-
-
-
-
-#
-# TABLE STRUCTURE FOR: user
-#
-
-
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (1, 'orn.anthony@example.org', 'rerum', 'a8b6fa6a5b77b88b0a6820f2093babb96c4bd543');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (2, 'richmond73@example.com', 'sint', '45cf8a1f9f0d23b0addc06a8914716bfe9aba1ad');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (3, 'darrel.welch@example.net', 'repudiandae', '0b3076249bf2c301e4f4ea43937c277f346e50d0');
@@ -3369,14 +3301,12 @@ INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (57, 'hterry@exa
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (58, 'gwendolyn.klocko@example.com', 'et', 'aacd34272a86544e33e4fc8dcc2b4c198bd87de8');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (59, 'oswaldo75@example.com', 'quaerat', '77715525b39701a34c392d71a277ed2d0dbcbea5');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (60, 'beverly.kuhlman@example.org', 'consequatur', '0033022c0fe4eb64de7ae78ab4111e07e3715677');
-INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (61, 'alverta.o\'conner@example.net', 'sunt', '102573fc912110f1c5802f3eeadce60547af36af');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (62, 'deshawn84@example.com', 'sit', '7cde82c6490fa440bb53e8e676be9e0d2cc5dea9');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (63, 'jordon27@example.org', 'sit', 'b172e75f0a1907d8fd899211630a90d47c5183bf');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (64, 'fkerluke@example.com', 'sit', '1c58118f21e8144978fcd289810924e19348b3b7');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (65, 'corkery.aurelio@example.org', 'et', 'f28a8ae0543a4ec232afee1674809b6d9525384d');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (66, 'mavis.haag@example.com', 'mollitia', '139e2f139afd65cdf9ec38c00d1b99799c48a792');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (67, 'wiegand.blaze@example.org', 'quia', 'f7cb25235fe588a8fdfe39c4d570ca67ccba035b');
-INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (68, 'fo\'kon@example.com', 'autem', '470e03ed24ff5b94c01575edcdd0de0184b5e8d8');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (69, 'yokuneva@example.net', 'repudiandae', '2fb9f105baae8ad9b6965abf9612a643a4a4711d');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (70, 'emery55@example.org', 'perspiciatis', 'd34873d9ffa7bf12fcf358b2260108a00bbd871a');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (71, 'janet.wilderman@example.com', 'laboriosam', 'd282f831a076fd7844bb152e9872cdeb8370dd55');
@@ -3390,10 +3320,6 @@ INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (78, 'ellis.kunz
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (79, 'konopelski.bertrand@example.org', 'voluptates', '9cec519f4c4298c03363cf24a90537897803df40');
 INSERT INTO user (`id`, `email`, `userName`, `password`) VALUES (80, 'vfay@example.org', 'velit', '5af82aa46ca50340903d0ba801cf434b0d1965d2');
 
-
-#
-# TABLE STRUCTURE FOR: partner
-#
 
 
 INSERT INTO partner (`id`, `company_id`) VALUES (3, 1);
@@ -3411,7 +3337,6 @@ INSERT INTO partner (`id`, `company_id`) VALUES (37, 4);
 INSERT INTO partner (`id`, `company_id`) VALUES (28, 5);
 INSERT INTO partner (`id`, `company_id`) VALUES (44, 5);
 INSERT INTO partner (`id`, `company_id`) VALUES (54, 5);
-INSERT INTO partner (`id`, `company_id`) VALUES (61, 5);
 INSERT INTO partner (`id`, `company_id`) VALUES (41, 6);
 INSERT INTO partner (`id`, `company_id`) VALUES (63, 6);
 INSERT INTO partner (`id`, `company_id`) VALUES (79, 6);
@@ -3419,7 +3344,6 @@ INSERT INTO partner (`id`, `company_id`) VALUES (2, 7);
 INSERT INTO partner (`id`, `company_id`) VALUES (16, 7);
 INSERT INTO partner (`id`, `company_id`) VALUES (36, 7);
 INSERT INTO partner (`id`, `company_id`) VALUES (48, 7);
-INSERT INTO partner (`id`, `company_id`) VALUES (68, 7);
 INSERT INTO partner (`id`, `company_id`) VALUES (76, 7);
 INSERT INTO partner (`id`, `company_id`) VALUES (78, 7);
 INSERT INTO partner (`id`, `company_id`) VALUES (80, 7);
@@ -3461,9 +3385,6 @@ INSERT INTO partner (`id`, `company_id`) VALUES (42, 19);
 INSERT INTO partner (`id`, `company_id`) VALUES (11, 20);
 INSERT INTO partner (`id`, `company_id`) VALUES (18, 20);
 
-#
-# TABLE STRUCTURE FOR: customer
-#
 
 INSERT INTO customer (`id`) VALUES (1);
 INSERT INTO customer (`id`) VALUES (2);
@@ -3510,12 +3431,10 @@ INSERT INTO customer (`id`) VALUES (57);
 INSERT INTO customer (`id`) VALUES (58);
 INSERT INTO customer (`id`) VALUES (59);
 INSERT INTO customer (`id`) VALUES (60);
-INSERT INTO customer (`id`) VALUES (61);
 INSERT INTO customer (`id`) VALUES (63);
 INSERT INTO customer (`id`) VALUES (64);
 INSERT INTO customer (`id`) VALUES (66);
 INSERT INTO customer (`id`) VALUES (67);
-INSERT INTO customer (`id`) VALUES (68);
 INSERT INTO customer (`id`) VALUES (70);
 INSERT INTO customer (`id`) VALUES (71);
 INSERT INTO customer (`id`) VALUES (72);
@@ -3525,10 +3444,6 @@ INSERT INTO customer (`id`) VALUES (76);
 INSERT INTO customer (`id`) VALUES (78);
 INSERT INTO customer (`id`) VALUES (79);
 INSERT INTO customer (`id`) VALUES (80);
-
-#
-# TABLE STRUCTURE FOR: administrator
-#
 
 INSERT INTO administrator (`id`) VALUES (1);
 INSERT INTO administrator (`id`) VALUES (2);
