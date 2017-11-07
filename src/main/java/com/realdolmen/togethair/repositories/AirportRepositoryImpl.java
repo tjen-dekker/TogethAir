@@ -2,24 +2,32 @@ package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Airport;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.logging.Logger;
 
-public class AirportRepositoryImpl implements AirportRepository{
+public class AirportRepositoryImpl implements AirportRepository {
 
     private EntityManager em;
 
-    public List<Airport> findAll(){
+    @Inject
+    Logger logger;
+
+    public List<Airport> findAll() {
+        logger.info("finding all airports");
         return em.createQuery("select a from Airport a", Airport.class).getResultList();
     }
 
-    public Airport findById(Long id){
+    public Airport findById(Long id) {
+        logger.info("finding airport by id");
         return em.find(Airport.class, id);
     }
 
-    public Airport create(Airport airport){
+    public Airport create(Airport airport) {
         em.persist(airport);
+        logger.info("persisting airport");
         return airport;
     }
 
