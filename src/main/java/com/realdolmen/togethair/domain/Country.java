@@ -14,6 +14,24 @@ public class Country {
 	@Enumerated
 	private Region region;
 	private String name;
-	
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

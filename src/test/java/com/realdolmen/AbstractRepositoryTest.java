@@ -1,7 +1,7 @@
 package com.realdolmen;
 
-import com.realdolmen.togethair.domain.Partner;
-import com.realdolmen.togethair.domain.User;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class Test {
+public class AbstractRepositoryTest {
 
     protected static EntityManagerFactory emf;
 
@@ -26,14 +26,24 @@ public class Test {
         em.getTransaction().begin();
     }
 
-    @org.junit.Test
-    public void testy(){
-        User u = new Partner();
-        u.setEmail("test");
-        em.persist(u);
+    @After
+    public void rollbackTransactionAndCloseEntityManager() {
+        if(em != null) {
+            em.getTransaction().rollback();
+            em.close();
+        }
+    }
+
+    @AfterClass
+    public static void destroyEntityManagerFactory() {
+        if(emf != null) {
+            emf.close();
+        }
+    }
+
+    protected void flushAndClear() {
         em.flush();
-        em.close();
-        emf.close();
+        em.clear();
     }
 
 }
