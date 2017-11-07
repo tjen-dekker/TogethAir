@@ -28,8 +28,7 @@ public class AirportRepositoryTest extends AbstractRepositoryTest {
         Country country = new Country();
         country.setName("Belgium");
         country.setRegion(Region.WESTERN_EUROPE);
-        airport.setCode("ABA125");
-        airport.setCountry(country);
+        airport.setCode("BRU");
         airportRepository.create(airport);
         Airport airport1 = em.find(Airport.class, airport.getId());
         assertNotNull(airport1);
