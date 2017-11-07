@@ -8,11 +8,15 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String name;
     @ManyToOne
     private Country country;
-
-
+    
+    public Long getId() {
+        return id;
+    }
+    
     public String getName() {
         return name;
     }

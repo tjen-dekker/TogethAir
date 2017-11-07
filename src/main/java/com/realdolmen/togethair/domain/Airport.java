@@ -30,12 +30,11 @@ public class Airport {
 		this.code = code;
 	}
 	
-	public City getCountry() {
+	public City getCity() {
 		return city;
 	}
 	
-	public void setCountry(City country) {
+	public void setCity(City city) {
 		this.city = city;
 	}
-	
 }
