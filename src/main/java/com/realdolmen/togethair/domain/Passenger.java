@@ -46,6 +46,7 @@ public class Passenger {
 	public void setSeat(Seat seat) {
 		//TODO make sure the seat is actually available
 		this.seat = seat;
+		//todo put in service
 		seat.setAvailable(false);
 	}
 }

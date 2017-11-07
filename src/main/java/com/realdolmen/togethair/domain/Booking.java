@@ -3,6 +3,7 @@ package com.realdolmen.togethair.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,5 +15,5 @@ public class Booking {
 	@Id
 	private UUID Id;
 	@OneToMany
-	private List<Passenger> passengers;
+	private List<Passenger> passengers = new ArrayList<>();
 }
