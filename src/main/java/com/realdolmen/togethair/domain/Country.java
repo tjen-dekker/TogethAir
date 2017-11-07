@@ -9,13 +9,13 @@ import javax.persistence.*;
 public class Country {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Enumerated
 	private Region region;
 	private String name;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

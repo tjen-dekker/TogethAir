@@ -1,8 +1,6 @@
 package com.realdolmen.togethair.domain;
 
-import javax.inject.Inject;
 import javax.persistence.*;
-import java.time.Duration;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -11,14 +9,14 @@ import java.time.Duration;
 public class Airport {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	private String code;
 	
 	@ManyToOne
 	private City city;
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
