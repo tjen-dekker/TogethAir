@@ -3,28 +3,26 @@ package com.realdolmen.togethair.domain;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-/**
- * Created by GWTBF10 on 6/11/2017.
- */
+
 @Entity
 public class Passenger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private String name;
+	private String lastName;
 	private String firstName;
 	private LocalDate birthDate;
 	@OneToOne
 	private Seat seat;
 
 	
-	public String getName() {
-		return name;
+	public String getlastName() {
+		return lastName;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setlastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 	public String getFirstName() {
@@ -35,9 +33,7 @@ public class Passenger {
 		this.firstName = firstName;
 	}
 	
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
+	public LocalDate getBirthDate() {return birthDate;}
 	
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
