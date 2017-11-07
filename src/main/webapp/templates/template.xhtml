@@ -5,25 +5,26 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <link rel="stylesheet" type="text/css" href="styles/landing-page.css"/>
     <title>Insert title here</title>
 </h:head>
 <h:body>
-    <div style="height: 900px">
-        <div style="border-width: 1px; border-style: solid; height: 10%">
+        <div id="page">
+            <div id="header" style="border-width: 1px; border-style: solid;">
             <ui:insert name="header">
                 <ui:include src="/templates/header.xhtml"></ui:include>
             </ui:insert>
-        </div>
-        <div style="border-width: 1px; border-style: solid; height: 80%">
+            </div>
+            <div id="content" style="border-width: 1px; border-style: solid;">
             <ui:insert name="content">
                 <ui:include src="/templates/content.xhtml"></ui:include>
             </ui:insert>
-        </div>
-        <div style="border-width: 1px; border-style: solid; height: 10%">
+            </div>
+            <div id="footer" style="border-width: 1px; border-style: solid;">
             <ui:insert name="footer">
                 <ui:include src="/templates/footer.xhtml"></ui:include>
             </ui:insert>
+            </div>
         </div>
-    </div>
 </h:body>
 </html>
