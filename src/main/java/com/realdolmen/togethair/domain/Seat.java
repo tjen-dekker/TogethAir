@@ -16,6 +16,9 @@ public class Seat {
 	private float price;
 	@Enumerated @Column(name = "class")
 	private TravelClass travelClassName;
+	private boolean available;
+	@Transient
+	private Flight flight;
 	
 	public String getLocation() {
 		return location;
@@ -39,5 +42,46 @@ public class Seat {
 	
 	public void setTravelClassName(TravelClass travelClassName) {
 		this.travelClassName = travelClassName;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public Flight getFlight() {
+		return flight;
+	}
+
+	/**
+	 * You should probably not be using this
+	 * @param flight
+	 */
+	protected void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Seat seat = (Seat) o;
+
+		if (id != null ? !id.equals(seat.id) : seat.id != null) return false;
+		if (location != null ? !location.equals(seat.location) : seat.location != null) return false;
+		return flight != null ? flight.equals(seat.flight) : seat.flight == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id != null ? id.hashCode() : 0;
+		result = 31 * result + (location != null ? location.hashCode() : 0);
+		result = 31 * result + (flight != null ? flight.hashCode() : 0);
+		return result;
 	}
 }
