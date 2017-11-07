@@ -5,9 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
 
-/**
- * Created by GWTBF10 on 6/11/2017.
- */
+
 @Entity
 public class Passenger {
 	@Id
@@ -18,11 +16,11 @@ public class Passenger {
 	private String firstName;
 	private LocalDate birthDate;
 	
-	public String getName() {
+	public String getlastName() {
 		return lastName;
 	}
 	
-	public void setName(String name) {
+	public void setlastName(String lastName) {
 		this.lastName = lastName;
 	}
 	
@@ -34,9 +32,7 @@ public class Passenger {
 		this.firstName = firstName;
 	}
 	
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
+	public LocalDate getBirthDate() {return birthDate;}
 	
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
