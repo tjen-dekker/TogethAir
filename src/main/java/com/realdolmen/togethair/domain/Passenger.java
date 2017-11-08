@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @ManagedBean
 @SessionScoped
-//todo check if this is rly nescecairy
+//todo check if this is rly necessary
 public class Passenger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
