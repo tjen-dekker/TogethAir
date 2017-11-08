@@ -3,6 +3,7 @@ package com.realdolmen.togethair.domain;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -17,7 +18,7 @@ import java.util.Set;
 @Entity
 @ManagedBean
 @RequestScoped
-public class Flight implements Comparable<Flight>{
+public class Flight implements Comparable<Flight>, Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -141,30 +142,17 @@ public class Flight implements Comparable<Flight>{
 		this.departureDateTime = departureDateTime;
 	}
 	
-	@Override
+	@Override   //Compare on cheapest ticket
 	public int compareTo(Flight f) {
 		return Float.compare(this.getPriceOfCheapestSeat(),f.getPriceOfCheapestSeat());
 	}
 	
 	public static Comparator<Flight> DateTimeComparator = (f1, f2) -> {
-		LocalDateTime f1Date = LocalDateTime.ofInstant(f1.departureDateTime.toInstant(), ZoneId.systemDefault());
-		LocalDateTime f2Date = LocalDateTime.ofInstant(f2.departureDateTime.toInstant(), ZoneId.systemDefault());
+		LocalDateTime f1Date = LocalDateTime.ofInstant(f1.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
+		LocalDateTime f2Date = LocalDateTime.ofInstant(f2.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
 		
 		return f1Date.compareTo(f2Date);
 	};
-	
-	public static Comparator<Flight> cheapestEconomyComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY),f2.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY));
-	};
-	
-	public static Comparator<Flight> cheapestBusinessComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS),f2.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS));
-	};
-	
-	public static Comparator<Flight> cheapestFirstClassComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS),f2.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS));
-	};
-	
 	
 	@Override
 	public boolean equals(Object o) {
