@@ -1,2 +1,2 @@
 language: java
-script: mvn test -B
+install: mvn install -Ptravis -Dmaven.javadoc.skip=true -B -V
