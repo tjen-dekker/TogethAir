@@ -11,6 +11,8 @@ import com.realdolmen.togethair.repositories.FlightRepository;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,16 +41,12 @@ public class SearchService {
 		return flightRepository.findByFlightCode(flightCode);
 	}
 	
+	public List<Flight> findFromToOnDate(String fromCityName, String toCityName,Date date){
+		return flightRepository.findFromToOnDate(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date);
+	}
+	
 	public List<Flight> findFromTo(String fromCityName, String toCityName){
 		return flightRepository.findFromTo(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)));
-	}
-	
-	public List<Flight> findFrom(String cityName){
-		return flightRepository.findFrom(getAirportsFomCity(getCityFromName(cityName)));
-	}
-	
-	public List<Flight> findTo(String cityName){
-		return flightRepository.findTo(getAirportsFomCity(getCityFromName(cityName)));
 	}
 	
 	public List<Flight> filterMinNrOfFreeSeatsOfClass(List<Flight> flights, TravelClass travelClass, int minNrOfFreeSeats){
@@ -69,6 +67,29 @@ public class SearchService {
 				filteredList.add(f);
 		}
 		return filteredList;
+	}
+	
+	public List<Flight> sortByCheapestSeat(List<Flight> flights){
+		Collections.sort(flights);
+		return flights;
+	}
+	
+	public List<Flight> sortByCheapestSeatOfClass(List<Flight> flights,TravelClass tClass){
+		switch(tClass){
+			default:
+			case ECONOMY:  flights.sort(Flight.cheapestEconomyComparator);
+				break;
+			case BUSINESS: flights.sort(Flight.cheapestBusinessComparator);
+				break;
+			case FIRSTCLASS: flights.sort(Flight.cheapestFirstClassComparator);
+				break;
+		}
+		return flights;
+	}
+	
+	public List<Flight> sortByDateTime(List<Flight> flights){
+		Collections.sort(flights,Flight.DateTimeComparator);
+		return flights;
 	}
 	
 	private City getCityFromName(String cityName){
