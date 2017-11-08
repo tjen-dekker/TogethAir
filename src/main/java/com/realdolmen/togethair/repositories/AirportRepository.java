@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Airport;
+import com.realdolmen.togethair.domain.City;
 
 import java.util.List;
 
@@ -9,9 +10,11 @@ import java.util.List;
  */
 public interface AirportRepository {
 
-    public List<Airport> findAll();
+     List<Airport> findAll();
 
-    public Airport findById(Long id);
+     Airport findById(Long id);
+    
+    List<Airport> findByCity(City city);
 
-    public Airport create(Airport airport);
+     Airport create(Airport airport);
 }

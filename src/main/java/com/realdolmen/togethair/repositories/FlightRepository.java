@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.repositories;
 
+import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.Flight;
 
 import java.util.List;
@@ -9,9 +10,17 @@ import java.util.List;
  */
 public interface FlightRepository {
 
-    public List<Flight> findAll();
+    List<Flight> findAll();
 
-    public Flight findById(Long id);
+    Flight findById(Long id);
+    
+    Flight findByFlightCode(String code);
+    
+    List<Flight> findFromTo(List<Airport> from, List<Airport> to);
+    
+    List<Flight> findFrom(List<Airport> from);
+    
+    List<Flight> findTo(List<Airport> to);
 
-    public Flight create(Flight flight);
+    Flight create(Flight flight);
 }

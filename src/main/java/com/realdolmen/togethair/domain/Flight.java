@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,17 +29,40 @@ public class Flight {
 	@ManyToOne
 	private Airport to;
 	
+	
+	private String flightCode;
 	private Duration duration;
 	private LocalDateTime departureDateTime;
 
-
+	
+	public int getFreeSeatsOfClass(TravelClass travelClass){
+		int count =0;
+		for(Seat s : seats){
+			if(s.getTravelClassName()==travelClass && s.isAvailable())
+				count++;
+		}
+		return count;
+	}
+	
+	public int getFreeSeats(){
+		int count =0;
+		for(Seat s : seats){
+			if(s.isAvailable())
+				count++;
+		}
+		return count;
+	}
 	
 	public Long getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public String getFlightCode() {
+		return flightCode;
+	}
+	
+	public void setFlightCode(String flightCode) {
+		this.flightCode = flightCode;
 	}
 	
 	public Duration getDuration() {
