@@ -25,7 +25,7 @@ public class Flight implements Comparable<Flight>{
 	
 	@ManyToOne
 	private FlightCompany flightCompany;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Seat> seats = new HashSet<>();
 	@ManyToOne
 	private Airport from;

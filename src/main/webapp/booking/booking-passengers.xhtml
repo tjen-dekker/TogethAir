@@ -21,10 +21,16 @@
                     <h:inputText id="birthdate" value="#{passenger.birthDate}" styleClass="form-control">
                         <f:convertDateTime pattern="dd-MM-yyyy"/>
                     </h:inputText>
+                    <h:selectOneMenu value="#{bookingFlowBean.flight.seats}">
+                        <f:selectItems value="#{bookingFlowBean.flight.seats}"/>
+                    </h:selectOneMenu>
                 </div>
             </ui:repeat>
         </h:form>
 
+        <h:form>
+            <h:commandButton value="previous" action="detail"/>
+        </h:form>
 
     </ui:define>
 </ui:composition>

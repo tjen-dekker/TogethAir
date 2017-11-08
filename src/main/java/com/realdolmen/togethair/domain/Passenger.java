@@ -3,11 +3,13 @@ package com.realdolmen.togethair.domain;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 
 @Entity
+@ManagedBean
+@SessionScoped
+//todo check if this is rly necessary
 public class Passenger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
