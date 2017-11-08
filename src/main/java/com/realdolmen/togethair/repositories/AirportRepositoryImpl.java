@@ -11,8 +11,14 @@ public class AirportRepositoryImpl implements AirportRepository {
 
     @PersistenceContext
     private EntityManager em;
-
-
+    
+    public AirportRepositoryImpl() {
+    }
+    
+    public AirportRepositoryImpl(EntityManager em) {
+        this.em=em;
+    }
+    
     public List<Airport> findAll() {
         return em.createQuery("select a from Airport a", Airport.class).getResultList();
     }
