@@ -1,4 +1,4 @@
-package com.realdolmen.togethair.Services;
+package com.realdolmen.togethair.services;
 
 import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.City;
@@ -9,7 +9,6 @@ import com.realdolmen.togethair.repositories.CityRepository;
 import com.realdolmen.togethair.repositories.FlightRepository;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -18,7 +17,7 @@ import java.util.List;
 /**
  * Created by GWTBF10 on 8/11/2017.
  */
-public class SearchService {
+public class SearchServiceBean {
 
 	@Inject
 	FlightRepository flightRepository;
