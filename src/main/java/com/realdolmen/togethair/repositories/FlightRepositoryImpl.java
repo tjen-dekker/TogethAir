@@ -2,10 +2,16 @@ package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.Flight;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,27 +37,27 @@ public class FlightRepositoryImpl implements FlightRepository{
                 .getSingleResult();
     }
 	
-    //ordered by flightCompany name
-    public List<Flight> findFromTo(List<Airport> from, List<Airport> to){
-	    return em.createQuery("select f from Flight f where f.from in :fromAirports and f.to in :toAirports order by f.flightCompany.name", Flight.class)
-			    .setParameter("fromAirports", from)
-			    .setParameter("toAirports",to)
-			    .getResultList();
+    public List<Flight> findFromToOnDate(List<Airport> from, List<Airport> to,Date date){
+	    LocalDateTime localDate = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+	    List<Flight> tempList=  findFromTo(from,to);
+	    
+	    List<Flight> resultList = new ArrayList<>();
+	    for(Flight f : tempList){
+		    LocalDateTime fLocalDate = LocalDateTime.ofInstant(f.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
+	    	if(fLocalDate==localDate)
+			    resultList.add(f);
+	    }
+	    return resultList;
     }
 	
-	@Override
-	public List<Flight> findFrom(List<Airport> from) {
-		return em.createQuery("select f from Flight f where f.from in :fromAirports order by f.flightCompany.name", Flight.class)
+	public List<Flight> findFromTo(List<Airport> from, List<Airport> to){
+		List<Flight> resultList=  em.createQuery("select f from Flight f where f.from in :fromAirports and f.to in :toAirports", Flight.class)
 				.setParameter("fromAirports", from)
-				.getResultList();
-	}
-	
-	@Override
-	public List<Flight> findTo(List<Airport> to) {
-		return em.createQuery("select f from Flight f where f.to in :toAirports order by f.flightCompany.name", Flight.class)
 				.setParameter("toAirports",to)
 				.getResultList();
+		return resultList;
 	}
+
 	
 	public Flight create(Flight flight){
         em.persist(flight);
