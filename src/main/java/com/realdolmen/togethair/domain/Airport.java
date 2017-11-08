@@ -40,4 +40,9 @@ public class Airport {
 	public void setCity(City city) {
 		this.city = city;
 	}
+
+	@Override
+	public String toString() {
+		return city + " (" + code + ")";
+	}
 }
