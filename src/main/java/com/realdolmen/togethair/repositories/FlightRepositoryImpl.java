@@ -2,7 +2,6 @@ package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.Flight;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -10,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
