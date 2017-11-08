@@ -8,12 +8,11 @@
         <jta-data-source>java:/rd/datasources/RealDolmenDataSource</jta-data-source>
 
         <properties>
-            <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/realdolmen"/>
-            <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <!--<property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/realdolmen"/>-->
+            <!--<property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>-->
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/realdolmen"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
 
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true" />
         </properties>
     </persistence-unit>

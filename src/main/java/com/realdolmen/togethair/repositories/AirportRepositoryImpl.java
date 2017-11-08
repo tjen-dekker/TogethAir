@@ -10,24 +10,20 @@ import java.util.logging.Logger;
 
 public class AirportRepositoryImpl implements AirportRepository {
 
+    @PersistenceContext
     private EntityManager em;
 
-    @Inject
-    Logger logger;
 
     public List<Airport> findAll() {
-        logger.info("finding all airports");
         return em.createQuery("select a from Airport a", Airport.class).getResultList();
     }
 
     public Airport findById(Long id) {
-        logger.info("finding airport by id");
         return em.find(Airport.class, id);
     }
 
     public Airport create(Airport airport) {
         em.persist(airport);
-        logger.info("persisting airport");
         return airport;
     }
 
