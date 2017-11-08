@@ -3,6 +3,7 @@ package com.realdolmen.togethair.repositories;
 import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.Flight;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,9 +19,7 @@ public interface FlightRepository {
     
     List<Flight> findFromTo(List<Airport> from, List<Airport> to);
     
-    List<Flight> findFrom(List<Airport> from);
-    
-    List<Flight> findTo(List<Airport> to);
+    List<Flight> findFromToOnDate(List<Airport> from, List<Airport> to, Date date);
 
     Flight create(Flight flight);
 }
