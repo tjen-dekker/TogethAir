@@ -13,9 +13,6 @@ public abstract class User {
 
 	private String firstName;
 	private String lastName;
-
-
-	private String name;
 	private String password;
 	private String email;
 
