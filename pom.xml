@@ -16,6 +16,10 @@
         <primefaces.version>6.0</primefaces.version>
     </properties>
 
+    <build>
+        <finalName>togethAir</finalName>
+    </build>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
@@ -91,7 +95,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 
     <!--Travis profile that excludes certain tests because they use databases that are not available-->
     <profiles>
