@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <flow-definition id="booking">
+
+        <start-node>detail</start-node>
+
+        <view id="detail">
+            <vdl-document>/booking/booking-detail.xhtml</vdl-document>
+        </view>
+
+        <view id="passengers">
+            <vdl-document>/booking/booking-passengers.xhtml</vdl-document>
+        </view>
+
+
+
+        <flow-return id="end">
+            <from-outcome>/defaultPage.xhtml</from-outcome>
+        </flow-return>
+
+        <initializer>#{bookingFlowBean.prepare()}</initializer>
+        <finalizer>#{bookingFlowBean.save()}</finalizer>
+    </flow-definition>
+</faces-config>
