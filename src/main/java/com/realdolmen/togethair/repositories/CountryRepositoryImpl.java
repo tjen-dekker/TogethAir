@@ -3,6 +3,7 @@ package com.realdolmen.togethair.repositories;
 import com.realdolmen.togethair.domain.Country;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class CountryRepositoryImpl implements CountryRepository{
 
+    @PersistenceContext
     private EntityManager em;
 
     public List<Country> findAll(){

@@ -17,7 +17,7 @@ public class AbstractRepositoryTest {
 
     @BeforeClass
     public static void initializeEntityManagerFactory() {
-        emf = Persistence.createEntityManagerFactory("persistenceUnit");
+        emf = Persistence.createEntityManagerFactory("testUnit");
     }
 
     @Before
