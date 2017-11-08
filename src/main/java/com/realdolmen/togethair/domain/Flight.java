@@ -1,5 +1,7 @@
 package com.realdolmen.togethair.domain;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -11,6 +13,8 @@ import java.util.Set;
  * Created by GWTBF10 on 6/11/2017.
  */
 @Entity
+@ManagedBean
+@RequestScoped
 public class Flight {
 	
 	@Id
@@ -19,7 +23,7 @@ public class Flight {
 	
 	@ManyToOne
 	private FlightCompany flightCompany;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Seat> seats = new HashSet<>();
 	@ManyToOne
 	private Airport from;
@@ -33,10 +37,6 @@ public class Flight {
 	
 	public Long getId() {
 		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
 	}
 	
 	public Duration getDuration() {

@@ -5,7 +5,7 @@
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <flow-definition id="booking">
 
-        <start-node>passengers</start-node>
+        <start-node>detail</start-node>
 
         <view id="detail">
             <vdl-document>/booking/booking-detail.xhtml</vdl-document>

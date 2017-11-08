@@ -8,8 +8,14 @@
 
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="content">
+           <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
+           <p><h:outputText value="#{bookingFlowBean.flight.from}"/></p>
+           <p><h:outputText value="#{bookingFlowBean.flight.to}"/></p>
+           <p><h:outputText value="#{bookingFlowBean.flight.departureDateTime}"/></p>
 
-
+            <h:form>
+                <h:commandButton value="next" action="passengers"/>
+            </h:form>
 
         </ui:define>
     </ui:composition>
