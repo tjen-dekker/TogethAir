@@ -1,11 +1,15 @@
 package com.realdolmen.togethair.domain;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 
 @Entity
+@ManagedBean
+@SessionScoped
+//todo check if this is rly nescecairy
 public class Passenger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +52,7 @@ public class Passenger {
 	public void setSeat(Seat seat) {
 		//TODO make sure the seat is actually available
 		this.seat = seat;
+		//todo put in service
 		seat.setAvailable(false);
 	}
 

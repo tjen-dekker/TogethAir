@@ -3,6 +3,7 @@ package com.realdolmen.togethair.repositories;
 import com.realdolmen.togethair.domain.Seat;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class SeatRepositoryImpl implements SeatRepository {
 
+    @PersistenceContext
     EntityManager em;
 
     @Override

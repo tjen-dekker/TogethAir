@@ -3,6 +3,7 @@ package com.realdolmen.togethair.repositories;
 import com.realdolmen.togethair.domain.FlightCompany;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class FlightCompanyRepositoryImpl implements FlightCompanyRepository{
 
+    @PersistenceContext
     private EntityManager em;
 
     @Override

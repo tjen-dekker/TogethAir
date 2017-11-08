@@ -1,11 +1,15 @@
 package com.realdolmen.togethair.domain;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
  */
 @Entity
+@ManagedBean
+@RequestScoped
 public class Seat {
 	
 	@Id
@@ -16,6 +20,7 @@ public class Seat {
 	private float price;
 	@Enumerated @Column(name = "class")
 	private TravelClass travelClassName;
+	@Transient
 	private boolean available;
 	@Transient
 	private Flight flight;

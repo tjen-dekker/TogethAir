@@ -1,5 +1,7 @@
 package com.realdolmen.togethair.domain;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -11,6 +13,8 @@ import java.util.Set;
  * Created by GWTBF10 on 6/11/2017.
  */
 @Entity
+@ManagedBean
+@RequestScoped
 public class Flight {
 	
 	@Id
