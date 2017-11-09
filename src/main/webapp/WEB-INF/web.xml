@@ -12,6 +12,21 @@
         <param-value>cerulean</param-value>
     </context-param>
 
+    <!-- Define the JSF servlet (manages the request processing life cycle for
+      JavaServer Faces) -->
+    <servlet>
+        <servlet-name>faces-servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Map following files to the JSF servlet -->
+    <servlet-mapping>
+        <servlet-name>faces-servlet</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
