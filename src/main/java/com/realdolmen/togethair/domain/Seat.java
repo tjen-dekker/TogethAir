@@ -32,7 +32,7 @@ public class Seat {
 	private TravelClass travelClassName;
 	
 	@Transient
-	private boolean available;
+	private boolean available=true;
 	
 	@Transient
 	private Flight flight;
