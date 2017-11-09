@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition>
+    <!--<b:container>
+        <b:row>
+            <b:column span="8">
+                <b:panel look="primary" title="b:column span='8'">
+                    Eight columns on medium screens (e.g. small desktop and notebook screens).<br /> Stacked on screens smaller than 992 pixels width.
+                    <br />
+                    <br />
+                </b:panel>
+            </b:column>
+            <b:column span="4">
+                <b:panel look="primary" title="b:column span='4'">
+                    Four columns on medium screens (e.g. small desktop and notebook screens). Stacked on screens smaller than 992 pixels width.
+                </b:panel>
+            </b:column>
+        </b:row>
+        <b:row>
+            <b:column span="4">
+                <b:panel look="primary" title="b:column span='4'">
+                    Four columns on medium screens (e.g. small desktop and notebook screens). Stacked on screens smaller than 992 pixels width.
+                </b:panel>
+            </b:column>
+            <b:column span="8">
+                <b:panel look="primary" title="b:column span='8'">
+                    Eight columns on medium screens (e.g. small desktop and notebook screens). Stacked on screens smaller than 992 pixels width.
+                </b:panel>
+            </b:column>
+        </b:row>
+    </b:container>-->
+    <h:form>
+        <h1 class="pf">PrimeFaces with BootsFaces</h1>
+        <p:outputLabel styleClass="pf" for="@next" value="First name:"/>
+        <p:inputText value=""/>
+        <p:commandButton action="bf.jsf" value="toggle to pure BootsFaces" ajax="false"/>
+        <br/>
+        <p:dataTable var="person" value="">
+            <p:column headerText="First name"></p:column>
+            <p:column headerText="Last name"></p:column>
+        </p:dataTable>
+        <h3 class="pf">Range Slider</h3>
+        <h:panelGrid columns="1" style="margin-bottom: 10px" class="pf">
+            <h:outputText id="displayRange" value="Between 1 and 10" class="pf"/>
+            <p:slider class="pf" for="txt6,txt7" display="displayRange" style="width: 400px" range="true"
+                      displayTemplate="Between {min} and {max}"/>
+        </h:panelGrid>
+        <h:inputHidden id="txt6" value=""/>
+        <h:inputHidden id="txt7" value=""/>
+
+        <b:panel title="This panel activates BootsFaces" rendered="false"/>
+    </h:form>
+    <b:container>
+        <h:form>
+            <h1>Only BootsFaces</h1>
+            <b:row>
+                <b:column tiny-screen="full-width">
+                    <b:inputText value="" label="First name:"/>
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column tiny-screen="full-width">
+                    <b:commandButton action="bf.jsf" value="toggle to pure BootsFaces" ajax="false" look="success"/>
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column tiny-screen="full-width">
+                    <b:selectOneMenu id="advanced" value=""
+                                     panelStyle="width:180px"
+                                     effect="fade" var="t" style="width:160px" filter="true"
+                                     filterMatchMode="startsWith">
+                    </b:selectOneMenu>
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column tiny-screen="full-width">https://files.slack.com/files-pri/T7UPE3Y64-F7YGUF8EB/screenshot_from_2017-11-09_09-41-14.png
+                    <b:dataTable var="person" value="">
+                        <b:dataTableColumn></b:dataTableColumn>
+                        <b:dataTableColumn></b:dataTableColumn>
+                    </b:dataTable>
+                </b:column>
+            </b:row>
+            <!--
+            <b:row>
+                <b:column tiny-screen="full-width">
+                    <b:slider  mode="badge"
+                    />
+                </b:column>
+            </b:row>
+            -->
+        </h:form>
+    </b:container>
+</ui:composition>
+</html>
