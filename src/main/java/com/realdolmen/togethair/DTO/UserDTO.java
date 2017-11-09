@@ -1,6 +1,8 @@
 package com.realdolmen.togethair.DTO;
 
 import com.realdolmen.togethair.domain.Booking;
+import com.realdolmen.togethair.domain.User;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -13,6 +15,12 @@ public class UserDTO {
 	private String lastName;
 	private String password;
 	private String email;
+
+	private final Session session;
+
+	public UserDTO(Session s) {
+		session = s;
+	}
 	
 	public List<BookingDTO> getBookings() {
 		return bookings;
@@ -52,5 +60,11 @@ public class UserDTO {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public User getUserByEmail(String email) {
+		User user = (User) session.createQuery("from User where email=?")
+				.setString(0, email).uniqueResult();
+		return user;
 	}
 }

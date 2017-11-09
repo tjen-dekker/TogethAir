@@ -22,6 +22,7 @@ public abstract class User {
 	private String lastName;
 	private String password;
 	private String email;
+	private String salt;
 
 	public String getFirstName() {return firstName;}
 
@@ -45,5 +46,13 @@ public abstract class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 }
