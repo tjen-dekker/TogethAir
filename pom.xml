@@ -61,11 +61,11 @@
             <scope>provided</scope>
         </dependency>
         <!-- PrimeFaces -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>${primefaces.version}</version>
-        </dependency>-->
+            <version>6.1</version>
+        </dependency>
 
 
 

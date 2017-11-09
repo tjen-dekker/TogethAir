@@ -11,6 +11,7 @@
         <param-name>BootsFaces_THEME</param-name>
         <param-value>cerulean</param-value>
     </context-param>
+
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
