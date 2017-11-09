@@ -8,7 +8,6 @@ import com.realdolmen.togethair.domain.TravelClass;
 import com.realdolmen.togethair.repositories.AirportRepository;
 import com.realdolmen.togethair.repositories.CityRepository;
 import com.realdolmen.togethair.repositories.FlightRepository;
-import com.realdolmen.togethair.utility.DTOTranslator;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
