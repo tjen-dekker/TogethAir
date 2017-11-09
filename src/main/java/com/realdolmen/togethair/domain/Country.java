@@ -3,6 +3,8 @@ package com.realdolmen.togethair.domain;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -15,8 +17,13 @@ public class Country {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	@Enumerated
 	private Region region;
+
+	@NotNull
+	@Column(length = 40)
+	@Pattern(regexp = "^([A-Z][a-z]*)+(?:[\\\\s-][A-Z][a-z]*)*$ ")
 	private String name;
 
 	public Long getId() {

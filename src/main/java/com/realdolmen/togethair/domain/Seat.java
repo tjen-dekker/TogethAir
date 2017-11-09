@@ -3,6 +3,8 @@ package com.realdolmen.togethair.domain;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -16,12 +18,22 @@ public class Seat {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
+	@Column(length = 4)
 	private String location;
+	
+	@NotNull
+	@DecimalMin(value = "0")
 	private float price;
-	@Enumerated(value = EnumType.STRING) @Column(name = "class")
+	
+	@NotNull
+	@Column(name = "class")
+	@Enumerated(value = EnumType.STRING)
 	private TravelClass travelClassName;
+	
 	@Transient
 	private boolean available;
+	
 	@Transient
 	private Flight flight;
 	

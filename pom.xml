@@ -94,6 +94,11 @@
             <version>2.3.2.Final</version> <!-- Version used by Wildfly 10.0.0.Final -->
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.11.Final</version>
+        </dependency>
     </dependencies>
 
     <!--Travis profile that excludes certain tests because they use databases that are not available-->
