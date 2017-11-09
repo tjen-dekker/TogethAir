@@ -1,3 +1,9 @@
 language: java
 install: mvn install -Ptravis -DskipTests -Dmaven.javadoc.skip=true -B -V
 script: mvn test -Ptravis -B
+notifications:
+  slack:
+    rooms:
+      - salvation-army-hq:EkwIpCtfHUURkQBvP2TKQiBj#travislog
+    on_success: always
+    on_failure: always
