@@ -7,6 +7,7 @@ import com.realdolmen.togethair.domain.Passenger;
 import com.realdolmen.togethair.repositories.PassengerRepository;
 import com.realdolmen.togethair.services.BookingServiceBean;
 import com.realdolmen.togethair.services.FlightServiceBean;
+import com.realdolmen.togethair.services.PassengerServiceBean;
 
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
@@ -23,8 +24,8 @@ public class BookingFlowBean implements Serializable{
     @Inject
     private FlightServiceBean flightService;
 
-    @Inject //TODO create service and use that instead of directly using the repo
-    private PassengerRepository repository;
+    @Inject
+    private PassengerServiceBean passengerService;
 
     //TODO should probably use a DTO or DAO who knows
     private Booking booking;
@@ -49,7 +50,7 @@ public class BookingFlowBean implements Serializable{
 
     public void save(){
         for(Passenger p : booking.getPassengers()){
-            repository.create(p);
+            passengerService.create(p);
         }
         //TODO there should be checks, can we check stuff after every step or only at the end?
         bookingService.create(booking);
@@ -64,8 +65,10 @@ public class BookingFlowBean implements Serializable{
     }
 
     public void createPassengers(){
-        for(int i = 0; i < amountOfPassengers; i++){
-            booking.addPassenger(new Passenger());
+        if(amountOfPassengers != booking.getPassengers().size() ) {
+            for (int i = 0; i < amountOfPassengers; i++) {
+                booking.addPassenger(new Passenger());
+            }
         }
     }
 
