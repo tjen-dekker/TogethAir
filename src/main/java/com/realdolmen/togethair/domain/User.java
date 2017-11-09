@@ -17,11 +17,9 @@ public abstract class User {
 	@OneToMany
 	private List<Booking> bookings;
 
+
 	private String firstName;
 	private String lastName;
-
-
-	private String userName;
 	private String password;
 	private String email;
 
@@ -47,13 +45,5 @@ public abstract class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	public String getUserName() {
-		return userName;
-	}
-	
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 }

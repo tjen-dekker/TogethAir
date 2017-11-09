@@ -18,7 +18,7 @@ public class Seat {
 	
 	private String location;
 	private float price;
-	@Enumerated @Column(name = "class")
+	@Enumerated(value = EnumType.STRING) @Column(name = "class")
 	private TravelClass travelClassName;
 	@Transient
 	private boolean available;
@@ -88,5 +88,10 @@ public class Seat {
 		result = 31 * result + (location != null ? location.hashCode() : 0);
 		result = 31 * result + (flight != null ? flight.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return location + " (" + getTravelClassName() + ")";
 	}
 }

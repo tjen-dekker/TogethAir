@@ -12,6 +12,8 @@ public interface CityRepository {
     public List<City> findAll();
 
     public City findById(Long id);
+    
+    public City findByName(String cityName);
 
     public City create(City city);
 }
