@@ -31,47 +31,47 @@ public class SearchServiceBean {
 	AirportRepository airportRepository;
 	
 	public FlightDTO FindById(Long id){
-		return DTOTranslator.mapFlight(flightRepository.findById(id));
+		return new FlightDTO(flightRepository.findById(id));
 	}
 	
 	public List<FlightDTO> findAll(){
-		return DTOTranslator.mapFlightList(flightRepository.findAll());
+		return mapFlightList(flightRepository.findAll());
 	}
 
 	public FlightDTO findByFlightCode(String flightCode){
-		return DTOTranslator.mapFlight(flightRepository.findByFlightCode(flightCode));
+		return new FlightDTO(flightRepository.findByFlightCode(flightCode));
 	}
 	
 	public List<FlightDTO> findFromToOnDate(String fromCityName, String toCityName,Date date){
 		List<Flight> flightList = flightRepository.findFromToOnDate(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date);
 		sortByCheapestSeat(flightList);
-		return mapToDTOList(flightList);
+		return mapFlightList(flightList);
 	}
 	
 	public List<FlightDTO> findFromTo(String fromCityName, String toCityName){
 		List<Flight> flightList = flightRepository.findFromTo(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)));
 		sortByCheapestSeat(flightList);
-		return mapToDTOList(flightList);
+		return mapFlightList(flightList);
 	}
 	
 	public List<FlightDTO> findFromToSortedByDate(String fromCityName, String toCityName){
 		List<Flight> flightList = flightRepository.findFromTo(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)));
 		sortByDateTime(flightList);
-		return mapToDTOList(flightList);
+		return mapFlightList(flightList);
 	}
 	
 	public List<FlightDTO> findFromTo(String fromCityName, String toCityName,TravelClass travelClass,int minNrOfFreeSeats){
 		List<Flight> flightList = flightRepository.findFromTo(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)));
 		filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats);
 		sortByCheapestSeatOfClass(flightList,travelClass);
-		return mapToDTOList(flightList);
+		return mapFlightList(flightList);
 	}
 	
 	public List<FlightDTO> findFromToSortedByDate(String fromCityName, String toCityName,TravelClass travelClass,int minNrOfFreeSeats){
 		List<Flight> flightList = flightRepository.findFromTo(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)));
 		filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats);
 		sortByDateTime(flightList);
-		return mapToDTOList(flightList);
+		return mapFlightList(flightList);
 	}
 	
 	private List<Flight>filterMinNrOfFreeSeatsOfClass(List<Flight> flights, TravelClass travelClass, int minNrOfFreeSeats){
@@ -83,11 +83,6 @@ public class SearchServiceBean {
 		}
 		return filteredList;
 	}
-	
-	private List<FlightDTO> mapToDTOList(List<Flight> flightList){
-		return DTOTranslator.mapFlightList(flightList);
-	}
-
 	
 	private List<Flight> sortByCheapestSeat(List<Flight> flights){
 		Collections.sort(flights);
@@ -118,6 +113,14 @@ public class SearchServiceBean {
 	
 	private List<Airport> getAirportsFomCity(City city){
 		return airportRepository.findByCity(city);
+	}
+	
+	private List<FlightDTO> mapFlightList(List<Flight> flights){
+			List<FlightDTO> result = new ArrayList<>();
+			for(Flight f : flights){
+				result.add(new FlightDTO(f));
+			}
+			return result;
 	}
 
 }
