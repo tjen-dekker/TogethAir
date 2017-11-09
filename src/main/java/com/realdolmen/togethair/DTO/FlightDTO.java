@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.DTO;
 
 import com.realdolmen.togethair.domain.Airport;
+import com.realdolmen.togethair.domain.Flight;
 import com.realdolmen.togethair.domain.FlightCompany;
 import com.realdolmen.togethair.domain.Seat;
 
@@ -13,47 +14,61 @@ import java.util.Set;
  */
 public class FlightDTO {
 	
-	private FlightCompany flightCompany;
+	private String flightCompany;
 	
-	private Set<Seat> seats = new HashSet<>();
+	private Set<SeatDTO> seats;
 	
-	private Airport from;
-	private Airport to;
+	private AirportDTO from;
+	private AirportDTO to;
 	
 	private String flightCode;
 	private int duration; //estimated travel time in min
 	
 	private Date departureDateTime;
 	
-	public FlightCompany getFlightCompany() {
+	public FlightDTO(Flight flight) {
+		setFlightCode(flight.getFlightCode());
+		setDepartureDateTime(flight.getDepartureDateTime());
+		setDuration(flight.getDuration());
+		setFlightCompany(flight.getFlightCompany().getName());
+		setFrom(new AirportDTO(flight.getFrom()));
+		setTo(new AirportDTO(flight.getTo()));
+		
+		setSeats(new HashSet<>());
+		for (Seat s : flight.getSeats()){
+			seats.add(new SeatDTO(s));
+		}
+	}
+	
+	public String getFlightCompany() {
 		return flightCompany;
 	}
 	
-	public void setFlightCompany(FlightCompany flightCompany) {
+	public void setFlightCompany(String flightCompany) {
 		this.flightCompany = flightCompany;
 	}
 	
-	public Set<Seat> getSeats() {
+	public Set<SeatDTO> getSeats() {
 		return seats;
 	}
 	
-	public void setSeats(Set<Seat> seats) {
+	public void setSeats(Set<SeatDTO> seats) {
 		this.seats = seats;
 	}
 	
-	public Airport getFrom() {
+	public AirportDTO getFrom() {
 		return from;
 	}
 	
-	public void setFrom(Airport from) {
+	public void setFrom(AirportDTO from) {
 		this.from = from;
 	}
 	
-	public Airport getTo() {
+	public AirportDTO getTo() {
 		return to;
 	}
 	
-	public void setTo(Airport to) {
+	public void setTo(AirportDTO to) {
 		this.to = to;
 	}
 	
@@ -80,6 +95,4 @@ public class FlightDTO {
 	public void setDepartureDateTime(Date departureDateTime) {
 		this.departureDateTime = departureDateTime;
 	}
-	
-	
 }
