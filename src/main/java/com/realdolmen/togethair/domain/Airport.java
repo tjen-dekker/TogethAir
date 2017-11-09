@@ -16,6 +16,8 @@ public class Airport {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private String name;
+	
 	private String code;
 	
 	@ManyToOne
@@ -40,7 +42,15 @@ public class Airport {
 	public void setCity(City city) {
 		this.city = city;
 	}
-
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	@Override
 	public String toString() {
 		return city + " (" + code + ")";
