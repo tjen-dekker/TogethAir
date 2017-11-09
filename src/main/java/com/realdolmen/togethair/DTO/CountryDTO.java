@@ -9,7 +9,9 @@ import com.realdolmen.togethair.domain.Region;
 public class CountryDTO {
 	private Region region;
 	private String name;
-	
+
+	public CountryDTO(){}
+
 	public CountryDTO(Country country) {
 		setRegion(country.getRegion());
 		setName(country.getName());

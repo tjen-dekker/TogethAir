@@ -14,7 +14,7 @@ public class FlightDTO {
 	
 	private String flightCompany;
 	
-	private Set<SeatDTO> seats;
+	private Set<SeatDTO> seats = new HashSet<>();
 	
 	private AirportDTO from;
 	private AirportDTO to;
@@ -23,7 +23,11 @@ public class FlightDTO {
 	private int duration; //estimated travel time in min
 	
 	private Date departureDateTime;
-	
+
+	public FlightDTO(){
+
+	}
+
 	public FlightDTO(Flight flight) {
 		setFlightCode(flight.getFlightCode());
 		setDepartureDateTime(flight.getDepartureDateTime());
@@ -31,8 +35,7 @@ public class FlightDTO {
 		setFlightCompany(flight.getFlightCompany().getName());
 		setFrom(new AirportDTO(flight.getFrom()));
 		setTo(new AirportDTO(flight.getTo()));
-		
-		setSeats(new HashSet<>());
+
 		for (Seat s : flight.getSeats()){
 			seats.add(new SeatDTO(s));
 		}

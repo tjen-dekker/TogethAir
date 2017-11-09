@@ -10,7 +10,9 @@ public class AirportDTO {
 	private String name;
 	private String code;
 	private CityDTO city;
-	
+
+	public AirportDTO(){}
+
 	public AirportDTO(Airport airport) {
 		setCity(new CityDTO(airport.getCity()));
 		setCode(airport.getCode());

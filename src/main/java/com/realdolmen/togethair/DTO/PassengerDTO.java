@@ -14,6 +14,10 @@ public class PassengerDTO {
     private String firstName;
     private Date birthDate;
     private SeatDTO seat;
+
+    public PassengerDTO(){
+
+    }
 	
 	public PassengerDTO(Passenger p) {
 	    setBirthDate(p.getBirthDate());

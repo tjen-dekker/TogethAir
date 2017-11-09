@@ -12,6 +12,8 @@ import java.util.List;
 public class BookingDTO {
     
     private List<PassengerDTO> passengers = new ArrayList<>();
+
+    public BookingDTO(){}
     
     public BookingDTO(Booking booking) {
         List<Passenger> passengerList = booking.getPassengers();

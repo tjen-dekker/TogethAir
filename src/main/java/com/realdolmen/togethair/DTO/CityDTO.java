@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 public class CityDTO {
 	private String name;
 	private CountryDTO country;
+
+	public CityDTO(){}
 	
 	public CityDTO(City city) {
 		setName(city.getName());

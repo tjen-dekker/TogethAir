@@ -12,6 +12,10 @@ public class SeatDTO {
 	private float price;
 	private TravelClass travelClassName;
 	private boolean available;
+
+	public SeatDTO(){
+
+	}
 	
 	public SeatDTO(Seat seat) {
 		setAvailable(seat.isAvailable());
