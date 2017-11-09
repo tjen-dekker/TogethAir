@@ -1,8 +1,9 @@
 package com.realdolmen.togethair.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -10,15 +11,23 @@ import java.util.*;
  */
 @Entity
 public class Booking {
-	@Id
+	@Id @GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid",strategy = "uuid")
 	private UUID Id;
+	
+	@NotNull
 	@OneToMany
+	@Column(updatable = false)
 	private List<Passenger> passengers = new ArrayList<>();
+	
+	public UUID getId() {
+		return Id;
+	}
 
 	public List<Passenger> getPassengers() {
 		return passengers;
 	}
-
+	
 	public void setPassengers(List<Passenger> passengers) {
 		this.passengers = passengers;
 	}

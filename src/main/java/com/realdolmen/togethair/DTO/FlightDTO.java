@@ -1,8 +1,6 @@
 package com.realdolmen.togethair.DTO;
 
-import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.Flight;
-import com.realdolmen.togethair.domain.FlightCompany;
 import com.realdolmen.togethair.domain.Seat;
 
 import java.util.Date;
@@ -21,7 +19,7 @@ public class FlightDTO {
 	private AirportDTO from;
 	private AirportDTO to;
 	
-	private String flightCode;
+	private int flightCode;
 	private int duration; //estimated travel time in min
 	
 	private Date departureDateTime;
@@ -72,11 +70,11 @@ public class FlightDTO {
 		this.to = to;
 	}
 	
-	public String getFlightCode() {
+	public int getFlightCode() {
 		return flightCode;
 	}
 	
-	public void setFlightCode(String flightCode) {
+	public void setFlightCode(int flightCode) {
 		this.flightCode = flightCode;
 	}
 	

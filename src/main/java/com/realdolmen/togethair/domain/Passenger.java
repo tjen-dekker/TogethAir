@@ -5,6 +5,9 @@ import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 
@@ -17,11 +20,23 @@ public class Passenger {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String lastName;
+	@NotNull
+	@Column(length = 35)
+	@Pattern(regexp = "/^[a-z ,.'-]+$/i")
 	private String firstName;
+	
+	@NotNull
+	@Column(length = 35)
+	@Pattern(regexp = "/^[a-z ,.'-]+$/i")
+	private String lastName;
+	
+	@NotNull
 	@Temporal(TemporalType.DATE)
+	@Past
 	private Date birthDate;
+	
 	@OneToOne
+	@NotNull
 	private Seat seat;
 
 	
