@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
-<ui:composition template="/templates/template.xhtml">
+<ui:composition template="/templates/index-template.xhtml">
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{bookingFlowBean.createPassengers()}"/>
         
@@ -29,8 +29,8 @@
                     </h:selectOneMenu>-->
                 </div>
             </ui:repeat>
-            <h:commandButton value="previous" action="detail"/>
-            <h:commandButton value="checkout" action="confirm"/>
+            <h:commandButton value="back" action="detail"/>
+            <h:commandButton value="confirm" action="confirm"/>
         </h:form>
 
     </ui:define>
