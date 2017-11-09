@@ -1,15 +1,12 @@
 package com.realdolmen.togethair.domain;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
 import java.util.Date;
 
 
 @Entity
 @ManagedBean
-@SessionScoped
-//todo check if this is rly necessary
 public class Passenger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +53,14 @@ public class Passenger {
 		seat.setAvailable(false);
 	}
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -78,5 +83,16 @@ public class Passenger {
 		result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
 		result = 31 * result + (seat != null ? seat.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Passenger{" +
+				"id=" + id +
+				", lastName='" + lastName + '\'' +
+				", firstName='" + firstName + '\'' +
+				", birthDate=" + birthDate +
+				", seat=" + seat +
+				'}';
 	}
 }

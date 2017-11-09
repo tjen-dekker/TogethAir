@@ -2,14 +2,19 @@ package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Passenger;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by TDKBG57 on 2017-11-07.
  */
-public class PassengerRepositoryImpl implements PassengerRepository{
+@ApplicationScoped
+@Transactional
+public class PassengerRepositoryImpl implements PassengerRepository, Serializable{
 
     @PersistenceContext
     private EntityManager em;

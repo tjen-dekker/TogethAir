@@ -4,12 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
 
 <ui:composition template="/templates/template.xhtml">
     <ui:define name="content">
-
-
+        <f:event type="preRenderView" listener="#{bookingFlowBean.createPassengers()}"/>
+        
+        
         <h:form>
             <ui:repeat value="#{bookingFlowBean.booking.passengers}" var="passenger">
                 <div class="form-group">
@@ -21,15 +23,14 @@
                     <h:inputText id="birthdate" value="#{passenger.birthDate}" styleClass="form-control">
                         <f:convertDateTime pattern="dd-MM-yyyy"/>
                     </h:inputText>
-                    <h:selectOneMenu value="#{bookingFlowBean.flight.seats}">
-                        <f:selectItems value="#{bookingFlowBean.flight.seats}"/>
-                    </h:selectOneMenu>
+                    <!--This doesnt work at the moment because we need a converter (I think) perhaps it will work when using bootfaces or primefaces-->
+<!--                    <h:selectOneMenu value="#{passenger.seat}">
+                        <f:selectItems value="#{bookingFlowBean.flight.seats}" var="seat" itemLabel="#{seat}" itemValue="#{seat.id}"/>
+                    </h:selectOneMenu>-->
                 </div>
             </ui:repeat>
-        </h:form>
-
-        <h:form>
             <h:commandButton value="previous" action="detail"/>
+            <h:commandButton value="checkout" action="confirm"/>
         </h:form>
 
     </ui:define>

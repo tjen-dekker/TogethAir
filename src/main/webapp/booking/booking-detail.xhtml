@@ -14,6 +14,8 @@
            <p><h:outputText value="#{bookingFlowBean.flight.departureDateTime}"/></p>
 
             <h:form>
+                <h:outputLabel for="amountOfPassengers">Amount of tickets</h:outputLabel>
+                <h:inputText id="amountOfPassengers" value="#{bookingFlowBean.amountOfPassengers}"/>
                 <h:commandButton value="next" action="passengers"/>
             </h:form>
 

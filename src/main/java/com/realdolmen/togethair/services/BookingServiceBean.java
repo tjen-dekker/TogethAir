@@ -12,8 +12,8 @@ public class BookingServiceBean implements Serializable {
     @Inject
     BookingRepository bookingRepository;
 
-    public void save(Booking booking){
-        //TODO should save in repo
-//        bookingRepository.save(booking);
+
+    public void create(Booking booking){
+        bookingRepository.create(booking);
     }
 }

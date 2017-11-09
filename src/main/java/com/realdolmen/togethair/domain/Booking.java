@@ -2,9 +2,7 @@ package com.realdolmen.togethair.domain;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -15,7 +13,7 @@ import java.util.*;
 @SessionScoped
 public class Booking {
 	@Id
-	private UUID Id;
+	private UUID Id = UUID.randomUUID();
 	@OneToMany
 	private List<Passenger> passengers = new ArrayList<>();
 

@@ -69,6 +69,9 @@ public class Seat {
 		this.flight = flight;
 	}
 
+	public Long getId() {
+		return id;
+	}
 
 	@Override
 	public boolean equals(Object o) {
