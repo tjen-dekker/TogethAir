@@ -63,7 +63,7 @@ public class SearchServiceBean {
 	public List<FlightDTO> findFromTo(String fromCityName, String toCityName,TravelClass travelClass,int minNrOfFreeSeats){
 		List<Flight> flightList = flightRepository.findFromTo(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)));
 		filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats);
-		sortByCheapestSeat(flightList);
+		sortByCheapestSeatOfClass(flightList,travelClass);
 		return mapToDTOList(flightList);
 	}
 	
@@ -73,7 +73,6 @@ public class SearchServiceBean {
 		sortByDateTime(flightList);
 		return mapToDTOList(flightList);
 	}
-	
 	
 	private List<Flight>filterMinNrOfFreeSeatsOfClass(List<Flight> flights, TravelClass travelClass, int minNrOfFreeSeats){
 		List<Flight> filteredList= new ArrayList<>();
@@ -92,6 +91,19 @@ public class SearchServiceBean {
 	
 	private List<Flight> sortByCheapestSeat(List<Flight> flights){
 		Collections.sort(flights);
+		return flights;
+	}
+	
+	public List<Flight> sortByCheapestSeatOfClass(List<Flight> flights,TravelClass tClass) {
+		switch (tClass) {
+			default:
+				case ECONOMY:flights.sort(Flight.cheapestEconomyComparator);
+				break;
+			case BUSINESS:flights.sort(Flight.cheapestBusinessComparator);
+				break;
+			case FIRSTCLASS:flights.sort(Flight.cheapestFirstClassComparator);
+				break;
+		}
 		return flights;
 	}
 	
