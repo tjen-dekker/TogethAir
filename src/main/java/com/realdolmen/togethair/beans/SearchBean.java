@@ -36,7 +36,8 @@ public class SearchBean {
 		return searchService.findFromTo(fromCityName,toCityName,travelClass,minNrOfSeats);
 	}
 	
-	public List<FlightDTO> findFromToSortedByDate(String fromCityName, String toCityName, TravelClass travelClass, int minNrOfSeats){
-		return searchService.findFromToSortedByDate(fromCityName,toCityName,travelClass,minNrOfSeats);
+	public FlightDTO findByFlightCode(String flightCode){
+		return searchService.findByFlightCode(flightCode);
 	}
+	
 }
