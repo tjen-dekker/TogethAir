@@ -1,5 +1,7 @@
 package com.realdolmen.togethair.domain;
 
+import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
@@ -49,11 +51,14 @@ public class Passenger {
 		return seat;
 	}
 
-	public void setSeat(Seat seat) {
-		//TODO make sure the seat is actually available
-		this.seat = seat;
-		//todo put in service
-		seat.setAvailable(false);
+	public void setSeat(Seat seat) throws SeatAlreadyTakenException {
+		if(seat.isAvailable()) {
+			this.seat = seat;
+			seat.setAvailable(false);
+		}
+		else
+			throw new SeatAlreadyTakenException();
+		
 	}
 
 	@Override
