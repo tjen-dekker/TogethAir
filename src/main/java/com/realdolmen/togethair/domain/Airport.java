@@ -4,6 +4,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -16,10 +18,17 @@ public class Airport {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
+	@Column(length = 50)
+	@Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*")
 	private String name;
 	
+	@NotNull
+	@Column(length = 3)
+	@Pattern(regexp = "^([A-Z]){3}")
 	private String code;
 	
+	@NotNull
 	@ManyToOne
 	private City city;
 	

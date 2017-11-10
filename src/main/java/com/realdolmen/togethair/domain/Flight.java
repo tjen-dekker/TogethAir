@@ -3,8 +3,8 @@ package com.realdolmen.togethair.domain;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Comparator;
@@ -24,19 +24,34 @@ public class Flight implements Comparable<Flight>, Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	@ManyToOne
 	private FlightCompany flightCompany;
+	
+	@NotNull
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Seat> seats = new HashSet<>();
+	
+	@NotNull
 	@ManyToOne
 	private Airport from;
+	
+	@NotNull
 	@ManyToOne
 	private Airport to;
 	
-	private String flightCode;
+	@NotNull
+	@Digits(integer = 4, fraction = 0)
+	private int flightCode;
+	
+	@NotNull
+	@DecimalMin(value = "0")
+	@DecimalMax(value = "1200")
 	private int duration; //estimated travel time in min
 	
+	@NotNull
 	@Temporal(TemporalType.DATE)
+	@Future
 	private Date departureDateTime;
 	
 	public int getFreeSeatsOfClass(TravelClass travelClass){
@@ -79,11 +94,11 @@ public class Flight implements Comparable<Flight>, Serializable{
 		return id;
 	}
 	
-	public String getFlightCode() {
+	public int getFlightCode() {
 		return flightCode;
 	}
 	
-	public void setFlightCode(String flightCode) {
+	public void setFlightCode(int flightCode) {
 		this.flightCode = flightCode;
 	}
 	
