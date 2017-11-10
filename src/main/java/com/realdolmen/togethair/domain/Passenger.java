@@ -40,11 +40,11 @@ public class Passenger {
 
 	public Passenger(){}
 
-	public Passenger(String firstName, String lastName, Date birthDate, Seat seat) {
+	public Passenger(String firstName, String lastName, Date birthDate, Seat seat) throws SeatAlreadyTakenException {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
-		this.seat = seat;
+		setSeat(seat);
 	}
 
 	public String getlastName() {

@@ -5,6 +5,7 @@ import com.realdolmen.togethair.DTO.BookingDTO;
 import com.realdolmen.togethair.DTO.FlightDTO;
 import com.realdolmen.togethair.DTO.PassengerDTO;
 import com.realdolmen.togethair.DTO.SeatDTO;
+import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
 import com.realdolmen.togethair.domain.Booking;
 import com.realdolmen.togethair.domain.Flight;
 import com.realdolmen.togethair.domain.Passenger;
@@ -28,6 +29,7 @@ public class BookingFlowBean implements Serializable{
     private BookingServiceBean bookingService;
     @Inject
     private FlightServiceBean flightService;
+
 
     @Inject
     private PassengerServiceBean passengerService;
@@ -57,7 +59,8 @@ public class BookingFlowBean implements Serializable{
         return flight;
     }
 
-    public void save(){
+    //TODO we should probably catch the exception
+    public void save() throws SeatAlreadyTakenException {
         for(PassengerDTO p : booking.getPassengers()){
             Seat s = f.getSeat(p.getSeat().getLocation());
             Passenger passenger = new Passenger(p.getFirstName(),p.getLastName(),p.getBirthDate(),s);
