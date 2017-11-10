@@ -2,7 +2,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition>
     <!--<h1>Home</h1>-->
     <div style="height: 7em;"/>
@@ -11,15 +11,27 @@
         <b:form horizontal="true">
             <h2>Destination</h2>
             <b:formGroup>
-                <b:inputText mediumScreen="full-width" placeholder="Country" typeahead="true"
+                <b:inputText mediumScreen="full-width" placeholder="Belgium, Zaventem" typeahead="true"
                              typeaheadValues="Belgium, Marocco, France, UK, US"
-                             renderLabel="false" fieldSize="lg"/>
+                             fieldSize="lg">
+                    <f:facet name="prepend">
+                        <h:outputText value="Destination" />
+                    </f:facet>
+                </b:inputText>
                 <b:inputText mediumScreen="two-thirds" typeahead="true"
                              typeaheadValues="Zaventem, Charleroi, Paris, Glasgow, London, Detroit, LA"
-                             placeholder="Airport"
-                             render-label="false" fieldSize="lg"/>
+                             placeholder="Zaventem"
+                             render-label="false" fieldSize="lg">
+                    <f:facet name="prepend">
+                        <h:outputText value="Airport" />
+                    </f:facet>
+                </b:inputText>
                 <b:inputText mediumScreen="one-third" mask="integer"
-                             render-label="false" placeholder="Passengers" fieldSize="lg"/>
+                             render-label="false" value="1" fieldSize="lg">
+                    <f:facet name="append">
+                        <h:outputText value="Passengers" />
+                    </f:facet>
+                </b:inputText>
             </b:formGroup>
             <h3>Time Period</h3>
             <b:formGroup>
@@ -44,8 +56,6 @@
                                   fieldSize="lg"
                                   placeholder="Till"/>
             </b:formGroup>
-            <!--<p:calendar id="start" value="" mindate="4/1/14" maxdate="7/1/14" />
-            <p:calendar id="end" value="" mindate="4/1/14" maxdate="7/1/14" />-->
             <b:commandButton action="index.xhtml" value="Search" ajax="false" look="success"/>
         </b:form>
     </b:jumbotron>
