@@ -34,6 +34,8 @@ public class Passenger {
 	
 	@OneToOne
 	private Seat seat;
+	@Version
+	private int version;
 
 
 	public Passenger(){}
