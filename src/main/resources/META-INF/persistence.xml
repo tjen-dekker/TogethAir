@@ -8,6 +8,8 @@
         <jta-data-source>java:/rd/datasources/RealDolmenDataSource</jta-data-source>
 
         <properties>
+            <!--<property name="javax.persistence.schema-generation.database.action"-->
+                      <!--value="drop-and-create"/>-->
             <!--<property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/realdolmen"/>-->
             <!--<property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>-->
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/realdolmen"/>

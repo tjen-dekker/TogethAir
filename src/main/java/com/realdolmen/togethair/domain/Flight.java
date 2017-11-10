@@ -3,10 +3,13 @@ package com.realdolmen.togethair.domain;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,7 +18,7 @@ import java.util.Set;
 @Entity
 @ManagedBean
 @RequestScoped
-public class Flight {
+public class Flight implements Comparable<Flight>, Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,31 +26,72 @@ public class Flight {
 	
 	@ManyToOne
 	private FlightCompany flightCompany;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Seat> seats = new HashSet<>();
 	@ManyToOne
 	private Airport from;
 	@ManyToOne
 	private Airport to;
 	
-	private Duration duration;
-	private LocalDateTime departureDateTime;
-
-
+	private String flightCode;
+	private int duration; //estimated travel time in min
 	
+	@Temporal(TemporalType.DATE)
+	private Date departureDateTime;
+	
+	public int getFreeSeatsOfClass(TravelClass travelClass){
+		int count =0;
+		for(Seat s : seats){
+			if(s.getTravelClassName()==travelClass && s.isAvailable())
+				count++;
+		}
+		return count;
+	}
+	
+	public int getFreeSeats(){
+		int count =0;
+		for(Seat s : seats){
+			if(s.isAvailable())
+				count++;
+		}
+		return count;
+	}
+	
+	public float getPriceOfCheapestSeat() {
+		float lowestPrice=0f;
+		for(Seat s : seats){
+			if(lowestPrice<s.getPrice())
+				lowestPrice = s.getPrice();
+		}
+		return lowestPrice;
+	}
+	
+	public float getPriceOfCheapestSeatOfClass(TravelClass tClass) {
+		float lowestPrice=0f;
+		for(Seat s : seats){
+			if(lowestPrice<s.getPrice() && s.getTravelClassName()==tClass)
+				lowestPrice = s.getPrice();
+		}
+		return lowestPrice;
+	}
+
 	public Long getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public String getFlightCode() {
+		return flightCode;
 	}
 	
-	public Duration getDuration() {
+	public void setFlightCode(String flightCode) {
+		this.flightCode = flightCode;
+	}
+	
+	public int getDuration() {
 		return duration;
 	}
 	
-	public void setDuration(Duration duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 	
@@ -90,14 +134,38 @@ public class Flight {
 		this.to = to;
 	}
 	
-	public LocalDateTime getDepartureDateTime() {
+	public Date getDepartureDateTime() {
 		return departureDateTime;
 	}
 	
-	public void setDepartureDateTime(LocalDateTime departureDateTime) {
+	public void setDepartureDateTime(Date departureDateTime) {
 		this.departureDateTime = departureDateTime;
 	}
-
+	
+	public static Comparator<Flight> cheapestEconomyComparator = (f1, f2) -> {
+		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY),f2.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY));
+	};
+	
+	public static Comparator<Flight> cheapestBusinessComparator = (f1, f2) -> {
+		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS),f2.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS));
+	};
+	
+	public static Comparator<Flight> cheapestFirstClassComparator = (f1, f2) -> {
+		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS),f2.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS));
+	};
+	
+	@Override   //Compare on cheapest ticket
+	public int compareTo(Flight f) {
+		return Float.compare(this.getPriceOfCheapestSeat(),f.getPriceOfCheapestSeat());
+	}
+	
+	public static Comparator<Flight> DateTimeComparator = (f1, f2) -> {
+		LocalDateTime f1Date = LocalDateTime.ofInstant(f1.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
+		LocalDateTime f2Date = LocalDateTime.ofInstant(f2.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
+		
+		return f1Date.compareTo(f2Date);
+	};
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

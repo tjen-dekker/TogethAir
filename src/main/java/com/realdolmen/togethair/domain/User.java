@@ -17,13 +17,12 @@ public abstract class User {
 	@OneToMany
 	private List<Booking> bookings;
 
+
 	private String firstName;
 	private String lastName;
-
-
-	private String userName;
 	private String password;
 	private String email;
+	private String salt;
 
 	public String getFirstName() {return firstName;}
 
@@ -48,12 +47,12 @@ public abstract class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getUserName() {
-		return userName;
+
+	public String getSalt() {
+		return salt;
 	}
-	
-	public void setUserName(String userName) {
-		this.userName = userName;
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 }
