@@ -6,6 +6,7 @@ import com.realdolmen.togethair.domain.Flight;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -36,17 +37,31 @@ public class FlightRepositoryImpl implements FlightRepository{
     }
 	
     public List<Flight> findFromToOnDate(List<Airport> from, List<Airport> to,Date date){
-	    LocalDateTime localDate = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-	    List<Flight> tempList=  findFromTo(from,to);
-	    
-	    List<Flight> resultList = new ArrayList<>();
-	    for(Flight f : tempList){
-		    LocalDateTime fLocalDate = LocalDateTime.ofInstant(f.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
-	    	if(fLocalDate==localDate)
-			    resultList.add(f);
-	    }
-	    return resultList;
-    }
+		LocalDate localDate = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		List<Flight> tempList=  findFromTo(from,to);
+		
+		List<Flight> resultList = new ArrayList<>();
+		for(Flight f : tempList){
+			LocalDate localDateOfFlight = LocalDateTime.ofInstant(f.getDepartureDateTime().toInstant(), ZoneId.systemDefault()).toLocalDate();
+			if(localDateOfFlight.isEqual(localDate))
+				resultList.add(f);
+		}
+		return resultList;
+	}
+	
+	public List<Flight> findFromToBetweenDates(List<Airport> from, List<Airport> to,Date date1, Date date2){
+		LocalDate localDate1 = LocalDateTime.ofInstant(date1.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		LocalDate localDate2 = LocalDateTime.ofInstant(date2.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		List<Flight> tempList=  findFromTo(from,to);
+		
+		List<Flight> resultList = new ArrayList<>();
+		for(Flight f : tempList){
+			LocalDate localDateOfFlight = LocalDateTime.ofInstant(f.getDepartureDateTime().toInstant(), ZoneId.systemDefault()).toLocalDate();
+			if(localDateOfFlight.isAfter(localDate1) && localDateOfFlight.isBefore(localDate2) || localDateOfFlight.isEqual(localDate1) || localDateOfFlight.isEqual(localDate2))
+				resultList.add(f);
+		}
+		return resultList;
+	}
 	
 	public List<Flight> findFromTo(List<Airport> from, List<Airport> to){
 		List<Flight> resultList=  em.createQuery("select f from Flight f where f.from in :fromAirports and f.to in :toAirports", Flight.class)

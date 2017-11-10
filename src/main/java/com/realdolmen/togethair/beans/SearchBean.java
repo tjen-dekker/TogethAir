@@ -24,6 +24,22 @@ public class SearchBean {
 		return searchService.findFromToOnDate(fromCityName,toCityName,date);
 	}
 	
+	public List<FlightDTO> findFromToBetweenDates(String fromCityName, String toCityName, Date date1, Date date2){
+		return searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2);
+	}
+	
+	public List<FlightDTO> findFromToBetweenDatesSortedByDate(String fromCityName, String toCityName, Date date1, Date date2){
+		return searchService.findFromToBetweenDatesSortedByDate(fromCityName,toCityName,date1,date2);
+	}
+	
+	public List<FlightDTO> findFromToBetweenDates(String fromCityName, String toCityName, Date date1, Date date2, TravelClass travelClass, int minNrOfSeats){
+		return searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+	}
+	
+	public List<FlightDTO> findFromToBetweenDatesSortedByDate(String fromCityName, String toCityName, Date date1, Date date2, TravelClass travelClass, int minNrOfSeats){
+		return searchService.findFromToBetweenDatesSortedByDate(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+	}
+	
 	public List<FlightDTO> findFromTo(String fromCityName, String toCityName){
 		return searchService.findFromTo(fromCityName,toCityName);
 	}
@@ -34,6 +50,10 @@ public class SearchBean {
 	
 	public List<FlightDTO> findFromTo(String fromCityName, String toCityName, TravelClass travelClass, int minNrOfSeats){
 		return searchService.findFromTo(fromCityName,toCityName,travelClass,minNrOfSeats);
+	}
+	
+	public List<FlightDTO> findFromToSortedByDate(String fromCityName, String toCityName, TravelClass travelClass, int minNrOfSeats){
+		return searchService.findFromToSortedByDate(fromCityName,toCityName,travelClass,minNrOfSeats);
 	}
 	
 	public FlightDTO findByFlightCode(String flightCode){
