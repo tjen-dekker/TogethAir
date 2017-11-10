@@ -4,37 +4,45 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition>
-    <h1>Home</h1>
+    <!--<h1>Home</h1>-->
+    <div style="height: 7em;"/>
     <b:jumbotron styleClass="search-background">
         <h1>To Get Air</h1>
         <b:form horizontal="true">
+            <h2>Destination</h2>
             <b:formGroup>
-                <b:inputText label="Destination:" placeholder="Country" typeahead="true"
-                             typeaheadValues="Belgium, Marocco, France, UK, US"/>
-                <b:inputText placeholder="Airport" typeahead="true"
-                             typeaheadValues="Zaventem, Charleroi, Paris, Glasgow, London, Detroit, LA"/>
+                <b:inputText mediumScreen="full-width" placeholder="Country" typeahead="true"
+                             typeaheadValues="Belgium, Marocco, France, UK, US" label="Destination:"
+                             renderLabel="false" fieldSize="lg"/>
+                <b:inputText mediumScreen="two-thirds" placeholder="Airport" typeahead="true"
+                             typeaheadValues="Zaventem, Charleroi, Paris, Glasgow, London, Detroit, LA"
+                             label="Airport"
+                             render-label="false" fieldSize="lg"/>
+                <b:inputText mediumScreen="one-third" mask="integer" label="Amount of passengers"
+                             render-label="false" placeholder="Amount of passengers" fieldSize="lg"/>
             </b:formGroup>
+            <h3>Time Period</h3>
             <b:formGroup>
-                <b:row>
-                    <b:column span="6">
-                        <b:dateTimePicker value=""
-                                          showIcon="true"
-                                          iconPosition="left"
-                                          allowInputToggle="true"
-                                          showDate="true"
-                                          showTime="false"
-                                          useCurrent="true"/>
-                    </b:column>
-                    <b:column span="6">
-                        <b:dateTimePicker value=""
-                                          showIcon="true"
-                                          iconPosition="left"
-                                          allowInputToggle="true"
-                                          showDate="true"
-                                          showTime="false"
-                                          useCurrent="true"/>
-                    </b:column>
-                </b:row>
+                <b:dateTimePicker mediumScreen="half"
+                                  value=""
+                                  showIcon="true"
+                                  iconPosition="left"
+                                  allowInputToggle="true"
+                                  showDate="true"
+                                  showTime="false"
+                                  useCurrent="true"
+                                  fieldSize="lg"
+                                  placeholder="From"/>
+                <b:dateTimePicker mediumScreen="half"
+                                  value=""
+                                  showIcon="true"
+                                  iconPosition="left"
+                                  allowInputToggle="true"
+                                  showDate="true"
+                                  showTime="false"
+                                  useCurrent="true"
+                                  fieldSize="lg"
+                                  placeholder="Till"/>
             </b:formGroup>
             <!--<p:calendar id="start" value="" mindate="4/1/14" maxdate="7/1/14" />
             <p:calendar id="end" value="" mindate="4/1/14" maxdate="7/1/14" />-->
