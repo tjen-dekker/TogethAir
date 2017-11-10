@@ -1,7 +1,5 @@
 package com.realdolmen.togethair.domain;
 
-import com.sun.istack.internal.Nullable;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
@@ -41,7 +39,7 @@ public class User {
 	private String salt;
 
 	@ManyToOne
-	@Nullable
+	@Column(nullable = true)
 	private FlightCompany company;
 
 	public String getFirstName() {return firstName;}
