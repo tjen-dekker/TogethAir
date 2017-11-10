@@ -16,7 +16,7 @@ public abstract class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@OneToMany
+	@OneToMany(orphanRemoval = true)
 	private List<Booking> bookings;
 
 	@NotNull
