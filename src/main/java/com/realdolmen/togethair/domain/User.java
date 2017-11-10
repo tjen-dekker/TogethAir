@@ -46,8 +46,6 @@ public abstract class User {
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
-	
-	private String salt;
 
 	public String getFirstName() {return firstName;}
 
