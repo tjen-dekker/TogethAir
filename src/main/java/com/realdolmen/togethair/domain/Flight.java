@@ -29,7 +29,7 @@ public class Flight implements Comparable<Flight>, Serializable{
 	private FlightCompany flightCompany;
 	
 	@NotNull
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER,orphanRemoval = true,mappedBy = "flight")
 	private Set<Seat> seats = new HashSet<>();
 	
 	@NotNull
@@ -50,7 +50,7 @@ public class Flight implements Comparable<Flight>, Serializable{
 	private int duration; //estimated travel time in min
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Future
 	private Date departureDateTime;
 	
@@ -58,15 +58,6 @@ public class Flight implements Comparable<Flight>, Serializable{
 		int count =0;
 		for(Seat s : seats){
 			if(s.getTravelClassName()==travelClass && s.isAvailable())
-				count++;
-		}
-		return count;
-	}
-	
-	public int getFreeSeats(){
-		int count =0;
-		for(Seat s : seats){
-			if(s.isAvailable())
 				count++;
 		}
 		return count;
