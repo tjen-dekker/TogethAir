@@ -18,7 +18,7 @@ public class BookingDTO {
     public BookingDTO(Booking booking) {
         List<Passenger> passengerList = booking.getPassengers();
         for (Passenger p: passengerList ) {
-            adPassenger(new PassengerDTO(p));
+            addPassenger(new PassengerDTO(p));
             
         }
     }
@@ -31,7 +31,7 @@ public class BookingDTO {
         this.passengers = passengers;
     }
     
-    public void adPassenger(PassengerDTO passenger){
+    public void addPassenger(PassengerDTO passenger){
         passengers.add(passenger);
     }
 }

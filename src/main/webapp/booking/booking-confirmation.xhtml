@@ -16,7 +16,7 @@
         <ui:repeat value="#{bookingFlowBean.booking.passengers}" var="passenger">
             <p><h:outputText value="#{passenger.firstName}"/></p>
             <p><h:outputText value="#{passenger.lastName}"/></p>
-            <p><h:outputText value="#{passenger.seat}"/></p>
+            <p><h:outputText value="#{passenger.seat.location}"/></p>
             <p><h:outputText value="#{passenger.birthDate}"/></p>
         </ui:repeat>
 

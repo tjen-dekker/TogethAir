@@ -13,8 +13,8 @@ public class PassengerServiceBean implements Serializable {
     @Inject
     PassengerRepository repository;
 
-    public void create(Passenger passenger){
-        repository.create(passenger);
+    public void create(Passenger p){
+        repository.create(p);
     }
 
 }

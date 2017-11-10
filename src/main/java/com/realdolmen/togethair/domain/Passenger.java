@@ -19,12 +19,12 @@ public class Passenger {
 	
 	@NotNull
 	@Column(length = 35)
-	@Pattern(regexp = "/^[a-z ,.'-]+$/i")
+	@Pattern(regexp = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
 	private String firstName;
 	
 	@NotNull
 	@Column(length = 35)
-	@Pattern(regexp = "/^[a-z ,.'-]+$/i")
+	@Pattern(regexp = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
 	private String lastName;
 	
 	@NotNull
@@ -33,10 +33,18 @@ public class Passenger {
 	private Date birthDate;
 	
 	@OneToOne
-	@NotNull
 	private Seat seat;
 
-	
+
+	public Passenger(){}
+
+	public Passenger(String firstName, String lastName, Date birthDate, Seat seat) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.seat = seat;
+	}
+
 	public String getlastName() {
 		return lastName;
 	}

@@ -121,6 +121,15 @@ public class Flight implements Comparable<Flight>, Serializable{
 	public Set<Seat> getSeats() {
 		return seats;
 	}
+
+	public Seat getSeat(String location){
+		for(Seat s : getSeats()){
+			if(s.getLocation().equals(location)){
+				return s;
+			}
+		}
+		return null;
+	}
 	
 	public void setSeats(Set<Seat> seats) {
 		for (Seat s: seats) {

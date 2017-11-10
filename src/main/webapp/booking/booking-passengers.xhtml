@@ -5,6 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
 >
 
 <ui:composition template="/templates/index-template.xhtml">
@@ -24,13 +25,14 @@
                         <f:convertDateTime pattern="dd-MM-yyyy"/>
                     </h:inputText>
                     <!--This doesnt work at the moment because we need a converter (I think) perhaps it will work when using bootfaces or primefaces-->
-<!--                    <h:selectOneMenu value="#{passenger.seat}">
-                        <f:selectItems value="#{bookingFlowBean.flight.seats}" var="seat" itemLabel="#{seat}" itemValue="#{seat.id}"/>
-                    </h:selectOneMenu>-->
+                    <p:selectOneMenu id="seat" value="#{passenger.seat}" converter="seatConverter">
+                        <f:selectItems value="#{bookingFlowBean.flight.seats}" var="seat" itemLabel="#{seat.location} (#{seat.travelClassName})" itemValue="#{seat}"/>
+                    </p:selectOneMenu>
+                    <h:message for="seat" styleClass="error"/>
                 </div>
             </ui:repeat>
             <h:commandButton value="back" action="detail"/>
-            <h:commandButton value="confirm" action="confirm"/>
+            <h:commandButton value="next" action="confirm"/>
         </h:form>
 
     </ui:define>

@@ -36,7 +36,16 @@ public class Seat {
 	
 	@Transient
 	private Flight flight;
-	
+
+	public Seat(){}
+
+	public Seat(String location, TravelClass travelClassName, float price, boolean available) {
+		this.location = location;
+		this.price = price;
+		this.travelClassName = travelClassName;
+		this.available = available;
+	}
+
 	public String getLocation() {
 		return location;
 	}
