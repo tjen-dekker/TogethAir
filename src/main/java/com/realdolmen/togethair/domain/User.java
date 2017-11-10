@@ -45,6 +45,8 @@ public abstract class User {
 		this.bookings = bookings;
 	}
 	
+	private String salt;
+
 	public String getFirstName() {return firstName;}
 
 	public void setFirstName(String firstName) {this.firstName = firstName;}
@@ -67,5 +69,13 @@ public abstract class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 }
