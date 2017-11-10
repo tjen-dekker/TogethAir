@@ -38,7 +38,7 @@ public class User {
 	private String email;
 	private String salt;
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private FlightCompany company;
 
 
