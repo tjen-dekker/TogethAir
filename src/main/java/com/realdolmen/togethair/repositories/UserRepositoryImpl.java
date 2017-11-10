@@ -2,17 +2,24 @@ package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.User;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Created by TDKBG57 on 2017-11-07.
  */
+@Transactional
+@ApplicationScoped
+@ManagedBean
 public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     @Override
     public List<User> findAll() {
@@ -28,5 +35,10 @@ public class UserRepositoryImpl implements UserRepository {
     public User create(User user) {
         em.persist(user);
         return user;
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return em.createQuery("select U from User U where email=:email", User.class).setParameter("email", email).getSingleResult();
     }
 }

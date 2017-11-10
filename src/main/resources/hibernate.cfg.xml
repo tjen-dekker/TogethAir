@@ -4,24 +4,38 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 
-  <session-factory>
+    <session-factory>
 
-    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/realdolmen</property>
-    <property name="connection.username">root</property>
-    <property name="connection.password"></property>
-    <property name="connection.autoReconnect">true</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/realdolmen</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password"></property>
+        <property name="connection.autoReconnect">true</property>
 
-    <property name="cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+        <property name="cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
 
-    <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
-    <property name="current_session_context_class">thread</property>
-    <property name="hibernate.show_sql">false</property>
+        <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.show_sql">false</property>
 
-    <mapping class="com.realdolmen.togethair.domain.User"></mapping>
-    <mapping class="com.realdolmen.togethair.domain.Role"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.User"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.Role"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.Booking"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.FlightCompany"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.Passenger"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.Seat"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.Airport"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.City"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.Country"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.Passenger"></mapping>
+        <mapping class="com.realdolmen.togethair.domain.RolesPermission"></mapping>
 
-  </session-factory>
+
+
+
+
+
+    </session-factory>
 
 </hibernate-configuration>
