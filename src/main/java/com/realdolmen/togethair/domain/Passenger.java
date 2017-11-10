@@ -23,6 +23,8 @@ public class Passenger {
 	private Date birthDate;
 	@OneToOne
 	private Seat seat;
+	@Version
+	private int version;
 
 	
 	public String getlastName() {
