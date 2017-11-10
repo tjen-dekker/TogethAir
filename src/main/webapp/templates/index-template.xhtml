@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <f:view>
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
@@ -11,20 +11,10 @@
         <h:outputStylesheet name="css/landing-page.css"/>
     </h:head>
     <h:body>
-        <p:layout fullPage="true">
-            <footer>
-                <p:layoutUnit position="south" size="70">
-                    <ui:insert name="footer">
-                        <h:outputText value="Footer content." />
-                    </ui:insert>
-                </p:layoutUnit>
-            </footer>
-            <p:layoutUnit position="center">
-                <ui:insert name="content">
-                    <h:outputText value="Center Content" />
-                </ui:insert>
-            </p:layoutUnit>
-        </p:layout>
+        <b:container styleClass="child">
+            <ui:insert name="content"/>
+            <ui:insert name="menu"/>
+        </b:container>
     </h:body>
 </f:view>
 </html>

@@ -1,15 +1,21 @@
-body {
+html {
+    height: 100%;
 }
 
-.ui-layout-container {
+body {
     background: url(#{resource['img/maldives.jpg']}) no-repeat center;
     background-size: cover;
 }
 
-.ui-layout-unit {
-    background-color: transparent;
+/*
+.parent {
+    height: 100%;
+    position: relative;
 }
 
-.ui-layout-unit-content {
-    background-color: transparent;
-}
+.child {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+}*/

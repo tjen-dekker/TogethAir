@@ -5,12 +5,22 @@
 
     <context-param>
         <param-name>BootsFaces_USETHEME</param-name>
+        <!-- "default" parameter -> flat buttons -->
         <param-value>default</param-value>
     </context-param>
     <context-param>
         <param-name>BootsFaces_THEME</param-name>
         <param-value>cerulean</param-value>
     </context-param>
+    <!-- Activates the waitcursor and the double-click protection -->
+    <context-param>
+        <param-name>net.bootsfaces.blockUI</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <!--<context-param>
+        <param-name>org.primefaces.themes</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>-->
 
     <!-- Define the JSF servlet (manages the request processing life cycle for
       JavaServer Faces) -->
