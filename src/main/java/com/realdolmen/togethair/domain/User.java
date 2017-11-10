@@ -16,7 +16,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@OneToMany
+	@OneToMany(orphanRemoval = true)
 	private List<Booking> bookings;
 
 	@NotNull
@@ -41,6 +41,15 @@ public class User {
 	@ManyToOne
 	@Column(nullable = true)
 	private FlightCompany company;
+
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
 
 	public String getFirstName() {return firstName;}
 

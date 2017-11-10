@@ -36,15 +36,9 @@ public class SearchServiceBean {
 	public List<FlightDTO> findAll(){
 		return mapFlightList(flightRepository.findAll());
 	}
-
+	
 	public FlightDTO findByFlightCode(String flightCode){
 		return new FlightDTO(flightRepository.findByFlightCode(flightCode));
-	}
-	
-	public List<FlightDTO> findFromToOnDate(String fromCityName, String toCityName,Date date){
-		List<Flight> flightList = flightRepository.findFromToOnDate(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date);
-		sortByCheapestSeat(flightList);
-		return mapFlightList(flightList);
 	}
 	
 	public List<FlightDTO> findFromTo(String fromCityName, String toCityName){
@@ -68,6 +62,38 @@ public class SearchServiceBean {
 	
 	public List<FlightDTO> findFromToSortedByDate(String fromCityName, String toCityName,TravelClass travelClass,int minNrOfFreeSeats){
 		List<Flight> flightList = flightRepository.findFromTo(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)));
+		filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats);
+		sortByDateTime(flightList);
+		return mapFlightList(flightList);
+	}
+	
+	public List<FlightDTO> findFromToOnDate(String fromCityName, String toCityName,Date date){
+		List<Flight> flightList = flightRepository.findFromToOnDate(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date);
+		sortByCheapestSeat(flightList);
+		return mapFlightList(flightList);
+	}
+	
+	public List<FlightDTO> findFromToBetweenDates(String fromCityName, String toCityName,Date date1, Date date2){
+		List<Flight> flightList = flightRepository.findFromToBetweenDates(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date1, date2);
+		sortByCheapestSeat(flightList);
+		return mapFlightList(flightList);
+	}
+	
+	public List<FlightDTO> findFromToBetweenDatesSortedByDate(String fromCityName, String toCityName,Date date1, Date date2){
+		List<Flight> flightList = flightRepository.findFromToBetweenDates(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date1, date2);
+		sortByDateTime(flightList);
+		return mapFlightList(flightList);
+	}
+	
+	public List<FlightDTO> findFromToBetweenDates(String fromCityName, String toCityName,Date date1, Date date2,TravelClass travelClass,int minNrOfFreeSeats){
+		List<Flight> flightList = flightRepository.findFromToBetweenDates(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date1, date2);
+		filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats);
+		sortByCheapestSeat(flightList);
+		return mapFlightList(flightList);
+	}
+	
+	public List<FlightDTO> findFromToBetweenDatesSortedByDate(String fromCityName, String toCityName,Date date1, Date date2,TravelClass travelClass,int minNrOfFreeSeats){
+		List<Flight> flightList = flightRepository.findFromToBetweenDates(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date1, date2);
 		filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats);
 		sortByDateTime(flightList);
 		return mapFlightList(flightList);

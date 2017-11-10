@@ -7,10 +7,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -29,7 +26,7 @@ public class Flight implements Comparable<Flight>, Serializable{
 	private FlightCompany flightCompany;
 	
 	@NotNull
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER,orphanRemoval = true,mappedBy = "flight")
 	private Set<Seat> seats = new HashSet<>();
 	
 	@NotNull
@@ -50,23 +47,25 @@ public class Flight implements Comparable<Flight>, Serializable{
 	private int duration; //estimated travel time in min
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Future
 	private Date departureDateTime;
+	
+	@ElementCollection
+	@MapKeyColumn(name="volumeDiscountNUmberOfTickets")
+	@Column(name="volumeDiscountPercentage")
+	@CollectionTable(name="volumeDiscounts", joinColumns=@JoinColumn(name="id"))
+	private Map<Integer, Integer> volumeDiscounts= new HashMap<>();
+	
+	@NotNull
+	@DecimalMax(value = "200")
+	@DecimalMin(value = "50")
+	private int priceOverridePercentage=100;
 	
 	public int getFreeSeatsOfClass(TravelClass travelClass){
 		int count =0;
 		for(Seat s : seats){
 			if(s.getTravelClassName()==travelClass && s.isAvailable())
-				count++;
-		}
-		return count;
-	}
-	
-	public int getFreeSeats(){
-		int count =0;
-		for(Seat s : seats){
-			if(s.isAvailable())
 				count++;
 		}
 		return count;
@@ -104,6 +103,22 @@ public class Flight implements Comparable<Flight>, Serializable{
 	
 	public int getDuration() {
 		return duration;
+	}
+	
+	public Map<Integer, Integer> getVolumeDiscounts() {
+		return volumeDiscounts;
+	}
+	
+	public void setVolumeDiscounts(Map<Integer, Integer> volumeDiscounts) {
+		this.volumeDiscounts = volumeDiscounts;
+	}
+	
+	public int getPriceOverridePercentage() {
+		return priceOverridePercentage;
+	}
+	
+	public void setPriceOverridePercentage(int priceOverridePercentage) {
+		this.priceOverridePercentage = priceOverridePercentage;
 	}
 	
 	public void setDuration(int duration) {

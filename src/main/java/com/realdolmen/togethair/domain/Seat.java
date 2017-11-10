@@ -31,11 +31,14 @@ public class Seat {
 	@Enumerated(value = EnumType.STRING)
 	private TravelClass travelClassName;
 	
-	@Transient
-	private boolean available;
+	@NotNull
+	private boolean available=true;
 	
-	@Transient
+	@ManyToOne
 	private Flight flight;
+	
+	@Version
+	private int version = 0;
 	
 	public String getLocation() {
 		return location;
