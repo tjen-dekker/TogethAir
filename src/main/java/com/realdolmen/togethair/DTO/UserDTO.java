@@ -15,12 +15,6 @@ public class UserDTO {
 	private String lastName;
 	private String password;
 	private String email;
-
-	private final Session session;
-
-	public UserDTO(Session s) {
-		session = s;
-	}
 	
 	public List<BookingDTO> getBookings() {
 		return bookings;
@@ -62,9 +56,5 @@ public class UserDTO {
 		this.email = email;
 	}
 
-	public User getUserByEmail(String email) {
-		User user = (User) session.createQuery("from User where email=?")
-				.setString(0, email).uniqueResult();
-		return user;
-	}
+
 }

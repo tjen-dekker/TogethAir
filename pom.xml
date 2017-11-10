@@ -60,11 +60,6 @@
             <artifactId>primefaces</artifactId>
             <version>6.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>1.0.10</version>
-        </dependency>
         <!-- BootsFaces -->
         <dependency>
             <groupId>net.bootsfaces</groupId>

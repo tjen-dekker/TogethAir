@@ -11,7 +11,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 @ManagedBean
 @SessionScoped
-public abstract class User {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,11 +38,14 @@ public abstract class User {
 	private String email;
 	private String salt;
 
-	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	private FlightCompany company;
+
+
 	public List<Booking> getBookings() {
 		return bookings;
 	}
-	
+
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
