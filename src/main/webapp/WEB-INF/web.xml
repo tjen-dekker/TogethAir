@@ -5,16 +5,22 @@
 
     <context-param>
         <param-name>BootsFaces_USETHEME</param-name>
-        <param-value>default</param-value>
+        <!-- "default" parameter -> flat buttons -->
+        <param-value>true</param-value>
     </context-param>
     <context-param>
         <param-name>BootsFaces_THEME</param-name>
         <param-value>cerulean</param-value>
     </context-param>
-
-    <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
-    </welcome-file-list>
+    <!-- Activates the waitcursor and the double-click protection -->
+    <context-param>
+        <param-name>net.bootsfaces.blockUI</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <!--<context-param>
+        <param-name>org.primefaces.themes</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>-->
 
     <listener>
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
@@ -31,8 +37,13 @@
     <!-- Map following files to the JSF servlet -->
     <servlet-mapping>
         <servlet-name>faces-servlet</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
 
     <filter>
         <filter-name>ShiroFilter</filter-name>

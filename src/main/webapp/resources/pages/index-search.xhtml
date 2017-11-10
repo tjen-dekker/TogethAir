@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition>
+    <!--<h1>Home</h1>-->
+    <div style="height: 7em;"/>
+    <b:jumbotron styleClass="search-background">
+        <h1>To Get Air</h1>
+        <b:form horizontal="true">
+            <h2>Destination</h2>
+            <b:formGroup>
+                <b:inputText mediumScreen="full-width" placeholder="Belgium, Zaventem" typeahead="true"
+                             typeaheadValues="Belgium, Marocco, France, UK, US"
+                             fieldSize="lg">
+                    <f:facet name="prepend">
+                        <h:outputText value="Destination" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText mediumScreen="two-thirds" typeahead="true"
+                             typeaheadValues="Zaventem, Charleroi, Paris, Glasgow, London, Detroit, LA"
+                             placeholder="Zaventem"
+                             render-label="false" fieldSize="lg">
+                    <f:facet name="prepend">
+                        <h:outputText value="Airport" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText mediumScreen="one-third" mask="integer"
+                             render-label="false" value="1" fieldSize="lg">
+                    <f:facet name="append">
+                        <h:outputText value="Passengers" />
+                    </f:facet>
+                </b:inputText>
+            </b:formGroup>
+            <h3>Time Period</h3>
+            <b:formGroup>
+                <b:dateTimePicker mediumScreen="half"
+                                  value=""
+                                  showIcon="true"
+                                  iconPosition="left"
+                                  allowInputToggle="true"
+                                  showDate="true"
+                                  showTime="false"
+                                  useCurrent="true"
+                                  fieldSize="lg"
+                                  placeholder="From"/>
+                <b:dateTimePicker mediumScreen="half"
+                                  value=""
+                                  showIcon="true"
+                                  iconPosition="left"
+                                  allowInputToggle="true"
+                                  showDate="true"
+                                  showTime="false"
+                                  useCurrent="true"
+                                  fieldSize="lg"
+                                  placeholder="Till"/>
+            </b:formGroup>
+            <b:commandButton action="index.xhtml" value="Search" ajax="false" look="success"/>
+        </b:form>
+    </b:jumbotron>
+</ui:composition>
+</html>

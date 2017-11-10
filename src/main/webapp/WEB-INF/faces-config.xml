@@ -19,6 +19,10 @@
         <base-name>Messages</base-name>
         <var>messages</var>
     </resource-bundle>
+    <resource-bundle>
+        <base-name>PriceCalculation</base-name>
+        <var>priceCalculation</var>
+    </resource-bundle>
 </application>
 
 </faces-config>
