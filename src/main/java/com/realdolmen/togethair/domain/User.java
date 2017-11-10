@@ -16,7 +16,7 @@ public abstract class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@OneToMany
+	@OneToMany(orphanRemoval = true)
 	private List<Booking> bookings;
 
 	@NotNull
@@ -47,6 +47,8 @@ public abstract class User {
 		this.bookings = bookings;
 	}
 	
+	private String salt;
+
 	public String getFirstName() {return firstName;}
 
 	public void setFirstName(String firstName) {this.firstName = firstName;}
