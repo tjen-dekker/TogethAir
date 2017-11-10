@@ -21,6 +21,12 @@ public class CityRepositoryImpl implements CityRepository{
     public City findById(Long id){
         return em.find(City.class, id);
     }
+    
+    public City findByName(String cityName){
+        return em.createQuery("select c from City c where c.name = :cityName", City.class)
+                .setParameter("cityName",cityName)
+                .getSingleResult();
+    }
 
     public City create(City city){
         em.persist(city);

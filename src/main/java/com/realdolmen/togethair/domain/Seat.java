@@ -3,6 +3,8 @@ package com.realdolmen.togethair.domain;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -16,14 +18,27 @@ public class Seat {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
+	@Column(length = 4)
 	private String location;
+	
+	@NotNull
+	@DecimalMin(value = "0")
 	private float price;
-	@Enumerated @Column(name = "class")
+	
+	@NotNull
+	@Column(name = "class")
+	@Enumerated(value = EnumType.STRING)
 	private TravelClass travelClassName;
-	@Transient
-	private boolean available;
-	@Transient
+	
+	@NotNull
+	private boolean available=true;
+	
+	@ManyToOne
 	private Flight flight;
+	
+	@Version
+	private int version = 0;
 	
 	public String getLocation() {
 		return location;
@@ -88,5 +103,10 @@ public class Seat {
 		result = 31 * result + (location != null ? location.hashCode() : 0);
 		result = 31 * result + (flight != null ? flight.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return location + " (" + getTravelClassName() + ")";
 	}
 }

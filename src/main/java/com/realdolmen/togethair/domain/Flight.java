@@ -3,11 +3,11 @@ package com.realdolmen.togethair.domain;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
-import java.time.Duration;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.ZoneId;
+import java.util.*;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -15,39 +15,113 @@ import java.util.Set;
 @Entity
 @ManagedBean
 @RequestScoped
-public class Flight {
+public class Flight implements Comparable<Flight>, Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	@ManyToOne
 	private FlightCompany flightCompany;
-	@OneToMany
+	
+	@NotNull
+	@OneToMany(fetch = FetchType.EAGER,orphanRemoval = true,mappedBy = "flight")
 	private Set<Seat> seats = new HashSet<>();
+	
+	@NotNull
 	@ManyToOne
 	private Airport from;
+	
+	@NotNull
 	@ManyToOne
 	private Airport to;
 	
-	private Duration duration;
-	private LocalDateTime departureDateTime;
-
-
+	@NotNull
+	@Digits(integer = 4, fraction = 0)
+	private int flightCode;
 	
+	@NotNull
+	@DecimalMin(value = "0")
+	@DecimalMax(value = "1200")
+	private int duration; //estimated travel time in min
+	
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@Future
+	private Date departureDateTime;
+	
+	@ElementCollection
+	@MapKeyColumn(name="volumeDiscountNUmberOfTickets")
+	@Column(name="volumeDiscountPercentage")
+	@CollectionTable(name="volumeDiscounts", joinColumns=@JoinColumn(name="id"))
+	private Map<Integer, Integer> volumeDiscounts= new HashMap<>();
+	
+	@NotNull
+	@DecimalMax(value = "200")
+	@DecimalMin(value = "50")
+	private int priceOverridePercentage=100;
+	
+	public int getFreeSeatsOfClass(TravelClass travelClass){
+		int count =0;
+		for(Seat s : seats){
+			if(s.getTravelClassName()==travelClass && s.isAvailable())
+				count++;
+		}
+		return count;
+	}
+	
+	public float getPriceOfCheapestSeat() {
+		float lowestPrice=0f;
+		for(Seat s : seats){
+			if(lowestPrice<s.getPrice())
+				lowestPrice = s.getPrice();
+		}
+		return lowestPrice;
+	}
+	
+	public float getPriceOfCheapestSeatOfClass(TravelClass tClass) {
+		float lowestPrice=0f;
+		for(Seat s : seats){
+			if(lowestPrice<s.getPrice() && s.getTravelClassName()==tClass)
+				lowestPrice = s.getPrice();
+		}
+		return lowestPrice;
+	}
+
 	public Long getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public int getFlightCode() {
+		return flightCode;
 	}
 	
-	public Duration getDuration() {
+	public void setFlightCode(int flightCode) {
+		this.flightCode = flightCode;
+	}
+	
+	public int getDuration() {
 		return duration;
 	}
 	
-	public void setDuration(Duration duration) {
+	public Map<Integer, Integer> getVolumeDiscounts() {
+		return volumeDiscounts;
+	}
+	
+	public void setVolumeDiscounts(Map<Integer, Integer> volumeDiscounts) {
+		this.volumeDiscounts = volumeDiscounts;
+	}
+	
+	public int getPriceOverridePercentage() {
+		return priceOverridePercentage;
+	}
+	
+	public void setPriceOverridePercentage(int priceOverridePercentage) {
+		this.priceOverridePercentage = priceOverridePercentage;
+	}
+	
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 	
@@ -90,14 +164,38 @@ public class Flight {
 		this.to = to;
 	}
 	
-	public LocalDateTime getDepartureDateTime() {
+	public Date getDepartureDateTime() {
 		return departureDateTime;
 	}
 	
-	public void setDepartureDateTime(LocalDateTime departureDateTime) {
+	public void setDepartureDateTime(Date departureDateTime) {
 		this.departureDateTime = departureDateTime;
 	}
-
+	
+	public static Comparator<Flight> cheapestEconomyComparator = (f1, f2) -> {
+		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY),f2.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY));
+	};
+	
+	public static Comparator<Flight> cheapestBusinessComparator = (f1, f2) -> {
+		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS),f2.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS));
+	};
+	
+	public static Comparator<Flight> cheapestFirstClassComparator = (f1, f2) -> {
+		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS),f2.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS));
+	};
+	
+	@Override   //Compare on cheapest ticket
+	public int compareTo(Flight f) {
+		return Float.compare(this.getPriceOfCheapestSeat(),f.getPriceOfCheapestSeat());
+	}
+	
+	public static Comparator<Flight> DateTimeComparator = (f1, f2) -> {
+		LocalDateTime f1Date = LocalDateTime.ofInstant(f1.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
+		LocalDateTime f2Date = LocalDateTime.ofInstant(f2.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
+		
+		return f1Date.compareTo(f2Date);
+	};
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

@@ -22,8 +22,12 @@
         <param-value>bootstrap</param-value>
     </context-param>-->
 
+    <listener>
+        <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+    </listener>
+
     <!-- Define the JSF servlet (manages the request processing life cycle for
-      JavaServer Faces) -->
+        JavaServer Faces) -->
     <servlet>
         <servlet-name>faces-servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -41,4 +45,17 @@
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
+    <filter>
+        <filter-name>ShiroFilter</filter-name>
+        <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ShiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
 </web-app>
