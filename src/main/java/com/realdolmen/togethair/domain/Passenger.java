@@ -38,6 +38,8 @@ public class Passenger {
 	@OneToOne
 	@NotNull
 	private Seat seat;
+	@Version
+	private int version;
 
 	
 	public String getlastName() {
