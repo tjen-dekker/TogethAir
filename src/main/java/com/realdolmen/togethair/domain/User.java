@@ -38,8 +38,7 @@ public class User {
 	private String email;
 	private String salt;
 
-	@ManyToOne
-	@Column(nullable = true)
+	@ManyToOne(optional = true)
 	private FlightCompany company;
 
 
