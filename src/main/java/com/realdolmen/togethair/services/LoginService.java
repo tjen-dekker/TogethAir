@@ -72,6 +72,18 @@ public class LoginService implements Serializable {
         }
     }
 
+    public void logout(){
+        try{
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        }
+        catch (AuthenticationException | IOException ex) {
+            facesError("Unknown error: " + ex.getMessage());
+            log.error(ex.getMessage(), ex);
+        }
+    }
+
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui
      * @param message Error Message

@@ -41,4 +41,9 @@ public class UserRepositoryImpl implements UserRepository {
     public User getUserByEmail(String email) {
         return em.createQuery("select U from User U where email=:email", User.class).setParameter("email", email).getSingleResult();
     }
+
+    @Override
+    public String getSaltForUser(String user) {
+        return em.createQuery("select U.salt from User U where email = :user", String.class).setParameter("user", user).getSingleResult();
+    }
 }

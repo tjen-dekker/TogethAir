@@ -120,7 +120,24 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-faces</artifactId>
+            <!-- See the latest version on the project's homepage -->
+            <version>2.0</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-deluan-maven</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/deluan/maven</url>
+        </repository>
+    </repositories>
 
     <!--Travis profile that excludes certain tests because they use databases that are not available-->
     <profiles>

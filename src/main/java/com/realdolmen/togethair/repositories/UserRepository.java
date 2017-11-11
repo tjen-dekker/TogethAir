@@ -19,4 +19,6 @@ public interface UserRepository {
     public User create(User user);
 
     public User getUserByEmail(String email);
+
+    String getSaltForUser(String password);
 }

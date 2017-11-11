@@ -21,12 +21,10 @@ public class User {
 
 	@NotNull
 	@Column(length = 35)
-	@Pattern(regexp = "/^[a-z ,.'-]+$/i")
 	private String firstName;
 	
 	@NotNull
 	@Column(length = 35)
-	@Pattern(regexp = "/^[a-z ,.'-]+$/i")
 	private String lastName;
 	
 	@NotNull
