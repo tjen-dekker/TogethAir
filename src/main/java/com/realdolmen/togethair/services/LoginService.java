@@ -10,14 +10,14 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.io.Serializable;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class LoginService implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(LoginService.class);
 
@@ -26,6 +26,8 @@ public class LoginService implements Serializable {
 
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
     private Boolean rememberMe;
 
     public LoginService() {
@@ -68,6 +70,9 @@ public class LoginService implements Serializable {
 
             System.out.println(subject.getPrincipal());
             token.clear();
+
+            setFirstName(userRepository.getFirstNameofCurrentUser(username));
+            setLastName(userRepository.getLastNameofCurrentUser(username));
         }
     }
 
@@ -113,5 +118,21 @@ public class LoginService implements Serializable {
 
     public void setRememberMe(Boolean lembrar) {
         this.rememberMe = lembrar;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
