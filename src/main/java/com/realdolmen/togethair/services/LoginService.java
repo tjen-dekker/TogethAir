@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.services;
 
 
+import com.realdolmen.togethair.repositories.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -11,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -18,6 +20,9 @@ import java.io.Serializable;
 @RequestScoped
 public class LoginService implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(LoginService.class);
+
+    @Inject
+    private UserRepository userRepository;
 
     private String username;
     private String password;
@@ -34,48 +39,44 @@ public class LoginService implements Serializable {
 
         UsernamePasswordToken token = new UsernamePasswordToken(getUsername(), getPassword(), getRememberMe());
 
+
         try {
+
             subject.login(token);
 
             if (subject.hasRole("admin")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("admin/index.xhtml");
-            }
-
-            else if(subject.hasRole("partner")){
+            } else if (subject.hasRole("partner")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("partner/index.xhtml");
-            }
-            else {
+            } else {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
             }
-        }
-        catch (UnknownAccountException ex) {
+        } catch (UnknownAccountException ex) {
             facesError("Unknown account");
             log.error(ex.getMessage(), ex);
-        }
-        catch (IncorrectCredentialsException ex) {
+        } catch (IncorrectCredentialsException ex) {
             facesError("Wrong password");
             log.error(ex.getMessage(), ex);
-        }
-        catch (LockedAccountException ex) {
+        } catch (LockedAccountException ex) {
             facesError("Locked account");
             log.error(ex.getMessage(), ex);
-        }
-        catch (AuthenticationException | IOException ex) {
+        } catch (AuthenticationException | IOException ex) {
             facesError("Unknown error: " + ex.getMessage());
             log.error(ex.getMessage(), ex);
-        }
-        finally {
+        } finally {
+
+
+            System.out.println(subject.getPrincipal());
             token.clear();
         }
     }
 
-    public void logout(){
-        try{
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-        }
-        catch (AuthenticationException | IOException ex) {
+    public void logout() {
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            subject.logout();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (AuthenticationException | IOException ex) {
             facesError("Unknown error: " + ex.getMessage());
             log.error(ex.getMessage(), ex);
         }
@@ -83,6 +84,7 @@ public class LoginService implements Serializable {
 
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
      * @param message Error Message
      */
     private void facesError(String message) {

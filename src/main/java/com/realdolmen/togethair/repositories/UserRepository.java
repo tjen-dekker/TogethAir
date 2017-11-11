@@ -20,5 +20,9 @@ public interface UserRepository {
 
     public User getUserByEmail(String email);
 
+    String getFirstNameofCurrentUser(String username);
+
+    String getLastNameofCurrentUser(String username);
+
     String getSaltForUser(String password);
 }
