@@ -4,15 +4,20 @@ import com.realdolmen.togethair.domain.Role;
 import com.realdolmen.togethair.domain.User;
 import com.realdolmen.togethair.repositories.RolesRepository;
 import com.realdolmen.togethair.repositories.UserRepository;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
 
 @ManagedBean
 @RequestScoped
+@RequiresGuest
 public class RegistrationService implements Serializable {
     @Inject
     private UserRepository userRepository;
@@ -38,11 +43,16 @@ public class RegistrationService implements Serializable {
         // Now hash the plain-text password with the random salt and multiple
         // iterations and then Base64-encode the value (requires less space than
         // Hex):
-        setHashedPassword(new Sha256Hash(plainTextPassword).toBase64());
 
-        user.setPassword(hashedPassword);
+        if (plainTextPassword.length() > 5) {
+            setHashedPassword(new Sha256Hash(plainTextPassword).toBase64());
+
+            user.setPassword(hashedPassword);
 //        user.setSalt(salt.toString());
+        } else throw new IncorrectCredentialsException();
+
     }
+
 
     public void register() {
         User user = new User();
@@ -52,27 +62,32 @@ public class RegistrationService implements Serializable {
         user.setLastName(lastName);
 
 
-        generatePassword(user, plainTextPassword);
+        try {
+            generatePassword(user, plainTextPassword);
 
+            System.err.println("User with email:" + user.getEmail()
+                    + " hashedPassword:" + user.getPassword() + " salt:"
+                    + user.getSalt());
 
-        System.err.println("User with email:" + user.getEmail()
-                + " hashedPassword:" + user.getPassword() + " salt:"
-                + user.getSalt());
+            if (isAdmin) {
+                Role role = new Role();
+                role.setEmail(email);
+                role.setRoleName("admin");
+                rolesRepository.create(role);
+            }
 
-        if (isAdmin) {
-            Role role = new Role();
-            role.setEmail(email);
-            role.setRoleName("admin");
-            rolesRepository.create(role);
+            userRepository.create(user);
+
+            loginService.setPassword(plainTextPassword);
+            loginService.setUsername(email);
+            loginService.setRememberMe(false);
+
+            loginService.doLogin();
+
+        } catch (IncorrectCredentialsException ex) {
+            facesError("password needs to be at least 5 characters long");
         }
 
-        userRepository.create(user);
-
-        loginService.setPassword(plainTextPassword);
-        loginService.setUsername(email);
-        loginService.setRememberMe(false);
-
-        loginService.doLogin();
 
     }
 
@@ -122,6 +137,10 @@ public class RegistrationService implements Serializable {
 
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
+    }
+
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
 }
 
