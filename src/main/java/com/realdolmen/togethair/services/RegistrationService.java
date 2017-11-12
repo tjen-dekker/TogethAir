@@ -4,6 +4,7 @@ import com.realdolmen.togethair.domain.Role;
 import com.realdolmen.togethair.domain.User;
 import com.realdolmen.togethair.repositories.RolesRepository;
 import com.realdolmen.togethair.repositories.UserRepository;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -83,6 +84,12 @@ public class RegistrationService implements Serializable {
             loginService.setRememberMe(false);
 
             loginService.doLogin();
+
+            setEmail(SecurityUtils.getSubject().getPrincipal().toString());
+
+            loginService.setUsername(email);
+            loginService.setLastName(lastName);
+            loginService.setFirstName(firstName);
 
         } catch (IncorrectCredentialsException ex) {
             facesError("password needs to be at least 5 characters long");
