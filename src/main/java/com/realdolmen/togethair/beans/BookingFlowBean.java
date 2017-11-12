@@ -77,11 +77,8 @@ public class BookingFlowBean implements Serializable{
         } catch (SeatAlreadyTakenException ex){
             resetBooking();
             throw new SeatAlreadyTakenException();
-        }
-        catch (ConstraintViolationException ex){
+        } catch (ConstraintViolationException ex){
             resetBooking();
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
             throw new ConstraintViolationException(ex.getConstraintViolations());
         }
     }
