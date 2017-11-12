@@ -12,9 +12,10 @@
 <ui:composition template="/templates/index-template.xhtml">
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{bookingFlowBean.createPassengers()}"/>
-        
-        
-        <h:form>
+        <!--<f:event type="preRenderView" listener="#{bookingFlowBean.recalculate()}"/>-->
+
+
+        <h:form id="form">
             <ui:repeat value="#{bookingFlowBean.booking.passengers}" var="passenger">
                 <div class="form-group">
                     <h:outputLabel for="firstName">First Name</h:outputLabel>
@@ -25,13 +26,14 @@
                     <h:inputText id="birthdate" value="#{passenger.birthDate}" styleClass="form-control">
                         <f:convertDateTime pattern="dd-MM-yyyy"/>
                     </h:inputText>
-                    <!--This doesnt work at the moment because we need a converter (I think) perhaps it will work when using bootfaces or primefaces-->
                     <p:selectOneMenu id="seat" value="#{passenger.seat}" converter="seatConverter">
                         <f:selectItems value="#{bookingFlowBean.flight.getAvailableSeats()}" var="seat" itemLabel="#{seat.location} (#{seat.travelClassName})" itemValue="#{seat}"/>
+                        <f:ajax listener="#{bookingFlowBean.recalculate()}" render=":form:price" event="change"/>
                     </p:selectOneMenu>
                     <h:message for="seat" styleClass="error"/>
                 </div>
             </ui:repeat>
+            <h:outputText id="price" value="#{bookingFlowBean.price}"/>
             <h:commandButton value="back" action="detail"/>
             <h:commandButton value="next" action="confirm"/>
         </h:form>

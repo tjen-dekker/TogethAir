@@ -19,10 +19,9 @@ import com.realdolmen.togethair.services.PriceCalculationService;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolationException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Named
 @FlowScoped("booking")
@@ -64,15 +63,34 @@ public class BookingFlowBean implements Serializable{
     }
 
     //TODO we should probably catch the exception
-    public void save() throws SeatAlreadyTakenException {
-        for(PassengerDTO p : booking.getPassengers()){
-            Seat s = f.getSeat(p.getSeat().getLocation());
-            Passenger passenger = new Passenger(p.getFirstName(),p.getLastName(),p.getBirthDate(),s);
-            passengerService.create(passenger);
-            b.addPassenger(passenger);
+    public void save() throws SeatAlreadyTakenException, ConstraintViolationException {
+        try{
+            for(PassengerDTO p : booking.getPassengers()){
+                Seat s = f.getSeat(p.getSeat().getLocation());
+                //TODO BUG: when trying to save the availability of a seat will set on false however if something goes wrong with persisting the passenger (ie empty name) the seat will be seen as unavailable
+                Passenger passenger = new Passenger(p.getFirstName(),p.getLastName(),p.getBirthDate(),s);
+                b.addPassenger(passenger);
+            }
+            //TODO there should be checks, can we check stuff after every step or only at the end?
+            bookingService.create(b);
+
+        } catch (SeatAlreadyTakenException ex){
+            resetBooking();
+            throw new SeatAlreadyTakenException();
         }
-        //TODO there should be checks, can we check stuff after every step or only at the end?
-        bookingService.create(b);
+        catch (ConstraintViolationException ex){
+            resetBooking();
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            throw new ConstraintViolationException(ex.getConstraintViolations());
+        }
+    }
+
+    private void resetBooking(){
+        for(Passenger p : b.getPassengers()){
+            p.getSeat().setAvailable(true);
+        }
+        b.setPassengers(new ArrayList<>());
     }
 
     public void setAmountOfPassengers(Integer amount){
@@ -84,22 +102,32 @@ public class BookingFlowBean implements Serializable{
     }
 
     public void createPassengers(){
-        if(amountOfPassengers != booking.getPassengers().size() ) {
-            for (int i = 0; i < amountOfPassengers; i++) {
-                booking.addPassenger(new PassengerDTO());
+        Set<Seat> availableSeats = f.getAvailableSeats();
+        List<PassengerDTO> passengers = booking.getPassengers();
+        if(f.getAvailableSeats().size()<amountOfPassengers){
+            //TODO throw a new exception
+        }
+        if(amountOfPassengers > passengers.size() ) {
+            //booking.setPassengers(new ArrayList<>()); //TODO change now it will remove all user input
+            Iterator<Seat> iterator = availableSeats.iterator();
+            for (int i = passengers.size(); i < amountOfPassengers; i++) {
+                Seat s = iterator.next();
+                booking.addPassenger(new PassengerDTO(new SeatDTO(s)));
+            }
+        }
+        else {
+            for(int i = passengers.size()-1; passengers.size()-1==amountOfPassengers; i--){
+                passengers.remove(i);
             }
         }
     }
 
     public void recalculate() throws SeatAlreadyTakenException {
-        System.out.println("quickmaths");
         //convert BookingDTO to an actual Booking so we can calculate the price
         Booking p = new Booking();
         List<Passenger> ps = new ArrayList<>();
-        System.out.println(booking.getPassengers().size());
         for(PassengerDTO pd : booking.getPassengers()){
             Seat s = f.getSeat(pd.getSeat().getLocation());
-            System.out.println(s.getPrice());
             Passenger passenger = new Passenger();
             passenger.setSeatWithoutChangingAvailability(s);
             ps.add(passenger);
