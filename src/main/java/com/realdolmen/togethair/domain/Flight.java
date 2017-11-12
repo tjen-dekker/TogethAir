@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -51,7 +52,7 @@ public class Flight implements Comparable<Flight>, Serializable{
 	@Future
 	private Date departureDateTime;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@MapKeyColumn(name="volumeDiscountNUmberOfTickets")
 	@Column(name="volumeDiscountPercentage")
 	@CollectionTable(name="volumeDiscounts", joinColumns=@JoinColumn(name="id"))
@@ -135,6 +136,12 @@ public class Flight implements Comparable<Flight>, Serializable{
 	
 	public Set<Seat> getSeats() {
 		return seats;
+	}
+
+	public Set<Seat> getAvailableSeats(){
+		return seats.stream()
+				.filter(s -> s.isAvailable())
+				.collect(Collectors.toSet());
 	}
 
 	public Seat getSeat(String location){

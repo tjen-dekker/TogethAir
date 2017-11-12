@@ -6,6 +6,7 @@ import com.realdolmen.togethair.domain.Seat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by TDKBG57 on 2017-11-08.
@@ -51,6 +52,12 @@ public class FlightDTO {
 	
 	public Set<SeatDTO> getSeats() {
 		return seats;
+	}
+
+	public Set<SeatDTO> getAvailableSeats(){
+		return seats.stream()
+				.filter(s -> s.isAvailable())
+				.collect(Collectors.toSet());
 	}
 	
 	public void setSeats(Set<SeatDTO> seats) {

@@ -8,6 +8,7 @@
 
 <ui:composition template="/templates/index-template.xhtml">
     <ui:define name="content">
+        <f:event type="preRenderView" listener="#{bookingFlowBean.recalculate}"/>
         <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
         <p><h:outputText value="#{bookingFlowBean.flight.from}"/></p>
         <p><h:outputText value="#{bookingFlowBean.flight.to}"/></p>
@@ -19,6 +20,8 @@
             <p><h:outputText value="#{passenger.seat.location}"/></p>
             <p><h:outputText value="#{passenger.birthDate}"/></p>
         </ui:repeat>
+
+        <p><h:outputText value="#{bookingFlowBean.price}" /></p>
 
         <h:form>
             <h:commandButton value="back" action="passengers"/>

@@ -14,12 +14,15 @@ import com.realdolmen.togethair.repositories.PassengerRepository;
 import com.realdolmen.togethair.services.BookingServiceBean;
 import com.realdolmen.togethair.services.FlightServiceBean;
 import com.realdolmen.togethair.services.PassengerServiceBean;
+import com.realdolmen.togethair.services.PriceCalculationService;
 
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Named
 @FlowScoped("booking")
@@ -29,10 +32,10 @@ public class BookingFlowBean implements Serializable{
     private BookingServiceBean bookingService;
     @Inject
     private FlightServiceBean flightService;
-
-
     @Inject
     private PassengerServiceBean passengerService;
+    @Inject
+    private PriceCalculationService priceCalculationService;
 
     //TODO should probably use a DTO or DAO who knows
     private BookingDTO booking;
@@ -40,6 +43,7 @@ public class BookingFlowBean implements Serializable{
     private Flight f;
     private Booking b;
 
+    private float price;
     private Integer amountOfPassengers;
 
     //TODO should get booking details from previous search (probably amount of passengers and flight)
@@ -48,7 +52,7 @@ public class BookingFlowBean implements Serializable{
         b= new Booking();
         f = flightService.findById(1L);
         flight = new FlightDTO(f);
-
+        price = priceCalculationService.calculateTotalPrice(b,false);
     }
 
     public BookingDTO getBooking(){
@@ -82,12 +86,33 @@ public class BookingFlowBean implements Serializable{
     public void createPassengers(){
         if(amountOfPassengers != booking.getPassengers().size() ) {
             for (int i = 0; i < amountOfPassengers; i++) {
-                //TODO change this pls; seat shouldnt be created here
-//                PassengerDTO passengerDTO = new PassengerDTO();
-//                passengerDTO.setSeat(new SeatDTO());
                 booking.addPassenger(new PassengerDTO());
             }
         }
     }
 
+    public void recalculate() throws SeatAlreadyTakenException {
+        System.out.println("quickmaths");
+        //convert BookingDTO to an actual Booking so we can calculate the price
+        Booking p = new Booking();
+        List<Passenger> ps = new ArrayList<>();
+        System.out.println(booking.getPassengers().size());
+        for(PassengerDTO pd : booking.getPassengers()){
+            Seat s = f.getSeat(pd.getSeat().getLocation());
+            System.out.println(s.getPrice());
+            Passenger passenger = new Passenger();
+            passenger.setSeatWithoutChangingAvailability(s);
+            ps.add(passenger);
+        }
+        p.setPassengers(ps);
+        price = priceCalculationService.calculateTotalPrice(p,false);
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 }

@@ -73,6 +73,10 @@ public class Passenger {
 		return seat;
 	}
 
+	public void setSeatWithoutChangingAvailability(Seat seat){
+		this.seat = seat;
+	}
+
 	public void setSeat(Seat seat) throws SeatAlreadyTakenException {
 		if(seat.isAvailable()) {
 			this.seat = seat;
