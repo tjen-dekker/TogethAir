@@ -92,14 +92,11 @@ public class BookingFlowBean implements Serializable{
     }
 
     public void recalculate() throws SeatAlreadyTakenException {
-        System.out.println("quickmaths");
         //convert BookingDTO to an actual Booking so we can calculate the price
         Booking p = new Booking();
         List<Passenger> ps = new ArrayList<>();
-        System.out.println(booking.getPassengers().size());
         for(PassengerDTO pd : booking.getPassengers()){
             Seat s = f.getSeat(pd.getSeat().getLocation());
-            System.out.println(s.getPrice());
             Passenger passenger = new Passenger();
             passenger.setSeatWithoutChangingAvailability(s);
             ps.add(passenger);
