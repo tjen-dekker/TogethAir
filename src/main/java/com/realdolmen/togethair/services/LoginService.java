@@ -68,12 +68,13 @@ public class LoginService implements Serializable {
         } finally {
 
 
-            System.out.println(subject.getPrincipal());
             token.clear();
 
-            setFirstName(userRepository.getFirstNameofCurrentUser(username));
-            setLastName(userRepository.getLastNameofCurrentUser(username));
+
         }
+
+        setFirstName(userRepository.getFirstNameofCurrentUser(username));
+        setLastName(userRepository.getLastNameofCurrentUser(username));
     }
 
     public void logout() {

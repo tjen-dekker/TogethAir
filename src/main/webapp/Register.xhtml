@@ -20,10 +20,10 @@
                 <p:password id="password" required="true" value="#{registrationService.plainTextPassword}"/>
 
 
-                <shiro:hasPermission name="admin">
+                <!--<shiro:hasPermission name="admin">-->
                     <h:outputText value="Admin"/>
                     <p:selectBooleanCheckbox id="Admin" value="#{registrationService.admin}"/>
-                </shiro:hasPermission>
+                <!--</shiro:hasPermission>-->
                 <h:outputText/>
                 <p:commandButton value="Register" action="#{registrationService.register}"/>
             </h:panelGrid>
