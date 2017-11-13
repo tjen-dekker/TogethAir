@@ -4,7 +4,6 @@ import com.realdolmen.togethair.domain.User;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -52,6 +51,9 @@ public class UserRepositoryImpl implements UserRepository {
         return em.createQuery("select U.lastName from User U where email=:userName", String.class).setParameter("userName", username).getSingleResult();
     }
 
-
+    @Override
+    public void update(User user){
+        em.merge(user);
+    }
 
 }

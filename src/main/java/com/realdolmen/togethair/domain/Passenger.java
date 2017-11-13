@@ -32,7 +32,7 @@ public class Passenger {
 	@Past
 	private Date birthDate;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.MERGE)
 	private Seat seat;
 	@Version
 	private int version;

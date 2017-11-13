@@ -29,6 +29,7 @@ public class BookingRepositoryImpl implements BookingRepository{
 
     public Booking create(Booking booking){
         em.persist(booking);
+        em.merge(booking);
         return booking;
     }
 

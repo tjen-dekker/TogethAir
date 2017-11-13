@@ -2,7 +2,6 @@ package com.realdolmen.togethair.domain;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -17,7 +16,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@OneToMany(orphanRemoval = true)
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.MERGE) //TODO change this to lazy but fix flow
 	private List<Booking> bookings;
 
 	@NotNull

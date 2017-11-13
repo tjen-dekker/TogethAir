@@ -24,4 +24,5 @@ public interface UserRepository {
 
     String getLastNameofCurrentUser(String username);
 
+    void update(User u);
 }

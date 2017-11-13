@@ -27,8 +27,6 @@ public class PriceCalculationService implements Serializable{
 		//get margin and discounts
 		float marginOfProfit = Float.parseFloat(bundle.getString("marginOfProfitPercentage"))/100;
 		float creditcardDiscount = Float.parseFloat(bundle.getString("creditcardDiscountPercentage"))/100;
-		System.out.println(marginOfProfit);
-		System.out.println(creditcardDiscount);
 		if(passengers.isEmpty()) return 0;
 		float priceOverride = passengers.get(0).getSeat().getFlight().getPriceOverridePercentage()/100;
 		float volumeDiscount=0;
@@ -52,7 +50,7 @@ public class PriceCalculationService implements Serializable{
 		totalPrice *= 1+marginOfProfit;
 
 		//employee Override
-		totalPrice*=1+priceOverride;
+		totalPrice*=priceOverride;
 		
 		//apply volume discount
 		totalPrice*=1-volumeDiscount;

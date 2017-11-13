@@ -16,7 +16,7 @@ public class Booking {
 	private UUID id = UUID.randomUUID();
 
 	@NotNull
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Passenger> passengers = new ArrayList<>();
 
 	public Booking(){}
