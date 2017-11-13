@@ -88,17 +88,12 @@ public class LoginService implements Serializable {
     }
 
     private void generatePassword(User user, String plainTextPassword) {
-//        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
-//        Object salt = rng.nextBytes();
-        // Now hash the plain-text password with the random salt and multiple
-        // iterations and then Base64-encode the value (requires less space than
-        // Hex):
 
         if (plainTextPassword.length() > 5) {
             setHashedPassword(new Sha256Hash(plainTextPassword).toBase64());
 
             user.setPassword(hashedPassword);
-//        user.setSalt(salt.toString());
+
         } else throw new IncorrectCredentialsException();
 
     }
