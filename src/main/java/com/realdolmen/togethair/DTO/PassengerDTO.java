@@ -19,6 +19,10 @@ public class PassengerDTO {
     public PassengerDTO(){
 
     }
+
+    public PassengerDTO(SeatDTO seat){
+        setSeat(seat);
+    }
 	
 	public PassengerDTO(Passenger p) {
 	    setBirthDate(p.getBirthDate());
@@ -54,6 +58,7 @@ public class PassengerDTO {
     }
 
     public void setSeat(SeatDTO seat) {
+        seat.setAvailable(false);
         this.seat = seat;
     }
 }

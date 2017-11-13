@@ -16,7 +16,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@OneToMany(orphanRemoval = true)
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.MERGE) //TODO change this to lazy but fix flow
 	private List<Booking> bookings;
 
 	@NotNull
@@ -79,5 +79,9 @@ public class User {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	public void addBooking(Booking booking){
+		bookings.add(booking);
 	}
 }

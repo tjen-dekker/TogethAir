@@ -6,23 +6,16 @@ import com.realdolmen.togethair.DTO.FlightDTO;
 import com.realdolmen.togethair.DTO.PassengerDTO;
 import com.realdolmen.togethair.DTO.SeatDTO;
 import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
-import com.realdolmen.togethair.domain.Booking;
-import com.realdolmen.togethair.domain.Flight;
-import com.realdolmen.togethair.domain.Passenger;
-import com.realdolmen.togethair.domain.Seat;
-import com.realdolmen.togethair.repositories.PassengerRepository;
-import com.realdolmen.togethair.services.BookingServiceBean;
-import com.realdolmen.togethair.services.FlightServiceBean;
-import com.realdolmen.togethair.services.PassengerServiceBean;
-import com.realdolmen.togethair.services.PriceCalculationService;
+import com.realdolmen.togethair.domain.*;
+import com.realdolmen.togethair.services.*;
+import org.apache.shiro.SecurityUtils;
 
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolationException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Named
 @FlowScoped("booking")
@@ -36,18 +29,25 @@ public class BookingFlowBean implements Serializable{
     private PassengerServiceBean passengerService;
     @Inject
     private PriceCalculationService priceCalculationService;
+    @Inject
+    private UserServiceBean userService;
 
     //TODO should probably use a DTO or DAO who knows
     private BookingDTO booking;
     private FlightDTO flight;
     private Flight f;
     private Booking b;
+    private User user;
 
     private float price;
     private Integer amountOfPassengers;
 
     //TODO should get booking details from previous search (probably amount of passengers and flight)
     public void prepare(){
+        //if(SecurityUtils.getSubject().isAuthenticated())
+        if(SecurityUtils.getSubject().getPrincipal() != null){
+            user = userService.getUserByEmail(SecurityUtils.getSubject().getPrincipal().toString());
+        }
         booking = new BookingDTO();
         b= new Booking();
         f = flightService.findById(1L);
@@ -64,15 +64,37 @@ public class BookingFlowBean implements Serializable{
     }
 
     //TODO we should probably catch the exception
-    public void save() throws SeatAlreadyTakenException {
-        for(PassengerDTO p : booking.getPassengers()){
-            Seat s = f.getSeat(p.getSeat().getLocation());
-            Passenger passenger = new Passenger(p.getFirstName(),p.getLastName(),p.getBirthDate(),s);
-            passengerService.create(passenger);
-            b.addPassenger(passenger);
+    public void save() throws SeatAlreadyTakenException, ConstraintViolationException {
+        try{
+            for(PassengerDTO p : booking.getPassengers()){
+                Seat s = f.getSeat(p.getSeat().getLocation());
+                Passenger passenger = new Passenger(p.getFirstName(),p.getLastName(),p.getBirthDate(),s);
+                b.addPassenger(passenger);
+            }
+            //TODO there should be checks, can we check stuff after every step or only at the end?
+
+            if(user!=null){
+                user.addBooking(b);
+                userService.update(user);
+            }
+            else{
+                bookingService.create(b);
+            }
+
+        } catch (SeatAlreadyTakenException ex){
+            resetBooking();
+            throw new SeatAlreadyTakenException();
+        } catch (ConstraintViolationException ex){
+            resetBooking();
+            throw new ConstraintViolationException(ex.getConstraintViolations());
         }
-        //TODO there should be checks, can we check stuff after every step or only at the end?
-        bookingService.create(b);
+    }
+
+    private void resetBooking(){
+        for(Passenger p : b.getPassengers()){
+            p.getSeat().setAvailable(true);
+        }
+        b.setPassengers(new ArrayList<>());
     }
 
     public void setAmountOfPassengers(Integer amount){
@@ -84,9 +106,32 @@ public class BookingFlowBean implements Serializable{
     }
 
     public void createPassengers(){
-        if(amountOfPassengers != booking.getPassengers().size() ) {
-            for (int i = 0; i < amountOfPassengers; i++) {
-                booking.addPassenger(new PassengerDTO());
+        Set<Seat> availableSeats = f.getAvailableSeats();
+        List<PassengerDTO> passengers = booking.getPassengers();
+        if(f.getAvailableSeats().size()<amountOfPassengers){
+            //TODO throw a new exception not enough free seats
+        }
+        if(amountOfPassengers==0){
+            //TODO throw another exception that says that a booking should have passengers
+        }
+        if(amountOfPassengers > passengers.size() ) {
+            Iterator<Seat> iterator = availableSeats.iterator();
+            if(SecurityUtils.getSubject().getPrincipal()!=null) {
+                PassengerDTO user = new PassengerDTO();
+                user.setFirstName(this.user.getFirstName());
+                user.setLastName(this.user.getLastName());
+                user.setSeat(new SeatDTO(iterator.next()));
+                passengers.add(user);
+            }
+
+            for (int i = passengers.size(); i < amountOfPassengers; i++) {
+                Seat s = iterator.next();
+                booking.addPassenger(new PassengerDTO(new SeatDTO(s)));
+            }
+        }
+        else {
+            for(int i = passengers.size()-1; passengers.size()-1==amountOfPassengers; i--){
+                passengers.remove(i);
             }
         }
     }
