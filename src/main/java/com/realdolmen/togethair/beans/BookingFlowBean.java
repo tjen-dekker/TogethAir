@@ -102,7 +102,10 @@ public class BookingFlowBean implements Serializable{
         Set<Seat> availableSeats = f.getAvailableSeats();
         List<PassengerDTO> passengers = booking.getPassengers();
         if(f.getAvailableSeats().size()<amountOfPassengers){
-            //TODO throw a new exception
+            //TODO throw a new exception not enough free seats
+        }
+        if(amountOfPassengers==0){
+            //TODO throw another exception that says that a booking should have passengers
         }
         if(amountOfPassengers > passengers.size() ) {
             //booking.setPassengers(new ArrayList<>()); //TODO change now it will remove all user input
