@@ -19,4 +19,10 @@ public interface UserRepository {
     public User create(User user);
 
     public User getUserByEmail(String email);
+
+    String getFirstNameofCurrentUser(String username);
+
+    String getLastNameofCurrentUser(String username);
+
+    String getSaltForUser(String password);
 }
