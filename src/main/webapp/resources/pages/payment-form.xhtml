@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition>
+    <b:panel title="Payment" look="primary" collapsible="false">
+        <b:form>
+            <b:inputText placeholder="5000xxxxxxxxxxx" mediumScreen="full" fieldSize="lg">
+                <f:facet name="prepend">
+                    <h:outputText value="Credit Card Number" />
+                </f:facet>
+            </b:inputText>
+            <b:inputText placeholder="John Doe" mediumScreen="full" fieldSize="lg">
+                <f:facet name="prepend">
+                    <h:outputText value="Name" />
+                </f:facet>
+            </b:inputText>
+            <b:inputText placeholder="dd/mm" mediumScreen="half" fieldSize="lg">
+                <f:facet name="prepend">
+                    <h:outputText value="Valid Until" />
+                </f:facet>
+            </b:inputText>
+            <b:inputText placeholder="xxx" mediumScreen="half" fieldSize="lg">
+                <f:facet name="append">
+                    <h:outputText value="ccv" />
+                </f:facet>
+            </b:inputText>
+            <b:commandButton action="index.xhtml" value="Search" ajax="false" fieldSize="lg"/>
+        </b:form>
+    </b:panel>
+</ui:composition>
+</html>
