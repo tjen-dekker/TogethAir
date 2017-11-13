@@ -19,10 +19,12 @@ public class Booking {
 
     @NotNull
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn
     private List<Passenger> passengers = new ArrayList<>();
 
     public Booking() {
     }
+
 
     public Booking(List<Passenger> passengers) {
         this.passengers = passengers;
@@ -47,7 +49,9 @@ public class Booking {
     public Flight getFlight() throws Exception {
         if (!getPassengers().isEmpty()) {
             return getPassengers().get(0).getFlight();
-        } else throw new PassengerListIsemptyException("passenger list is empty");
+        } else {
+            throw new PassengerListIsemptyException("passenger list is empty");
+        }
 
     }
 }
