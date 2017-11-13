@@ -1,11 +1,7 @@
 package com.realdolmen.togethair.domain;
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -16,7 +12,7 @@ public class RolesPermission implements Serializable {
     private static final long serialVersionUID = 572257273198993868L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column

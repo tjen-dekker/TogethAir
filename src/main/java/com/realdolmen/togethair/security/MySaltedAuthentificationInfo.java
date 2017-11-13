@@ -1,7 +1,9 @@
 package com.realdolmen.togethair.security;
 
 import org.apache.shiro.authc.SaltedAuthenticationInfo;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.SimpleByteSource;
@@ -9,7 +11,7 @@ import org.apache.shiro.util.SimpleByteSource;
 /**
  * Created by TDKBG57 on 2017-11-09.
  */
-public class MySaltedAuthentificationInfo implements SaltedAuthenticationInfo {
+public class MySaltedAuthentificationInfo extends SimpleAuthenticationInfo {
     private static final long serialVersionUID = -5467967895187234984L;
 
     private final String username;
