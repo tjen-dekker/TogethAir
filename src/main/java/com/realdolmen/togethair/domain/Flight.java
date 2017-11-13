@@ -63,6 +63,9 @@ public class Flight implements Comparable<Flight>, Serializable{
 	@DecimalMin(value = "50")
 	private int priceOverridePercentage=100;
 	
+	@Version
+	private int version;
+	
 	public int getFreeSeatsOfClass(TravelClass travelClass){
 		int count =0;
 		for(Seat s : seats){
@@ -187,18 +190,6 @@ public class Flight implements Comparable<Flight>, Serializable{
 	public void setDepartureDateTime(Date departureDateTime) {
 		this.departureDateTime = departureDateTime;
 	}
-	
-	public static Comparator<Flight> cheapestEconomyComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY),f2.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY));
-	};
-	
-	public static Comparator<Flight> cheapestBusinessComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS),f2.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS));
-	};
-	
-	public static Comparator<Flight> cheapestFirstClassComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS),f2.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS));
-	};
 	
 	@Override   //Compare on cheapest ticket
 	public int compareTo(Flight f) {
