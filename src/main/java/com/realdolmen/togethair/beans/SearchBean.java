@@ -28,7 +28,7 @@ public class SearchBean {
 	private Date date1;
 	private Date date2;
 	private TravelClass travelClass = TravelClass.ECONOMY;
-	int minNrOfSeats;
+	private int minNrOfSeats;
 	
 	public void search(AjaxBehaviorEvent event) {
 		searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);

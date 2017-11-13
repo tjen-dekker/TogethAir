@@ -29,7 +29,7 @@
                     </f:facet>
                 </b:inputText>
                 <b:inputText mediumScreen="one-third" mask="integer"
-                             placeholder="Madrid"
+                             placeholder="1"
                              render-label="false" fieldSize="lg"
                              value="#{searchBean.minNrOfSeats}">
                     <f:facet name="append">
@@ -67,27 +67,28 @@
             </b:commandButton>
         </b:form>
     </b:jumbotron>
-
-    <b:form id="results">
+    <h:panelGroup id="results">
         <b:jumbotron styleClass="search-background" rendered="#{not empty searchBean.searchResults}">
             <h2>Results</h2>
             <b:dataTable value="#{searchBean.searchResults}"
                          var="flight"
                          searching="false">
 
-                <b:dataTableColumn value="#{flight.flightCompany}" label="provider"/>
-                <b:dataTableColumn value="#{flight.flightCode}" label="flight code"/>
-                <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
-                <b:dataTableColumn value="#{flight.duration}" label="estimated duration"/>
-                <b:dataTableColumn value="#{flight.priceOfCheapestSeat}"  label="price" order="asc"/>
-                <b:dataTableColumn label="controls" >
-                    <b:commandButton value="book" look="success" action="booking"/>
-                    <h:inputHidden id="flightId" value="#{flight.id}"/>
-                </b:dataTableColumn>
+                    <b:dataTableColumn value="#{flight.flightCompany}" label="provider"/>
+                    <b:dataTableColumn value="#{flight.flightCode}" label="flight code"/>
+                    <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
+                    <b:dataTableColumn value="#{flight.duration}" label="estimated duration"/>
+                    <b:dataTableColumn value="#{flight.priceOfCheapestSeat}"  label="price" order="asc"/>
+                    <b:dataTableColumn label="controls" >
+                        <b:form>
+                            <b:commandButton value="book" look="success" action="booking"/>
+                            <h:inputHidden id="flightId" value="#{flight.id}"/>
+                            <h:inputHidden id="amountOfPassengers" value="#{searchBean.minNrOfSeats}"/>
+                        </b:form>
+                    </b:dataTableColumn>
 
             </b:dataTable>
-            <h:inputHidden id="nrOfPassengers" value="#{searchBean.minNrOfSeats}"/>
         </b:jumbotron>
-    </b:form>
+    </h:panelGroup>
 </ui:composition>
 </html>

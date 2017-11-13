@@ -10,6 +10,7 @@ import com.realdolmen.togethair.domain.*;
 import com.realdolmen.togethair.services.*;
 import org.apache.shiro.SecurityUtils;
 
+import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -48,9 +49,24 @@ public class BookingFlowBean implements Serializable{
         if(SecurityUtils.getSubject().getPrincipal() != null){
             user = userService.getUserByEmail(SecurityUtils.getSubject().getPrincipal().toString());
         }
+        //String flightId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("flightId");
+        Iterator<String> it = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterNames();
+        Map<String,String> parameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String flightId="";
+        while(it.hasNext()){
+            FacesContext.getCurrentInstance().getExternalContext().getRequestParameterNames();
+            String param = it.next();
+            if(param.contains("flightId")){
+                flightId = parameters.get(param);
+            }
+            else if(param.contains("amountOfPassengers")){
+                amountOfPassengers = Integer.parseInt(parameters.get(param));
+            }
+        }
+
         booking = new BookingDTO();
         b= new Booking();
-        f = flightService.findById(1L);
+        f = flightService.findById(Long.parseLong(flightId));
         flight = new FlightDTO(f);
         price = priceCalculationService.calculateTotalPrice(b,false);
     }
