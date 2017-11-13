@@ -3,9 +3,7 @@ package com.realdolmen.togethair.DTO;
 import com.realdolmen.togethair.domain.Flight;
 import com.realdolmen.togethair.domain.Seat;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +25,10 @@ public class FlightDTO {
 	private Date departureDateTime;
 	
 	private float priceOfCheapestSeat;
-
+	
+	private Map<Integer, Integer> volumeDiscounts;
+	private int priceOverridePercentage;
+	
 	public FlightDTO(){
 
 	}
@@ -41,6 +42,8 @@ public class FlightDTO {
 		setFrom(new AirportDTO(flight.getFrom()));
 		setTo(new AirportDTO(flight.getTo()));
 		setPriceOfCheapestSeat(flight.getPriceOfCheapestSeat());
+		setVolumeDiscounts(flight.getVolumeDiscounts());
+		setPriceOverridePercentage(flight.getPriceOverridePercentage());
 
 		for (Seat s : flight.getSeats()){
 			seats.add(new SeatDTO(s));
@@ -123,5 +126,21 @@ public class FlightDTO {
 	
 	public void setDepartureDateTime(Date departureDateTime) {
 		this.departureDateTime = departureDateTime;
+	}
+	
+	public Map<Integer, Integer> getVolumeDiscounts() {
+		return volumeDiscounts;
+	}
+	
+	public void setVolumeDiscounts(Map<Integer, Integer> volumeDiscounts) {
+		this.volumeDiscounts = volumeDiscounts;
+	}
+	
+	public int getPriceOverridePercentage() {
+		return priceOverridePercentage;
+	}
+	
+	public void setPriceOverridePercentage(int priceOverridePercentage) {
+		this.priceOverridePercentage = priceOverridePercentage;
 	}
 }
