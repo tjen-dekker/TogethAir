@@ -14,4 +14,6 @@ public interface SeatRepository {
     public Seat findById(Long id);
 
     public Seat create(Seat seat);
+
+    void update(Seat seat);
 }

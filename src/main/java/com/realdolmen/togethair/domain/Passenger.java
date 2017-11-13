@@ -3,7 +3,6 @@ package com.realdolmen.togethair.domain;
 import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -13,8 +12,6 @@ import java.util.Date;
 
 @Entity
 @ManagedBean
-@SessionScoped
-//todo check if this is rly necessary
 public class Passenger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +19,12 @@ public class Passenger {
 	
 	@NotNull
 	@Column(length = 35)
-	@Pattern(regexp = "/^[a-z ,.'-]+$/i")
+	@Pattern(regexp = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
 	private String firstName;
 	
 	@NotNull
 	@Column(length = 35)
-	@Pattern(regexp = "/^[a-z ,.'-]+$/i")
+	@Pattern(regexp = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
 	private String lastName;
 	
 	@NotNull
@@ -36,12 +33,20 @@ public class Passenger {
 	private Date birthDate;
 	
 	@OneToOne
-	@NotNull
 	private Seat seat;
 	@Version
 	private int version;
 
-	
+
+	public Passenger(){}
+
+	public Passenger(String firstName, String lastName, Date birthDate, Seat seat) throws SeatAlreadyTakenException {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		setSeat(seat);
+	}
+
 	public String getlastName() {
 		return lastName;
 	}
@@ -68,6 +73,10 @@ public class Passenger {
 		return seat;
 	}
 
+	public void setSeatWithoutChangingAvailability(Seat seat){
+		this.seat = seat;
+	}
+
 	public void setSeat(Seat seat) throws SeatAlreadyTakenException {
 		if(seat.isAvailable()) {
 			this.seat = seat;
@@ -76,6 +85,14 @@ public class Passenger {
 		else
 			throw new SeatAlreadyTakenException();
 		
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	@Override
@@ -100,5 +117,16 @@ public class Passenger {
 		result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
 		result = 31 * result + (seat != null ? seat.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Passenger{" +
+				"id=" + id +
+				", lastName='" + lastName + '\'' +
+				", firstName='" + firstName + '\'' +
+				", birthDate=" + birthDate +
+				", seat=" + seat +
+				'}';
 	}
 }

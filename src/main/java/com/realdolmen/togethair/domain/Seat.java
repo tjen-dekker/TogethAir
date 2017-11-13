@@ -36,10 +36,19 @@ public class Seat {
 	
 	@ManyToOne
 	private Flight flight;
-	
-	@Version
-	private int version = 0;
-	
+
+    @Version
+    private int version;
+
+	public Seat(){}
+
+	public Seat(String location, TravelClass travelClassName, float price, boolean available) {
+		this.location = location;
+		this.price = price;
+		this.travelClassName = travelClassName;
+		this.available = available;
+	}
+
 	public String getLocation() {
 		return location;
 	}
@@ -84,6 +93,9 @@ public class Seat {
 		this.flight = flight;
 	}
 
+	public Long getId() {
+		return id;
+	}
 
 	@Override
 	public boolean equals(Object o) {

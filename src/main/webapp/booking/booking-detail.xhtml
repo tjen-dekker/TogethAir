@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/templates/template.xhtml">
+    <ui:composition template="/templates/index-template.xhtml">
         <ui:define name="content">
            <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
            <p><h:outputText value="#{bookingFlowBean.flight.from}"/></p>
@@ -14,6 +14,8 @@
            <p><h:outputText value="#{bookingFlowBean.flight.departureDateTime}"/></p>
 
             <h:form>
+                <h:outputLabel for="amountOfPassengers">Amount of tickets</h:outputLabel>
+                <h:inputText id="amountOfPassengers" value="#{bookingFlowBean.amountOfPassengers}"/>
                 <h:commandButton value="next" action="passengers"/>
             </h:form>
 

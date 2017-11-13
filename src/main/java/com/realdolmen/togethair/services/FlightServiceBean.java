@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.services;
 
 
+import com.realdolmen.togethair.DTO.FlightDTO;
 import com.realdolmen.togethair.domain.Flight;
 import com.realdolmen.togethair.repositories.FlightRepository;
 

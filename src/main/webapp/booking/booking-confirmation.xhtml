@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/index-template.xhtml">
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{bookingFlowBean.recalculate}"/>
+        <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
+        <p><h:outputText value="#{bookingFlowBean.flight.from}"/></p>
+        <p><h:outputText value="#{bookingFlowBean.flight.to}"/></p>
+        <p><h:outputText value="#{bookingFlowBean.flight.departureDateTime}"/></p>
+
+        <ui:repeat value="#{bookingFlowBean.booking.passengers}" var="passenger">
+            <p><h:outputText value="#{passenger.firstName}"/></p>
+            <p><h:outputText value="#{passenger.lastName}"/></p>
+            <p><h:outputText value="#{passenger.seat.location}"/></p>
+            <p><h:outputText value="#{passenger.birthDate}"/></p>
+        </ui:repeat>
+
+        <p><h:outputText value="#{bookingFlowBean.price}" /></p>
+
+        <h:form>
+            <h:commandButton value="back" action="passengers"/>
+            <h:commandButton value="confirm" action="end"/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
+
+</html>

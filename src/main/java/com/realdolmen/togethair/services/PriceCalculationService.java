@@ -4,23 +4,32 @@ import com.realdolmen.togethair.domain.Booking;
 import com.realdolmen.togethair.domain.Passenger;
 import com.realdolmen.togethair.domain.Seat;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by GWTBF10 on 10/11/2017.
  */
-public class PriceCalculationService {
+@RequestScoped
+public class PriceCalculationService implements Serializable{
 	
-	@ManagedProperty("#{priceCalculation}")
-	private ResourceBundle bundle;
+	//@ManagedProperty("#{priceCalculation}")
+	@Inject
+	private PropertyResourceBundle bundle;
 	
 	public float calculateTotalPrice(Booking booking, boolean usedCreditCard){
 		List<Passenger> passengers = booking.getPassengers();
-		
+
 		//get margin and discounts
-		float marginOfProfit = Integer.parseInt(bundle.getString("marginOfProfitPercentage"))/100;
-		float creditcardDiscount = Integer.parseInt(bundle.getString("creditcardDiscountPercentage"))/100;
+		float marginOfProfit = Float.parseFloat(bundle.getString("marginOfProfitPercentage"))/100;
+		float creditcardDiscount = Float.parseFloat(bundle.getString("creditcardDiscountPercentage"))/100;
+		System.out.println(marginOfProfit);
+		System.out.println(creditcardDiscount);
+		if(passengers.isEmpty()) return 0;
 		float priceOverride = passengers.get(0).getSeat().getFlight().getPriceOverridePercentage()/100;
 		float volumeDiscount=0;
 		
@@ -43,7 +52,7 @@ public class PriceCalculationService {
 		totalPrice *= 1+marginOfProfit;
 
 		//employee Override
-		totalPrice*=priceOverride;
+		totalPrice*=1+priceOverride;
 		
 		//apply volume discount
 		totalPrice*=1-volumeDiscount;

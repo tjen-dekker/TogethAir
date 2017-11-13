@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.DTO;
 
 import com.realdolmen.togethair.domain.Passenger;
+import com.realdolmen.togethair.domain.Seat;
 
 import java.util.Date;
 
@@ -14,6 +15,10 @@ public class PassengerDTO {
     private String firstName;
     private Date birthDate;
     private SeatDTO seat;
+
+    public PassengerDTO(){
+
+    }
 	
 	public PassengerDTO(Passenger p) {
 	    setBirthDate(p.getBirthDate());
@@ -22,7 +27,7 @@ public class PassengerDTO {
 	    setSeat(new SeatDTO(p.getSeat()));
 	}
 	
-	public String getlastName() {
+	public String getLastName() {
         return lastName;
     }
 

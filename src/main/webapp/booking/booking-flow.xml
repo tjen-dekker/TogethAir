@@ -15,10 +15,13 @@
             <vdl-document>/booking/booking-passengers.xhtml</vdl-document>
         </view>
 
+        <view id="confirm">
+            <vdl-document>/booking/booking-confirmation.xhtml</vdl-document>
+        </view>
 
 
         <flow-return id="end">
-            <from-outcome>/defaultPage.xhtml</from-outcome>
+            <from-outcome>/index.xhtml</from-outcome>
         </flow-return>
 
         <initializer>#{bookingFlowBean.prepare()}</initializer>
