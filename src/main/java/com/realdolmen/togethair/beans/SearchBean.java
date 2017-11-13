@@ -29,10 +29,12 @@ public class SearchBean {
 	private Date date2;
 	private TravelClass travelClass = TravelClass.ECONOMY;
 	int minNrOfSeats;
+	boolean firstTime=true;
 	
 	public void search(AjaxBehaviorEvent event) {
 		searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
-		System.out.print(event.toString());
+		if(isFirstTime())
+			setFirstTime(false);
 	}
 	
 	public String getFromCityName() {
@@ -89,5 +91,13 @@ public class SearchBean {
 	
 	public void setSearchResults(List<FlightDTO> searchResults) {
 		this.searchResults = searchResults;
+	}
+	
+	public boolean isFirstTime() {
+		return firstTime;
+	}
+	
+	public void setFirstTime(boolean firstTime) {
+		this.firstTime = firstTime;
 	}
 }
