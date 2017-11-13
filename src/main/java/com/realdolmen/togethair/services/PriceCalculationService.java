@@ -50,7 +50,7 @@ public class PriceCalculationService implements Serializable{
 		totalPrice *= 1+marginOfProfit;
 
 		//employee Override
-		totalPrice*=1+priceOverride;
+		totalPrice*=priceOverride;
 		
 		//apply volume discount
 		totalPrice*=1-volumeDiscount;
