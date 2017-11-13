@@ -43,8 +43,7 @@ public class SearchServiceBean {
 
 	public List<FlightDTO> findFromToBetweenDates(String fromCityName, String toCityName,Date date1, Date date2,TravelClass travelClass,int minNrOfFreeSeats){
 		List<Flight> flightList = flightRepository.findFromToBetweenDates(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date1, date2);
-		filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats);
-		return mapFlightList(flightList);
+		return mapFlightList(filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats));
 	}
 	
 	private List<Flight>filterMinNrOfFreeSeatsOfClass(List<Flight> flights, TravelClass travelClass, int minNrOfFreeSeats){

@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition>
     <!--<h1>Home</h1>-->
+    <!-- TODO: FIX THIS DIV -->
     <div style="height: 7em;"/>
     <b:jumbotron styleClass="search-background">
         <h1>To Get Air</h1>
@@ -33,7 +34,7 @@
                              render-label="false" fieldSize="lg"
                              value="#{searchBean.minNrOfSeats}">
                     <f:facet name="append">
-                        <h:outputText value="Passengers" />
+                        <h:outputText value="Passengers"/>
                     </f:facet>
                 </b:inputText>
             </b:formGroup>
@@ -48,6 +49,7 @@
                                   showTime="false"
                                   useCurrent="true"
                                   fieldSize="lg"
+                                  format="DD/MM/YYYY"
                                   placeholder="From"/>
                 <b:dateTimePicker mediumScreen="half"
                                   value="#{searchBean.date2}"
@@ -58,7 +60,8 @@
                                   showTime="false"
                                   useCurrent="true"
                                   fieldSize="lg"
-                                  placeholder="Untill"/>
+                                  format="DD/MM/YYYY"
+                                  placeholder="Until"/>
             </b:formGroup>
             <b:commandButton value="Search" look="success">
                 <f:ajax listener="#{searchBean.search}"
@@ -67,10 +70,13 @@
             </b:commandButton>
         </b:form>
     </b:jumbotron>
-    <h:panelGroup id="results">
-        <b:jumbotron styleClass="search-background" rendered="#{not empty searchBean.searchResults}">
+
+    <h:panelGroup id="results" >
+        <b:jumbotron styleClass="search-background" rendered="#{not searchBean.firstTime}">
             <h2>Results</h2>
+            <b:alert rendered="#{empty searchBean.searchResults}">no flights were found using the current filter criteria.</b:alert>
             <b:dataTable value="#{searchBean.searchResults}"
+                         rendered="#{not empty searchBean.searchResults}"
                          var="flight"
                          searching="false">
 
