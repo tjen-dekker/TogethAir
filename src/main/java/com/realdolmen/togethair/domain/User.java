@@ -5,6 +5,7 @@ import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class User {
     private Long id;
 
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.MERGE) //TODO change this to lazy but fix flow
-	private List<Booking> bookings;
+	private List<Booking> bookings = new ArrayList<>();
 
 	@NotNull
 	@Column(length = 35)
@@ -70,6 +71,10 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void addBooking(Booking booking){
+		if(!bookings.contains(booking))bookings.add(booking);
 	}
 
 }
