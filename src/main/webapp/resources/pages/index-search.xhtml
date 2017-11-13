@@ -68,10 +68,12 @@
         </b:form>
     </b:jumbotron>
 
-    <b:form id="results">
-        <b:jumbotron styleClass="search-background" rendered="#{not empty searchBean.searchResults}">
+    <b:form id="results" >
+        <b:jumbotron styleClass="search-background" rendered="#{not searchBean.firstTime}">
             <h2>Results</h2>
+            <b:alert rendered="#{empty searchBean.searchResults}">no flights were found using the current filter criteria.</b:alert>
             <b:dataTable value="#{searchBean.searchResults}"
+                         rendered="#{not empty searchBean.searchResults}"
                          var="flight"
                          searching="false">
 
