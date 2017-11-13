@@ -1,7 +1,9 @@
 package com.realdolmen.togethair.beans;
 
 import com.realdolmen.togethair.DTO.FlightDTO;
+import com.realdolmen.togethair.DTO.SeatDTO;
 import com.realdolmen.togethair.domain.TravelClass;
+import com.realdolmen.togethair.services.PriceCalculationService;
 import com.realdolmen.togethair.services.SearchServiceBean;
 
 import javax.faces.bean.ManagedBean;
@@ -11,6 +13,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.PropertyResourceBundle;
 
 /**
  * Created by GWTBF10 on 8/11/2017.
@@ -20,6 +23,9 @@ import java.util.List;
 public class SearchBean {
 	@Inject
 	private SearchServiceBean searchService;
+	
+	@Inject
+	private PriceCalculationService priceCalculationService;
 	
 	private List<FlightDTO> searchResults = new ArrayList<>();
 	
@@ -32,9 +38,14 @@ public class SearchBean {
 	private boolean firstTime=true;
 	
 	public void search(AjaxBehaviorEvent event) {
-		searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
 		if(isFirstTime())
 			setFirstTime(false);
+		searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+		
+		//calculate actual price for cheapest seats
+		for (FlightDTO result : searchResults) {
+			result.setPriceOfCheapestSeat(priceCalculationService.calculateTotalPrice(result.getPriceOfCheapestSeat(),result.getPriceOverridePercentage(),result.getVolumeDiscounts(),minNrOfSeats));
+		}
 	}
 	
 	public String getFromCityName() {

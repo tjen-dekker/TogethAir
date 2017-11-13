@@ -60,6 +60,39 @@ public class PriceCalculationService implements Serializable{
 			totalPrice *= 1-creditcardDiscount;
 		}
 		
+		return totalPrice;
+	}
+	
+	public float calculateTotalPrice(float baseprice, int overridePercentage, Map<Integer, Integer> volumeDiscounts, int nrOfPassengers){
+		
+		//get margin and discounts
+		float marginOfProfit = Float.parseFloat(bundle.getString("marginOfProfitPercentage"))/100;
+		
+		float priceOverride = overridePercentage/100;
+		float volumeDiscount=0;
+		
+		//check highest applicable volume discount
+		Set<Integer> volumeDiscountsKeyset = volumeDiscounts.keySet();
+		int highestApplicable=0;
+		for (Integer i : volumeDiscountsKeyset) {
+			highestApplicable = (nrOfPassengers > i ? i : highestApplicable);
+		}
+		if(highestApplicable>0)
+			volumeDiscount = volumeDiscounts.get(highestApplicable)/100;
+		
+		float totalPrice=0F;
+		
+		//baseprice for each seat
+		totalPrice =  baseprice;
+		
+		//adding our own margin
+		totalPrice *= 1+marginOfProfit;
+		
+		//employee Override
+		totalPrice*=priceOverride;
+		
+		//apply volume discount
+		totalPrice*=1-volumeDiscount;
 		
 		return totalPrice;
 	}

@@ -68,7 +68,7 @@
         </b:form>
     </b:jumbotron>
 
-    <b:form id="results" >
+    <h:panelGroup id="results" >
         <b:jumbotron styleClass="search-background" rendered="#{not searchBean.firstTime}">
             <h2>Results</h2>
             <b:alert rendered="#{empty searchBean.searchResults}">no flights were found using the current filter criteria.</b:alert>
@@ -83,13 +83,14 @@
                 <b:dataTableColumn value="#{flight.duration}" label="estimated duration"/>
                 <b:dataTableColumn value="#{flight.priceOfCheapestSeat}"  label="price" order="asc"/>
                 <b:dataTableColumn label="controls" >
-                    <b:commandButton value="book" look="success" action="booking"/>
-                    <h:inputHidden id="flightId" value="#{flight.id}"/>
+                    <b:form>
+                        <b:commandButton value="book" look="success" action="booking"/>
+                        <h:inputHidden id="flightId" value="#{flight.id}"/>
+                    </b:form>
                 </b:dataTableColumn>
 
             </b:dataTable>
-            <h:inputHidden id="nrOfPassengers" value="#{searchBean.minNrOfSeats}"/>
         </b:jumbotron>
-    </b:form>
+    </h:panelGroup>
 </ui:composition>
 </html>
