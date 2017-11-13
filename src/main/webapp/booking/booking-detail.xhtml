@@ -4,21 +4,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:b="http://bootsfaces.net/ui">
 
     <ui:composition template="/templates/index-template.xhtml">
         <ui:define name="content">
-           <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
-           <p><h:outputText value="#{bookingFlowBean.flight.from}"/></p>
-           <p><h:outputText value="#{bookingFlowBean.flight.to}"/></p>
-           <p><h:outputText value="#{bookingFlowBean.flight.departureDateTime}"/></p>
+            <div style="height: 7em;"/>
+            <b:jumbotron>
 
-            <h:form>
-                <h:outputLabel for="amountOfPassengers">Amount of tickets</h:outputLabel>
-                <h:inputText id="amountOfPassengers" value="#{bookingFlowBean.amountOfPassengers}"/>
-                <h:commandButton value="next" action="passengers"/>
-            </h:form>
-
+               <h1>Flight details</h1>
+               <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
+               <p><h:outputText value="#{bookingFlowBean.flight.from.name} (#{bookingFlowBean.flight.from.code})"/></p>
+               <p><h:outputText value="#{bookingFlowBean.flight.to.name} (#{bookingFlowBean.flight.to.code})"/></p>
+                <p><h:outputText value="#{bookingFlowBean.flight.departureDateTime}">
+                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm"/>
+                </h:outputText></p>
+               <b:form>
+                    <h:outputLabel for="amountOfPassengers">Amount of tickets</h:outputLabel>
+                    <h:inputText id="amountOfPassengers" value="#{bookingFlowBean.amountOfPassengers}"/>
+                    <b:commandButton value="next" action="passengers"/>
+                </b:form>
+            </b:jumbotron>
         </ui:define>
     </ui:composition>
 

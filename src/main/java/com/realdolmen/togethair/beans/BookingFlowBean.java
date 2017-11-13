@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.io.Serializable;
 import java.util.*;
@@ -102,6 +103,8 @@ public class BookingFlowBean implements Serializable{
             throw new SeatAlreadyTakenException();
         } catch (ConstraintViolationException ex){
             resetBooking();
+            System.out.println(ex.getMessage());
+
             throw new ConstraintViolationException(ex.getConstraintViolations());
         }
     }
