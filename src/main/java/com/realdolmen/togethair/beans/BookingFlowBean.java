@@ -6,15 +6,9 @@ import com.realdolmen.togethair.DTO.FlightDTO;
 import com.realdolmen.togethair.DTO.PassengerDTO;
 import com.realdolmen.togethair.DTO.SeatDTO;
 import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
-import com.realdolmen.togethair.domain.Booking;
-import com.realdolmen.togethair.domain.Flight;
-import com.realdolmen.togethair.domain.Passenger;
-import com.realdolmen.togethair.domain.Seat;
-import com.realdolmen.togethair.repositories.PassengerRepository;
-import com.realdolmen.togethair.services.BookingServiceBean;
-import com.realdolmen.togethair.services.FlightServiceBean;
-import com.realdolmen.togethair.services.PassengerServiceBean;
-import com.realdolmen.togethair.services.PriceCalculationService;
+import com.realdolmen.togethair.domain.*;
+import com.realdolmen.togethair.services.*;
+import org.apache.shiro.SecurityUtils;
 
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
@@ -35,18 +29,25 @@ public class BookingFlowBean implements Serializable{
     private PassengerServiceBean passengerService;
     @Inject
     private PriceCalculationService priceCalculationService;
+    @Inject
+    private UserServiceBean userService;
 
     //TODO should probably use a DTO or DAO who knows
     private BookingDTO booking;
     private FlightDTO flight;
     private Flight f;
     private Booking b;
+    private User user;
 
     private float price;
     private Integer amountOfPassengers;
 
     //TODO should get booking details from previous search (probably amount of passengers and flight)
     public void prepare(){
+        //if(SecurityUtils.getSubject().isAuthenticated())
+        if(SecurityUtils.getSubject().getPrincipal() != null){
+            user = userService.getUserByEmail(SecurityUtils.getSubject().getPrincipal().toString());
+        }
         booking = new BookingDTO();
         b= new Booking();
         f = flightService.findById(1L);
@@ -67,12 +68,18 @@ public class BookingFlowBean implements Serializable{
         try{
             for(PassengerDTO p : booking.getPassengers()){
                 Seat s = f.getSeat(p.getSeat().getLocation());
-                //TODO BUG: when trying to save the availability of a seat will set on false however if something goes wrong with persisting the passenger (ie empty name) the seat will be seen as unavailable
                 Passenger passenger = new Passenger(p.getFirstName(),p.getLastName(),p.getBirthDate(),s);
                 b.addPassenger(passenger);
             }
             //TODO there should be checks, can we check stuff after every step or only at the end?
-            bookingService.create(b);
+
+            if(user!=null){
+                user.addBooking(b);
+                userService.update(user);
+            }
+            else{
+                bookingService.create(b);
+            }
 
         } catch (SeatAlreadyTakenException ex){
             resetBooking();
@@ -108,8 +115,15 @@ public class BookingFlowBean implements Serializable{
             //TODO throw another exception that says that a booking should have passengers
         }
         if(amountOfPassengers > passengers.size() ) {
-            //booking.setPassengers(new ArrayList<>()); //TODO change now it will remove all user input
             Iterator<Seat> iterator = availableSeats.iterator();
+            if(SecurityUtils.getSubject().getPrincipal()!=null) {
+                PassengerDTO user = new PassengerDTO();
+                user.setFirstName(this.user.getFirstName());
+                user.setLastName(this.user.getLastName());
+                user.setSeat(new SeatDTO(iterator.next()));
+                passengers.add(user);
+            }
+
             for (int i = passengers.size(); i < amountOfPassengers; i++) {
                 Seat s = iterator.next();
                 booking.addPassenger(new PassengerDTO(new SeatDTO(s)));

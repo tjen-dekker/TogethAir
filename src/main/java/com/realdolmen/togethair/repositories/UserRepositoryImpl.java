@@ -56,4 +56,9 @@ public class UserRepositoryImpl implements UserRepository {
     public String getSaltForUser(String user) {
         return em.createQuery("select U.salt from User U where email=:user", String.class).setParameter("user", user).getSingleResult();
     }
+
+    @Override
+    public void update(User user){
+        em.merge(user);
+    }
 }

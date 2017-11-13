@@ -25,4 +25,6 @@ public interface UserRepository {
     String getLastNameofCurrentUser(String username);
 
     String getSaltForUser(String password);
+
+    void update(User u);
 }
