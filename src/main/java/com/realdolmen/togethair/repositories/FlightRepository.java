@@ -19,8 +19,6 @@ public interface FlightRepository {
     
     List<Flight> findFromTo(List<Airport> from, List<Airport> to);
     
-    List<Flight> findFromToOnDate(List<Airport> from, List<Airport> to, Date date);
-    
     List<Flight> findFromToBetweenDates(List<Airport> from, List<Airport> to, Date date1, Date date2);
 
     Flight create(Flight flight);

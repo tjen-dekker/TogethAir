@@ -1,63 +1,93 @@
 package com.realdolmen.togethair.beans;
 
 import com.realdolmen.togethair.DTO.FlightDTO;
-import com.realdolmen.togethair.domain.Flight;
 import com.realdolmen.togethair.domain.TravelClass;
 import com.realdolmen.togethair.services.SearchServiceBean;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by GWTBF10 on 8/11/2017.
  */
-@Named
+@ManagedBean
 @SessionScoped
 public class SearchBean {
 	@Inject
 	private SearchServiceBean searchService;
 	
-	public List<FlightDTO> findFromToOnDate(String fromCityName, String toCityName, Date date){
-		return searchService.findFromToOnDate(fromCityName,toCityName,date);
+	private List<FlightDTO> searchResults = new ArrayList<>();
+	
+	private String fromCityName;
+	private String toCityName;
+	private Date date1;
+	private Date date2;
+	private TravelClass travelClass = TravelClass.ECONOMY;
+	int minNrOfSeats;
+	
+	public void search(AjaxBehaviorEvent event) {
+		searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+		System.out.print(event.toString());
 	}
 	
-	public List<FlightDTO> findFromToBetweenDates(String fromCityName, String toCityName, Date date1, Date date2){
-		return searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2);
+	public String getFromCityName() {
+		return fromCityName;
 	}
 	
-	public List<FlightDTO> findFromToBetweenDatesSortedByDate(String fromCityName, String toCityName, Date date1, Date date2){
-		return searchService.findFromToBetweenDatesSortedByDate(fromCityName,toCityName,date1,date2);
+	public void setFromCityName(String fromCityName) {
+		this.fromCityName = fromCityName;
 	}
 	
-	public List<FlightDTO> findFromToBetweenDates(String fromCityName, String toCityName, Date date1, Date date2, TravelClass travelClass, int minNrOfSeats){
-		return searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+	public String getToCityName() {
+		return toCityName;
 	}
 	
-	public List<FlightDTO> findFromToBetweenDatesSortedByDate(String fromCityName, String toCityName, Date date1, Date date2, TravelClass travelClass, int minNrOfSeats){
-		return searchService.findFromToBetweenDatesSortedByDate(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+	public void setToCityName(String toCityName) {
+		this.toCityName = toCityName;
 	}
 	
-	public List<FlightDTO> findFromTo(String fromCityName, String toCityName){
-		return searchService.findFromTo(fromCityName,toCityName);
+	public Date getDate1() {
+		return date1;
 	}
 	
-	public List<FlightDTO> findFromToSortedByDate(String fromCityName, String toCityName){
-		return searchService.findFromToSortedByDate(fromCityName,toCityName);
+	public void setDate1(Date date1) {
+		this.date1 = date1;
 	}
 	
-	public List<FlightDTO> findFromTo(String fromCityName, String toCityName, TravelClass travelClass, int minNrOfSeats){
-		return searchService.findFromTo(fromCityName,toCityName,travelClass,minNrOfSeats);
+	public Date getDate2() {
+		return date2;
 	}
 	
-	public List<FlightDTO> findFromToSortedByDate(String fromCityName, String toCityName, TravelClass travelClass, int minNrOfSeats){
-		return searchService.findFromToSortedByDate(fromCityName,toCityName,travelClass,minNrOfSeats);
+	public void setDate2(Date date2) {
+		this.date2 = date2;
 	}
 	
-	public FlightDTO findByFlightCode(String flightCode){
-		return searchService.findByFlightCode(flightCode);
+	public TravelClass getTravelClass() {
+		return travelClass;
 	}
 	
+	public void setTravelClass(TravelClass travelClass) {
+		this.travelClass = travelClass;
+	}
+	
+	public int getMinNrOfSeats() {
+		return minNrOfSeats;
+	}
+	
+	public void setMinNrOfSeats(int minNrOfSeats) {
+		this.minNrOfSeats = minNrOfSeats;
+	}
+	
+	public List<FlightDTO> getSearchResults() {
+		return searchResults;
+	}
+	
+	public void setSearchResults(List<FlightDTO> searchResults) {
+		this.searchResults = searchResults;
+	}
 }
