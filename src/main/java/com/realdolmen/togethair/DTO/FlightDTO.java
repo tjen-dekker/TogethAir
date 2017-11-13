@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class FlightDTO {
 	
 	private String flightCompany;
+	private Long id;
 	
 	private Set<SeatDTO> seats = new HashSet<>();
 	
@@ -24,22 +25,42 @@ public class FlightDTO {
 	private int duration; //estimated travel time in min
 	
 	private Date departureDateTime;
+	
+	private float priceOfCheapestSeat;
 
 	public FlightDTO(){
 
 	}
 
 	public FlightDTO(Flight flight) {
+		setId(flight.getId());
 		setFlightCode(flight.getFlightCode());
 		setDepartureDateTime(flight.getDepartureDateTime());
 		setDuration(flight.getDuration());
 		setFlightCompany(flight.getFlightCompany().getName());
 		setFrom(new AirportDTO(flight.getFrom()));
 		setTo(new AirportDTO(flight.getTo()));
+		setPriceOfCheapestSeat(flight.getPriceOfCheapestSeat());
 
 		for (Seat s : flight.getSeats()){
 			seats.add(new SeatDTO(s));
 		}
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public float getPriceOfCheapestSeat() {
+		return priceOfCheapestSeat;
+	}
+	
+	public void setPriceOfCheapestSeat(float priceOfCheapestSeat) {
+		this.priceOfCheapestSeat = priceOfCheapestSeat;
 	}
 	
 	public String getFlightCompany() {
