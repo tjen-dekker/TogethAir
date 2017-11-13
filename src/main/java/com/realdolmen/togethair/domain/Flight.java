@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by GWTBF10 on 6/11/2017.
@@ -15,7 +16,7 @@ import java.util.*;
 @Entity
 @ManagedBean
 @RequestScoped
-public class Flight implements Comparable<Flight>, Serializable{
+public class Flight implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +52,7 @@ public class Flight implements Comparable<Flight>, Serializable{
 	@Future
 	private Date departureDateTime;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@MapKeyColumn(name="volumeDiscountNUmberOfTickets")
 	@Column(name="volumeDiscountPercentage")
 	@CollectionTable(name="volumeDiscounts", joinColumns=@JoinColumn(name="id"))
@@ -61,6 +62,9 @@ public class Flight implements Comparable<Flight>, Serializable{
 	@DecimalMax(value = "200")
 	@DecimalMin(value = "50")
 	private int priceOverridePercentage=100;
+	
+	@Version
+	private int version;
 	
 	public int getFreeSeatsOfClass(TravelClass travelClass){
 		int count =0;
@@ -137,6 +141,12 @@ public class Flight implements Comparable<Flight>, Serializable{
 		return seats;
 	}
 
+	public Set<Seat> getAvailableSeats(){
+		return seats.stream()
+				.filter(s -> s.isAvailable())
+				.collect(Collectors.toSet());
+	}
+
 	public Seat getSeat(String location){
 		for(Seat s : getSeats()){
 			if(s.getLocation().equals(location)){
@@ -180,30 +190,6 @@ public class Flight implements Comparable<Flight>, Serializable{
 	public void setDepartureDateTime(Date departureDateTime) {
 		this.departureDateTime = departureDateTime;
 	}
-	
-	public static Comparator<Flight> cheapestEconomyComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY),f2.getPriceOfCheapestSeatOfClass(TravelClass.ECONOMY));
-	};
-	
-	public static Comparator<Flight> cheapestBusinessComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS),f2.getPriceOfCheapestSeatOfClass(TravelClass.BUSINESS));
-	};
-	
-	public static Comparator<Flight> cheapestFirstClassComparator = (f1, f2) -> {
-		return Float.compare(f1.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS),f2.getPriceOfCheapestSeatOfClass(TravelClass.FIRSTCLASS));
-	};
-	
-	@Override   //Compare on cheapest ticket
-	public int compareTo(Flight f) {
-		return Float.compare(this.getPriceOfCheapestSeat(),f.getPriceOfCheapestSeat());
-	}
-	
-	public static Comparator<Flight> DateTimeComparator = (f1, f2) -> {
-		LocalDateTime f1Date = LocalDateTime.ofInstant(f1.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
-		LocalDateTime f2Date = LocalDateTime.ofInstant(f2.getDepartureDateTime().toInstant(), ZoneId.systemDefault());
-		
-		return f1Date.compareTo(f2Date);
-	};
 	
 	@Override
 	public boolean equals(Object o) {

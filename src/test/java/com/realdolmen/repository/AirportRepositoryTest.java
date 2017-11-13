@@ -10,10 +10,6 @@ import com.realdolmen.togethair.repositories.AirportRepositoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
