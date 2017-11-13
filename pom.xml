@@ -126,6 +126,11 @@
             <!-- See the latest version on the project's homepage -->
             <version>2.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
     </dependencies>
 
     <repositories>
