@@ -40,9 +40,6 @@ public class LoginService implements Serializable {
     private Boolean rememberMe;
 
     public LoginService() {
-        if(SecurityUtils.getSubject().isAuthenticated()){
-
-        }
 
 
     }
@@ -83,6 +80,9 @@ public class LoginService implements Serializable {
 
 
             token.clear();
+
+            setLastName(userRepository.getLastNameofCurrentUser(username));
+            setFirstName(userRepository.getFirstNameofCurrentUser(username));
         }
 
     }
@@ -115,9 +115,6 @@ public class LoginService implements Serializable {
         try {
             generatePassword(user, password);
 
-            System.err.println("User with email:" + user.getEmail()
-                    + " hashedPassword:" + user.getPassword() + " salt:"
-                    + user.getSalt());
 
             if (isAdmin) {
                 Role role = new Role();
@@ -136,7 +133,6 @@ public class LoginService implements Serializable {
             setUsername(SecurityUtils.getSubject().getPrincipal().toString());
             setFirstName(userRepository.getFirstNameofCurrentUser(username));
             setLastName(userRepository.getLastNameofCurrentUser(username));
-
 
 
         } catch (IncorrectCredentialsException ex) {
