@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:shiro="http://shiro.apache.org/tags">
 <f:view>
     <h:panelGrid columns="2">
         <h:outputText value="email:"/>
@@ -15,6 +15,10 @@
 
         <h:outputText value="last name:"/>
         <h:outputText value="#{loginService.lastName}"/>
+
+        <shiro:hasRole name="admin">
+            <h:outputText value="You're an admin"/>
+        </shiro:hasRole>
     </h:panelGrid>
 </f:view>
 </html>

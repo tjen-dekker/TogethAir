@@ -41,9 +41,7 @@ public class LoginService implements Serializable {
 
     public LoginService() {
         if(SecurityUtils.getSubject().isAuthenticated()){
-            username = SecurityUtils.getSubject().getPrincipal().toString();
-            firstName = userRepository.getFirstNameofCurrentUser(username);
-            lastName = userRepository.getLastNameofCurrentUser(username);
+
         }
 
 
@@ -134,6 +132,10 @@ public class LoginService implements Serializable {
             setRememberMe(false);
 
             doLogin();
+
+            setUsername(SecurityUtils.getSubject().getPrincipal().toString());
+            setFirstName(userRepository.getFirstNameofCurrentUser(username));
+            setLastName(userRepository.getLastNameofCurrentUser(username));
 
 
 
