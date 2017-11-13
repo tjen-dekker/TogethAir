@@ -16,7 +16,7 @@
                              typeaheadValues="Belgium, Marocco, France, UK, US"
                              fieldSize="lg">
                     <f:facet name="prepend">
-                        <h:outputText value="Destination" />
+                        <h:outputText value="Destination"/>
                     </f:facet>
                 </b:inputText>
                 <b:inputText mediumScreen="two-thirds" typeahead="true"
@@ -24,13 +24,13 @@
                              placeholder="Zaventem"
                              render-label="false" fieldSize="lg">
                     <f:facet name="prepend">
-                        <h:outputText value="Airport" />
+                        <h:outputText value="Airport"/>
                     </f:facet>
                 </b:inputText>
                 <b:inputText mediumScreen="one-third" mask="integer"
                              render-label="false" value="1" fieldSize="lg">
                     <f:facet name="append">
-                        <h:outputText value="Passengers" />
+                        <h:outputText value="Passengers"/>
                     </f:facet>
                 </b:inputText>
             </b:formGroup>
@@ -45,6 +45,7 @@
                                   showTime="false"
                                   useCurrent="true"
                                   fieldSize="lg"
+                                  format="DD/MM/YYYY"
                                   placeholder="From"/>
                 <b:dateTimePicker mediumScreen="half"
                                   value=""
@@ -55,6 +56,7 @@
                                   showTime="false"
                                   useCurrent="true"
                                   fieldSize="lg"
+                                  format="DD/MM/YYYY"
                                   placeholder="Till"/>
             </b:formGroup>
             <b:commandButton action="index.xhtml" value="Search" ajax="false"/>
