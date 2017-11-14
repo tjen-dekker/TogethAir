@@ -9,6 +9,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
+import org.hibernate.PersistentObjectException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -33,6 +35,7 @@ public class LoginService implements Serializable {
 
     private String username;
     private String password;
+    private String compareToPassword;
     private String firstName;
     private String lastName;
     private String hashedPassword;
@@ -101,41 +104,47 @@ public class LoginService implements Serializable {
 
 
     public void register() {
-        User user = new User();
+        if (password.equals(compareToPassword)) {
+            User user = new User();
 
-        user.setEmail(username);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-
-
-        try {
-            generatePassword(user, password);
+            user.setEmail(username);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
 
 
-            if (isAdmin) {
-                Role role = new Role();
-                role.setEmail(username);
-                role.setRoleName("admin");
-                rolesRepository.create(role);
+            try {
+                generatePassword(user, password);
+
+
+                if (isAdmin) {
+                    Role role = new Role();
+                    role.setEmail(username);
+                    role.setRoleName("admin");
+                    rolesRepository.create(role);
+                }
+                if (userRepository.getUserByEmail(username) != null) {
+                    facesError("user already exists");
+                } else {
+                    userRepository.create(user);
+
+
+                    setRememberMe(false);
+
+                    doLogin();
+
+                    setUsername(SecurityUtils.getSubject().getPrincipal().toString());
+                    setFirstName(userRepository.getFirstNameofCurrentUser(username));
+                    setLastName(userRepository.getLastNameofCurrentUser(username));
+
+
+                }
+            } catch (IncorrectCredentialsException ex) {
+                facesError("password needs to be at least 5 characters long");
+
             }
-
-            userRepository.create(user);
-
-
-            setRememberMe(false);
-
-            doLogin();
-
-            setUsername(SecurityUtils.getSubject().getPrincipal().toString());
-            setFirstName(userRepository.getFirstNameofCurrentUser(username));
-            setLastName(userRepository.getLastNameofCurrentUser(username));
-
-
-        } catch (IncorrectCredentialsException ex) {
-            facesError("password needs to be at least 5 characters long");
+        } else {
+            facesError("passwords do not match");
         }
-
-
     }
 
     public void logout() {
@@ -156,6 +165,14 @@ public class LoginService implements Serializable {
      */
     private void facesError(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    public String getCompareToPassword() {
+        return compareToPassword;
+    }
+
+    public void setCompareToPassword(String compareToPassword) {
+        this.compareToPassword = compareToPassword;
     }
 
     public String getUsername() {
