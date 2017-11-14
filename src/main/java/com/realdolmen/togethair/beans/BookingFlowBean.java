@@ -90,6 +90,7 @@ public class BookingFlowBean implements Serializable{
             }
             //TODO there should be checks, can we check stuff after every step or only at the end?
 
+            b.setTotalPrice(priceCalculationService.calculateTotalPrice(b,false));
             if(user!=null){
                 user.setBookings(userService.getAllBookingsFromUser(user.getEmail()));
                 user.addBooking(b);
