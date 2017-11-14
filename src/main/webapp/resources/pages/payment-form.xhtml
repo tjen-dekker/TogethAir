@@ -26,7 +26,9 @@
                     <h:outputText value="ccv" />
                 </f:facet>
             </b:inputText>
-            <b:commandButton value="Search" ajax="true" action="#{bookingFlowBean.validate}" update="@form" fieldSize="lg"/>
+            <b:commandButton value="back" action="paymentChoice"/>
+            <b:commandButton id="payButton" value="Pay" ajax="true" action="#{bookingFlowBean.validate}" update="@form" fieldSize="lg"/>
+            <b:defaultCommand target="payButton"/>
         </b:form>
     </b:panel>
 </ui:composition>

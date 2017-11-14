@@ -28,6 +28,12 @@
             <vdl-document>/booking/payment.xhtml</vdl-document>
         </view>
 
+        <view id="transfer">
+            <vdl-document>/booking/payment-transfer.xhtml</vdl-document>
+        </view>
+
+
+
         <view id="invoice">
             <vdl-document>/booking/invoice.xhtml</vdl-document>
         </view>

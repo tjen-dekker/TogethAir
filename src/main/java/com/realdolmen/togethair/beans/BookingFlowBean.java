@@ -99,6 +99,16 @@ public class BookingFlowBean implements Serializable{
         return paymentBean.validate();
 
     }
+    public String confirmTransfer() throws IOException {
+        try{
+            recalculate();
+            save();
+        }catch (OptimisticLockException | SeatAlreadyTakenException ex){
+            facesError("Something is wrong with your seats, try choosing others or start a new booking");
+            return "payment";
+        }
+        return "invoice";
+    }
 
     //TODO we should probably catch the exception
     public void save() throws SeatAlreadyTakenException, ConstraintViolationException {
@@ -210,8 +220,7 @@ public class BookingFlowBean implements Serializable{
             return "payment";
         }
         else {
-            //TODO make page for transfer
-            return "";
+            return "transfer";
         }
     }
 
