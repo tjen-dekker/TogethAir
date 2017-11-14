@@ -13,7 +13,7 @@
     <h:body>
         <b:container styleClass="child">
             <ui:insert name="content"/>
-            <b:navBar brand="To Get Air" sticky="true" position="top" >
+            <b:navBar brand="To Get Air" brandAlign="left" brandHref="http://localhost:8080/togethAir/index.xhtml" sticky="true" position="top" >
                 <b:navbarLinks>
                     <b:navLink value="Home" href="http://localhost:8080/togethAir/index.xhtml"/>
                     <b:navLink value="Link1" href="#"/>
@@ -24,8 +24,8 @@
                         </b:navLink>
                     </shiro:authenticated>
                     <shiro:guest>
-                        <b:navLink value="Login" outcome="login.xhtml"/>
-                        <b:navLink value="Register" outcome="Register.xhtml"/>
+                        <b:navLink value="Login" href="http://localhost:8080/togethAir/login.xhtml"/>
+                        <b:navLink value="Register" href="http://localhost:8080/togethAir/register.xhtml"/>
                     </shiro:guest>
                 </b:navbarLinks>
             </b:navBar>

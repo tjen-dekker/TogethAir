@@ -1,12 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Oops</title>
-</head>
-<body>
-<p>Oops something went wrong, you can continue browsing by returning to the <a href="index.xhtml">home</a> page.</p>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:shiro="http://shiro.apache.org/tags"
+      xmlns:b="http://bootsfaces.net/ui" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+
+    <ui:composition template="/templates/index-template.xhtml">
+        <ui:define name="content">
+            <div style="height: 7em;"/>
+            <b:jumbotron styleClass="search-background">
+                <h1>Oops</h1>
+                <p>Oops, somethings went wrong, you can continue browsing on the <a href="index.xhtml">home</a> page</p>
+            </b:jumbotron>
+        </ui:define>
+    </ui:composition>
+
+</h:body>
 </html>

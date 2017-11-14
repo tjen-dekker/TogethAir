@@ -17,6 +17,11 @@
         <param-name>net.bootsfaces.blockUI</param-name>
         <param-value>true</param-value>
     </context-param>
+    <!-- Activates error messages for validation -->
+    <context-param>
+        <param-name>net.bootsfaces.legacy_error_classes</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <!--<context-param>
         <param-name>org.primefaces.themes</param-name>
         <param-value>bootstrap</param-value>
@@ -61,6 +66,6 @@
 
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/</location>
+        <location>/error.xhtml</location>
     </error-page>
 </web-app>
