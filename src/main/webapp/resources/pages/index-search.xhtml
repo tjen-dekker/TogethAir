@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition>
     <!--<h1>Home</h1>-->
+    <!-- TODO: FIX THIS DIV -->
     <div style="height: 7em;"/>
     <b:jumbotron styleClass="search-background">
         <h1>To Get Air</h1>
@@ -29,11 +30,11 @@
                     </f:facet>
                 </b:inputText>
                 <b:inputText mediumScreen="one-third" mask="integer"
-                             placeholder="Madrid"
+                             placeholder="1"
                              render-label="false" fieldSize="lg"
                              value="#{searchBean.minNrOfSeats}">
                     <f:facet name="append">
-                        <h:outputText value="Passengers" />
+                        <h:outputText value="Passengers"/>
                     </f:facet>
                 </b:inputText>
             </b:formGroup>
@@ -48,6 +49,7 @@
                                   showTime="false"
                                   useCurrent="true"
                                   fieldSize="lg"
+                                  format="DD/MM/YYYY"
                                   placeholder="From"/>
                 <b:dateTimePicker mediumScreen="half"
                                   value="#{searchBean.date2}"
@@ -58,7 +60,8 @@
                                   showTime="false"
                                   useCurrent="true"
                                   fieldSize="lg"
-                                  placeholder="Untill"/>
+                                  format="DD/MM/YYYY"
+                                  placeholder="Until"/>
             </b:formGroup>
             <b:commandButton value="Search" look="success">
                 <f:ajax listener="#{searchBean.search}"
@@ -77,17 +80,18 @@
                          var="flight"
                          searching="false">
 
-                <b:dataTableColumn value="#{flight.flightCompany}" label="provider"/>
-                <b:dataTableColumn value="#{flight.flightCode}" label="flight code"/>
-                <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
-                <b:dataTableColumn value="#{flight.duration}" label="estimated duration"/>
-                <b:dataTableColumn value="#{flight.priceOfCheapestSeat}"  label="price" order="asc"/>
-                <b:dataTableColumn label="controls" >
-                    <b:form>
-                        <b:commandButton value="book" look="success" action="booking"/>
-                        <h:inputHidden id="flightId" value="#{flight.id}"/>
-                    </b:form>
-                </b:dataTableColumn>
+                    <b:dataTableColumn value="#{flight.flightCompany}" label="provider"/>
+                    <b:dataTableColumn value="#{flight.flightCode}" label="flight code"/>
+                    <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
+                    <b:dataTableColumn value="#{flight.duration}" label="estimated duration"/>
+                    <b:dataTableColumn value="#{flight.priceOfCheapestSeat}"  label="price" order="asc"/>
+                    <b:dataTableColumn label="controls" >
+                        <b:form>
+                            <b:commandButton value="book" look="success" action="booking"/>
+                            <h:inputHidden id="flightId" value="#{flight.id}"/>
+                            <h:inputHidden id="amountOfPassengers" value="#{searchBean.minNrOfSeats}"/>
+                        </b:form>
+                    </b:dataTableColumn>
 
             </b:dataTable>
         </b:jumbotron>
