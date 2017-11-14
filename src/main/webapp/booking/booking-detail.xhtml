@@ -12,10 +12,10 @@
             <b:jumbotron>
 
                <h1>Flight details</h1>
-               <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
-               <p><h:outputText value="#{bookingFlowBean.flight.from.name} (#{bookingFlowBean.flight.from.code})"/></p>
-               <p><h:outputText value="#{bookingFlowBean.flight.to.name} (#{bookingFlowBean.flight.to.code})"/></p>
-                <p><h:outputText value="#{bookingFlowBean.flight.departureDateTime}">
+                <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
+                <p><h:outputText value="Departure: #{bookingFlowBean.flight.from.name} (#{bookingFlowBean.flight.from.code})"/></p>
+                <p><h:outputText value="Destination: #{bookingFlowBean.flight.to.name} (#{bookingFlowBean.flight.to.code})"/></p>
+                <p>Departure time: <h:outputText value="#{bookingFlowBean.flight.departureDateTime}">
                     <f:convertDateTime pattern="dd/MM/yyyy hh:mm"/>
                 </h:outputText></p>
                <b:form>
