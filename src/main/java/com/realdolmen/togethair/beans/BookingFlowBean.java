@@ -5,6 +5,8 @@ import com.realdolmen.togethair.DTO.BookingDTO;
 import com.realdolmen.togethair.DTO.FlightDTO;
 import com.realdolmen.togethair.DTO.PassengerDTO;
 import com.realdolmen.togethair.DTO.SeatDTO;
+import com.realdolmen.togethair.Exceptions.NotEnoughSeatsAvailableException;
+import com.realdolmen.togethair.Exceptions.PassengerListIsemptyException;
 import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
 import com.realdolmen.togethair.domain.*;
 import com.realdolmen.togethair.services.*;
@@ -42,7 +44,7 @@ public class BookingFlowBean implements Serializable{
     private User user;
 
     private float price;
-    private Integer amountOfPassengers;
+    private Integer amountOfPassengers = 1;
 
     //TODO should get booking details from previous search (probably amount of passengers and flight)
     public void prepare(){
@@ -126,14 +128,16 @@ public class BookingFlowBean implements Serializable{
         return this.amountOfPassengers;
     }
 
-    public void createPassengers(){
+    public void createPassengers() throws NotEnoughSeatsAvailableException, PassengerListIsemptyException, SeatAlreadyTakenException {
         Set<Seat> availableSeats = f.getAvailableSeats();
         List<PassengerDTO> passengers = booking.getPassengers();
         if(f.getAvailableSeats().size()<amountOfPassengers){
-            //TODO throw a new exception not enough free seats
+            //TODO should use i18n
+            throw new NotEnoughSeatsAvailableException("There are not enough seats available");
         }
-        if(amountOfPassengers==0){
-            //TODO throw another exception that says that a booking should have passengers
+        if(amountOfPassengers<=0){
+            //TODO should use i18n
+            throw new PassengerListIsemptyException("You should select at least 1 passenger");
         }
         if(amountOfPassengers > passengers.size() ) {
             Iterator<Seat> iterator = availableSeats.iterator();

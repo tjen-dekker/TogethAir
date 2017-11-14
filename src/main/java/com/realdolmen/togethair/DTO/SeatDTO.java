@@ -11,7 +11,7 @@ public class SeatDTO {
 	private String location;
 	private float price;
 	private TravelClass travelClassName;
-	private boolean available;
+	private boolean available = true;
 
 	public SeatDTO(){
 

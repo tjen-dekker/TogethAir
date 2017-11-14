@@ -1,5 +1,6 @@
 package com.realdolmen.togethair.DTO;
 
+import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
 import com.realdolmen.togethair.domain.Booking;
 import com.realdolmen.togethair.domain.Passenger;
 
@@ -15,7 +16,7 @@ public class BookingDTO {
 
     public BookingDTO(){}
     
-    public BookingDTO(Booking booking) {
+    public BookingDTO(Booking booking) throws SeatAlreadyTakenException {
         List<Passenger> passengerList = booking.getPassengers();
         for (Passenger p: passengerList ) {
             addPassenger(new PassengerDTO(p));
