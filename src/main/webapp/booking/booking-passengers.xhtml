@@ -49,8 +49,10 @@
                 <b:formGroup>
                     <h:outputText id="price" value="Total price: #{bookingFlowBean.price}"/>
                 </b:formGroup>
-                <b:commandButton value="back" action="detail"/>
-                <b:commandButton value="next" action="confirm"/>
+
+                <b:commandButton value="back" action="detail" immediate="true"/>
+                <b:commandButton id="next" value="next" action="confirm"/>
+                <b:defaultCommand target="next"/>
             </b:form>
         </b:jumbotron>
     </ui:define>
