@@ -7,15 +7,18 @@
     <!--<h1>Home</h1>-->
     <!-- TODO: FIX THIS DIV -->
     <div style="height: 7em;"/>
+    <h:panelGroup id="results" >
     <b:jumbotron styleClass="search-background">
         <h1>To Get Air</h1>
-        <b:form id="searchForm" horizontal="true">
+        <b:form id="search" horizontal="true">
             <!--<h2>Destination</h2>-->
             <b:formGroup>
+                <b:messages id="messages" autoUpdate="true" escape="false"/>
                 <b:inputText mediumScreen="two-thirds" placeholder="Brussels" typeahead="true"
                              typeaheadValues="#{searchBean.allCityNames}"
                              fieldSize="lg"
-                             value="#{searchBean.fromCityName}">
+                             value="#{searchBean.fromCityName}"
+                              id="from">
                     <f:facet name="prepend">
                         <h:outputText value="From" />
                     </f:facet>
@@ -35,7 +38,8 @@
                              typeaheadValues="#{searchBean.allCityNames}"
                              placeholder="Madrid"
                              render-label="false" fieldSize="lg"
-                             value="#{searchBean.toCityName}">
+                             value="#{searchBean.toCityName}"
+                            id="to">
                     <f:facet name="prepend">
                         <h:outputText value="To" />
                     </f:facet>
@@ -61,7 +65,8 @@
                                   useCurrent="true"
                                   fieldSize="lg"
                                   format="DD/MM/YYYY"
-                                  placeholder="From"/>
+                                  placeholder="From"
+                                  required="true"/>
                 <b:dateTimePicker mediumScreen="half"
                                   value="#{searchBean.date2}"
                                   showIcon="true"
@@ -72,7 +77,8 @@
                                   useCurrent="true"
                                   fieldSize="lg"
                                   format="DD/MM/YYYY"
-                                  placeholder="Until"/>
+                                  placeholder="Until"
+                                  required="true"/>
             </b:formGroup>
             <b:commandButton value="Search" look="success">
                 <f:ajax listener="#{searchBean.search}"
@@ -82,7 +88,7 @@
         </b:form>
     </b:jumbotron>
 
-    <h:panelGroup id="results" >
+
         <b:jumbotron styleClass="search-background" rendered="#{not searchBean.firstTime}">
             <h2>Results</h2>
             <b:alert rendered="#{empty searchBean.searchResults}">no flights were found using the current filter criteria.</b:alert>
@@ -94,11 +100,11 @@
                     <b:dataTableColumn value="#{flight.flightCompany}" label="provider"/>
                     <b:dataTableColumn value="#{flight.flightCode}" label="flight code"/>
                     <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
-                    <b:dataTableColumn value="#{flight.duration}" label="estimated duration"/>
-                    <b:dataTableColumn value="#{flight.priceOfCheapestSeat * searchBean.minNrOfSeats}"  label="price" order="asc"/>
+                    <b:dataTableColumn value="#{flight.duration / 60} hours" label="estimated duration"/>
+                    <b:dataTableColumn value="#{flight.priceOfCheapestSeat * searchBean.minNrOfSeats}"  label="total price" order="asc"/>
                     <b:dataTableColumn label="controls" >
                         <b:form>
-                            <b:commandButton value="book" look="success" action="booking"/>
+                            <b:commandButton value="book" look="success" action="booking" rendered=""/>
                             <h:inputHidden id="flightId" value="#{flight.id}"/>
                             <h:inputHidden id="amountOfPassengers" value="#{searchBean.minNrOfSeats}"/>
                         </b:form>
