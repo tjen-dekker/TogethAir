@@ -13,6 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,12 +64,23 @@ public class SearchBean {
 	public void search(AjaxBehaviorEvent event) {
 		if(isFirstTimeSearch())
 			setFirstTimeSearch(false);
-
+		
+		
+		LocalDate localDate1 = LocalDateTime.ofInstant(date1.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		LocalDate localDate2 = LocalDateTime.ofInstant(date2.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		LocalDate today= LocalDate.now();
+		
 		if(!allCityNames.contains(fromCityName) || !allCityNames.contains(toCityName)){
-			facesError("no flights are currently flying on"+fromCityName);
+			facesError("no flights are currently flying on "+fromCityName);
+			searchResults.clear();
+		}
+		else if(localDate1.isBefore(today) || localDate2.isBefore(today)){
+			facesError("not allowed to search flights in the past");
+			searchResults.clear();
 		}
 		else if(date2.before(date1)){
 			facesError("second date needs to be later then or equal to the first date");
+			searchResults.clear();
 		}
 		else
 		{
@@ -108,7 +122,6 @@ public class SearchBean {
 	public void setFirstTimeBook(boolean firstTimeBook) {
 		this.firstTimeBook = firstTimeBook;
 	}
-	
 	
 	public long getFlightId() {
 		return flightId;
