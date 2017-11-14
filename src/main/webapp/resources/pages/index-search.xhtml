@@ -12,16 +12,27 @@
         <b:form horizontal="true">
             <!--<h2>Destination</h2>-->
             <b:formGroup>
-                <b:inputText mediumScreen="full-width" placeholder="Brussels" typeahead="true"
-                             typeaheadValues="Brussel"
+                <b:inputText mediumScreen="two-thirds" placeholder="Brussels" typeahead="true"
+                             typeaheadValues="#{searchBean.allCityNames}"
                              fieldSize="lg"
                              value="#{searchBean.fromCityName}">
                     <f:facet name="prepend">
                         <h:outputText value="From" />
                     </f:facet>
                 </b:inputText>
+                <b:selectOneMenu mediumScreen="one-third"
+                             placeholder="1"
+                             render-label="false" fieldSize="lg"
+                             value="#{searchBean.travelClass}">
+                    <f:selectItem itemLabel="Economy" itemValue="ECONOMY" />
+                    <f:selectItem itemLabel="Business" itemValue="BUSINESS" />
+                    <f:selectItem itemLabel="First Class" itemValue="FIRSTCLASS" />
+                    <f:facet name="append">
+                        <h:outputText value="Class"/>
+                    </f:facet>
+                </b:selectOneMenu>
                 <b:inputText mediumScreen="two-thirds" typeahead="true"
-                             typeaheadValues="New York"
+                             typeaheadValues="#{searchBean.allCityNames}"
                              placeholder="Madrid"
                              render-label="false" fieldSize="lg"
                              value="#{searchBean.toCityName}">
@@ -84,7 +95,7 @@
                     <b:dataTableColumn value="#{flight.flightCode}" label="flight code"/>
                     <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
                     <b:dataTableColumn value="#{flight.duration}" label="estimated duration"/>
-                    <b:dataTableColumn value="#{flight.priceOfCheapestSeat}"  label="price" order="asc"/>
+                    <b:dataTableColumn value="#{flight.priceOfCheapestSeat * searchBean.minNrOfSeats}"  label="price" order="asc"/>
                     <b:dataTableColumn label="controls" >
                         <b:form>
                             <b:commandButton value="book" look="success" action="booking"/>

@@ -50,6 +50,20 @@ public class FlightRepositoryImpl implements FlightRepository{
 		return resultList;
 	}
 	
+	public List<Flight> findFromToOnDate(List<Airport> from, List<Airport> to, Date date1){
+		LocalDate localDate1 =LocalDateTime.ofInstant(date1.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		List<Flight> tempList=  findFromTo(from,to);
+		
+		List<Flight> resultList = new ArrayList<>();
+		for(Flight f : tempList){
+			LocalDate localDateOfFlight = LocalDateTime.ofInstant(f.getDepartureDateTime().toInstant(), ZoneId.systemDefault()).toLocalDate();
+			if(localDateOfFlight.isEqual(localDate1))
+				resultList.add(f);
+		}
+		
+		return resultList;
+	}
+	
 	public List<Flight> findFromTo(List<Airport> from, List<Airport> to){
 		List<Flight> resultList=  em.createQuery("select f from Flight f where f.from in :fromAirports and f.to in :toAirports", Flight.class)
 				.setParameter("fromAirports", from)
