@@ -78,7 +78,7 @@ public class Flight implements Serializable{
 	public float getPriceOfCheapestSeat() {
 		float lowestPrice=Float.MAX_VALUE;
 		for(Seat s : seats){
-			if (s.getPrice() < lowestPrice)
+			if (s.getPrice() < lowestPrice && s.isAvailable())
 				lowestPrice = s.getPrice();
 		}
 		return lowestPrice;
