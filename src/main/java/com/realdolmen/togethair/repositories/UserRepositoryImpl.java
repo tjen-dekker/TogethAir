@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Booking;
+import com.realdolmen.togethair.domain.Passenger;
 import com.realdolmen.togethair.domain.User;
 
 import javax.faces.bean.ApplicationScoped;
@@ -55,18 +56,24 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<Booking> findAllBookingsForUser(String email) {
-        List<Booking> bookings= em.createQuery("select b from User U JOIN U.bookings b where U.email = :email", Booking.class)
+        List<Booking> bookings = em.createQuery("select b from User U JOIN U.bookings b join fetch b.passengers p where U.email = :email", Booking.class)
                 .setParameter("email", email)
                 .getResultList();
 
+        for (Booking booking : bookings) {
+            List<Passenger> allPassengers = em.createQuery("select P from Booking B join B.passengers P where B.id=:id", Passenger.class)
+                    .setParameter("id", booking.getId())
+                    .getResultList();
+        }
+
         return bookings;
-
-
     }
 
+
+
     @Override
-    public void update(User user) {
-        em.merge(user);
+    public void update(User u) {
+        em.merge(u);
     }
 
 }
