@@ -35,13 +35,13 @@ public class SearchBean {
 	@Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*", message = "city where you want to fly <b>from</b> contains illegal characters")
 	private String fromCityName;
 	
+	private long flightId;
+	
 	@Size(min=3, max=85, message = "city where you want to fly <b>to</b> is not the correct length")
 	@Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*", message = "city where you want to fly <b>to</b> contains illegal characters")
 	private String toCityName;
 	
-	@Future(message = "not allowed to search flights in the past or today")
 	private Date date1;
-	@Future(message = "not allowed to search flights in the past or today")
 	private Date date2;
 	
 	private TravelClass travelClass = TravelClass.ECONOMY;
@@ -49,8 +49,8 @@ public class SearchBean {
 	@Min(value = 1,message = "minimum 1 passenger")
 	@Max(value = 15,message = "maximum 20 passengers")
 	private int minNrOfSeats=1;
-    private boolean firstTime=true;
-    
+    private boolean firstTimeSearch =true;
+	private boolean firstTimeBook =true;
     private List<String> allCityNames;
 	
     @PostConstruct
@@ -59,8 +59,8 @@ public class SearchBean {
     }
     
 	public void search(AjaxBehaviorEvent event) {
-		if(isFirstTime())
-			setFirstTime(false);
+		if(isFirstTimeSearch())
+			setFirstTimeSearch(false);
 
 		if(!allCityNames.contains(fromCityName) || !allCityNames.contains(toCityName)){
 			facesError("no flights are currently flying on"+fromCityName);
@@ -72,12 +72,17 @@ public class SearchBean {
 		{
 			searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
 			
-			//calculate actual price for cheapest seats
+			//calculate actual price for cheapest seats from baseprice
 			for (FlightDTO flight : searchResults) {
 				flight.setPriceOfCheapestSeat(priceCalculationService.calculateTotalPrice(flight.getPriceOfCheapestSeat(),
 						flight.getPriceOverridePercentage(),flight.getVolumeDiscounts(),minNrOfSeats));
 			}
 		}
+	}
+	
+	public void warning(AjaxBehaviorEvent event){
+		if(isFirstTimeBook())
+			setFirstTimeBook(false);
 	}
 	
 	private void facesError(String message) {
@@ -94,6 +99,23 @@ public class SearchBean {
 	
 	public String getFromCityName() {
 		return fromCityName;
+	}
+	
+	public boolean isFirstTimeBook() {
+		return firstTimeBook;
+	}
+	
+	public void setFirstTimeBook(boolean firstTimeBook) {
+		this.firstTimeBook = firstTimeBook;
+	}
+	
+	
+	public long getFlightId() {
+		return flightId;
+	}
+	
+	public void setFlightId(long flightId) {
+		this.flightId = flightId;
 	}
 	
 	public void setFromCityName(String fromCityName) {
@@ -148,11 +170,11 @@ public class SearchBean {
 		this.searchResults = searchResults;
 	}
 
-	public boolean isFirstTime() {
-		return firstTime;
+	public boolean isFirstTimeSearch() {
+		return firstTimeSearch;
 	}
 
-	public void setFirstTime(boolean firstTime) {
-		this.firstTime = firstTime;
+	public void setFirstTimeSearch(boolean firstTimeSearch) {
+		this.firstTimeSearch = firstTimeSearch;
 	}
 }
