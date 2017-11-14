@@ -12,19 +12,29 @@
 
         <div style="height: 7em;"/>
         <b:jumbotron>
+            <h3>Flight details</h3>
+            <b:panel title="Flight details">
             <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
-            <p><h:outputText value="#{bookingFlowBean.flight.from}"/></p>
-            <p><h:outputText value="#{bookingFlowBean.flight.to}"/></p>
-            <p><h:outputText value="#{bookingFlowBean.flight.departureDateTime}"/></p>
+            <p><h:outputText value="Departure: #{bookingFlowBean.flight.from.name} (#{bookingFlowBean.flight.from.code})"/></p>
+            <p><h:outputText value="Destination: #{bookingFlowBean.flight.to.name} (#{bookingFlowBean.flight.to.code})"/></p>
+            <p>Departure time: <h:outputText value="#{bookingFlowBean.flight.departureDateTime}">
+                <f:convertDateTime pattern="dd/MM/yyyy hh:mm"/>
+            </h:outputText></p>
+            </b:panel>
 
-            <ui:repeat value="#{bookingFlowBean.booking.passengers}" var="passenger">
-                <p><h:outputText value="#{passenger.firstName}"/></p>
-                <p><h:outputText value="#{passenger.lastName}"/></p>
-                <p><h:outputText value="#{passenger.seat.location}"/></p>
-                <p><h:outputText value="#{passenger.birthDate}"/></p>
+            <h3>Passengers</h3>
+            <ui:repeat value="#{bookingFlowBean.booking.passengers}" var="passenger" varStatus="status">
+                <b:panel title="Passenger #{status.index+1}">
+                <p><h:outputText value="Firstname: #{passenger.firstName}"/></p>
+                <p><h:outputText value="Lastname: #{passenger.lastName}"/></p>
+                <p><h:outputText value="Seat: #{passenger.seat.location}"/></p>
+                <p>Date of birth: <h:outputText value="#{passenger.birthDate}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText></p>
+                </b:panel>
             </ui:repeat>
 
-            <p><h:outputText value="#{bookingFlowBean.price}" /></p>
+            <p><h:outputText value="Total: #{bookingFlowBean.price}" /></p>
 
             <b:form>
                 <b:commandButton value="back" action="passengers"/>
