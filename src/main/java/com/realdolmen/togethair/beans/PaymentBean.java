@@ -3,7 +3,6 @@ package com.realdolmen.togethair.beans;
 import net.bootsfaces.utils.FacesMessages;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -11,7 +10,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PaymentBean {
 
     private String ccNumber;
@@ -21,7 +20,6 @@ public class PaymentBean {
 
     private String targetURL = "http://localhost:9080/payment-service/api/creditcard/validation";
     private String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
-    private boolean advance = false;
 
     public String validate() {
         HttpURLConnection connection = null;
@@ -84,14 +82,6 @@ public class PaymentBean {
             }
         }
         return null;
-    }
-
-    public boolean isAdvance() {
-        return advance;
-    }
-
-    public void setAdvance(boolean advance) {
-        this.advance = advance;
     }
 
     public String getCcNumber() {
