@@ -11,7 +11,7 @@ import java.net.URLEncoder;
 
 @ManagedBean
 @ViewScoped
-public class PaymentBean {
+public class PaymentBean implements Serializable{
 
     private String ccNumber;
     private String ccName;
@@ -71,7 +71,7 @@ public class PaymentBean {
             if (responseMessage.startsWith("false"))
                 FacesMessages.error(responseMessage.substring(6));
             else if (responseMessage.startsWith("true"))
-                return "end";
+                return "invoice";
 
         } catch (Exception e) {
             e.printStackTrace();
