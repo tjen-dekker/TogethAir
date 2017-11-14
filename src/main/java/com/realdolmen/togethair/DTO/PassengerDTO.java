@@ -1,8 +1,11 @@
 package com.realdolmen.togethair.DTO;
 
+import com.realdolmen.togethair.Exceptions.SeatAlreadyTakenException;
 import com.realdolmen.togethair.domain.Passenger;
 import com.realdolmen.togethair.domain.Seat;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
@@ -10,21 +13,26 @@ import java.util.Date;
  */
 public class PassengerDTO {
 
-
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", message = "This is not a valid last name")
     private String lastName;
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", message = "This is not a valid first name")
     private String firstName;
+    @NotNull(message = "Please enter a date")
     private Date birthDate;
+    @NotNull
     private SeatDTO seat;
 
     public PassengerDTO(){
 
     }
 
-    public PassengerDTO(SeatDTO seat){
+    public PassengerDTO(SeatDTO seat) throws SeatAlreadyTakenException {
         setSeat(seat);
     }
 	
-	public PassengerDTO(Passenger p) {
+	public PassengerDTO(Passenger p) throws SeatAlreadyTakenException {
 	    setBirthDate(p.getBirthDate());
 	    setFirstName(p.getFirstName());
 	    setLastName(p.getlastName());
@@ -57,8 +65,12 @@ public class PassengerDTO {
         return seat;
     }
 
-    public void setSeat(SeatDTO seat) {
-        seat.setAvailable(false);
-        this.seat = seat;
+    public void setSeat(SeatDTO seat) throws SeatAlreadyTakenException {
+        if (seat.isAvailable()) {
+            this.seat = seat;
+            //seat.setAvailable(false);
+        } else
+            throw new SeatAlreadyTakenException();
     }
+
 }

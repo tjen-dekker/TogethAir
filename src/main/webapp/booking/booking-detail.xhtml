@@ -21,6 +21,7 @@
                <b:form>
                     <h:outputLabel for="amountOfPassengers">Amount of tickets</h:outputLabel>
                     <h:inputText id="amountOfPassengers" value="#{bookingFlowBean.amountOfPassengers}"/>
+                    <h:message for="amountOfPassengers"/>
                     <b:commandButton value="next" action="passengers"/>
                 </b:form>
             </b:jumbotron>

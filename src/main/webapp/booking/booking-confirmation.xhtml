@@ -37,8 +37,9 @@
             <p><h:outputText value="Total: #{bookingFlowBean.price}" /></p>
 
             <b:form>
-                <b:commandButton value="back" action="passengers"/>
-                <b:commandButton value="confirm" action="end"/>
+                <b:commandButton value="back" action="passengers" immediate="true"/>
+                <b:commandButton id="confirm" value="confirm" action="payment"/>
+                <b:defaultCommand target="confirm"/>
             </b:form>
         </b:jumbotron>
     </ui:define>

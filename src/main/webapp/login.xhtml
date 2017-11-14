@@ -7,33 +7,30 @@
 <h:head>
 </h:head>
 <h:body>
-
     <ui:composition template="/templates/index-template.xhtml">
         <ui:define name="content">
             <div style="height: 7em;"/>
             <b:jumbotron styleClass="search-background">
                 <shiro:guest>
                     <b:form horizontal="true">
+                        <b:messages id="messages" autoUpdate="true" closable="true"/>
 
-                        <b:inputText placeholder="Email" id="email" required="true" label="Email"
+                        <b:inputText placeholder="Email" id="email" required="true" span="6"
                                      value="#{loginService.username}">
                             <f:facet name="prepend">
                                 <b:icon name="user"/>
                             </f:facet>
                         </b:inputText>
-                        <b:inputText placeholder="Password" label="Password" id="password" required="true"
+                        <b:inputSecret placeholder="Password" id="password" required="true" span="6"
                                      value="#{loginService.password}">
                             <f:facet name="prepend">
                                 <b:iconAwesome name="key"/>
                             </f:facet>
-                        </b:inputText>
-                        <b:selectBooleanCheckbox label="Remember Me" id="rememberMe"
+                        </b:inputSecret>
+                        <b:selectBooleanCheckbox caption="Remember me" id="rememberMe"
                                                  value="#{loginService.rememberMe}"/>
                         <b:commandButton value="Login" action="#{loginService.doLogin}"/>
                         <h:outputText/>
-
-
-                        <p:messages id="messages" autoUpdate="true" closable="true"/>
                     </b:form>
                 </shiro:guest>
                 <shiro:user>

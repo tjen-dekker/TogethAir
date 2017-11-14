@@ -1,35 +1,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui" xmlns:shiro="http://shiro.apache.org/tags">
+      xmlns:p="http://primefaces.org/ui" xmlns:shiro="http://shiro.apache.org/tags"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 </h:head>
 <h:body>
-    <shiro:guest>
-        <h:form prependId="false">
-            <h:panelGrid columns="2">
-                <h:outputText value="email:"/>
-                <p:inputText id="email" required="true" value="#{loginService.username}"/>
+    <ui:composition template="/templates/index-template.xhtml">
+        <ui:define name="content">
+            <div style="height: 7em;"/>
+            <b:jumbotron styleClass="search-background">
+                <shiro:guest>
+                    <b:form horizontal="true">
 
-                <h:outputText value="first name:"/>
-                <p:inputText id="firstName" required="true" value="#{loginService.firstName}"/>
+                        <b:messages id="messages" autoUpdate="true" closable="true"/>
 
-                <h:outputText value="last name:"/>
-                <p:inputText id="lastName" required="true" value="#{loginService.lastName}"/>
-
-                <h:outputText value="Password:"/>
-                <p:password id="password" required="true" value="#{loginService.password}"/>
+                        <b:inputText id="email" placeholder="Email" label="Email" required="true"
+                                     value="#{loginService.username}"/>
 
 
-                <!--<shiro:hasPermission name="admin">-->
-                    <h:outputText value="Admin"/>
-                    <p:selectBooleanCheckbox id="Admin" value="#{loginService.admin}"/>
-                <!--</shiro:hasPermission>-->
-                <h:outputText/>
-                <p:commandButton value="Register" action="#{loginService.register}"/>
-            </h:panelGrid>
+                        <b:inputText id="firstName" placeholder="First Name" label="First Name" required="true"
+                                     value="#{loginService.firstName}"/>
 
-            <p:messages id="messages" autoUpdate="true" closable="true"/>
-        </h:form>
-    </shiro:guest>
+
+                        <b:inputText id="lastName" placeholder="Last Name" label="Last Name" required="true"
+                                     value="#{loginService.lastName}"/>
+
+
+                        <b:inputSecret placeholder="Password" label="Password" id="password" required="true"
+                                       value="#{loginService.password}"/>
+
+                        <b:inputSecret placeholder="re-enter passord" label="re-enter password" id="compareToPassword"
+                                       required="true"
+                                       value="#{loginService.compareToPassword}"/>
+
+
+                        <!--<shiro:hasPermission name="admin">-->
+
+                        <b:selectBooleanCheckbox id="Admin" caption="admin?" value="#{loginService.admin}"/>
+                        <!--</shiro:hasPermission>-->
+
+                        <b:commandButton value="Register" action="#{loginService.register}"/>
+
+
+                    </b:form>
+                </shiro:guest>
+            </b:jumbotron>
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>

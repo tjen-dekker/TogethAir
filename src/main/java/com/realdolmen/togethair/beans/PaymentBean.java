@@ -3,18 +3,14 @@ package com.realdolmen.togethair.beans;
 import net.bootsfaces.utils.FacesMessages;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PaymentBean {
 
     private String ccNumber;
@@ -25,7 +21,7 @@ public class PaymentBean {
     private String targetURL = "http://localhost:9080/payment-service/api/creditcard/validation";
     private String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
 
-    public void validate() {
+    public String validate() {
         HttpURLConnection connection = null;
 
 
@@ -74,10 +70,8 @@ public class PaymentBean {
 
             if (responseMessage.startsWith("false"))
                 FacesMessages.error(responseMessage.substring(6));
-            else if (responseMessage.startsWith("true")) {
-                FacesMessages.info("Credit card exists.");
-                FacesContext.getCurrentInstance().getExternalContext().redirect("invoice.xhtml");
-            }
+            else if (responseMessage.startsWith("true"))
+                return "end";
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,12 +81,7 @@ public class PaymentBean {
                 connection.disconnect();
             }
         }
-    }
-
-    public ArrayList<String> getDataList() {
-        ArrayList<String> dataList = new ArrayList<>();
-        dataList.add("test123");
-        return dataList;
+        return null;
     }
 
     public String getCcNumber() {
