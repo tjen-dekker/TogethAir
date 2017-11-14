@@ -7,8 +7,19 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:b="http://bootsfaces.net/ui">
 <f:view>
     <f:event type="preRenderView" listener="#{userBean.initUser()}"/>
-    <b:dataTable value="#{userBean.user.bookings}" var="booking">
-        <b:dataTableColumn value="#{booking.getFlight().flightCode}"/>
+    <b:dataTable value="#{userBean.user.bookings}" var="booking" >
+        <b:dataTableColumn value="#{booking.flight.flightCode}"/>
+        <b:dataTableColumn value="#{booking.totalPrice}"/>
+        <b:dataTableColumn>
+            <b:button value="More info" action="" look="info"/>
+        </b:dataTableColumn>
+        <b:dataTable rendered="true" value="#{booking.passengers}" var="passenger">
+            <b:dataTableColumn value="#{passenger.firstName}"/>
+            <b:dataTableColumn value="#{passenger.lastName}"/>
+            <b:dataTableColumn value="#{passenger.birthDate}"/>
+
+        </b:dataTable>
+
     </b:dataTable>
 </f:view>
 </html>

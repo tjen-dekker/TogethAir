@@ -2,39 +2,45 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:shiro="http://shiro.apache.org/tags"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 </h:head>
 <h:body>
 
-    <b:jumbotron styleClass="search-background">
-        <shiro:guest>
-            <h:form prependId="false">
-                <h:panelGrid columns="2">
-                    <h:outputText value="email:"/>
-                    <p:inputText id="email" required="true" value="#{loginService.username}"/>
+    <ui:composition template="/templates/index-template.xhtml">
+        <ui:define name="content">
+            <div style="height: 7em;"/>
+            <b:jumbotron styleClass="search-background">
+                <shiro:guest>
+                    <h:form prependId="false">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="email:"/>
+                            <p:inputText id="email" required="true" value="#{loginService.username}"/>
 
-                    <h:outputText value="Password:"/>
-                    <p:password id="password" required="true" value="#{loginService.password}"/>
+                            <h:outputText value="Password:"/>
+                            <p:password id="password" required="true" value="#{loginService.password}"/>
 
-                    <h:outputText value="Remember me:"/>
-                    <p:selectBooleanCheckbox id="rememberMe" value="#{loginService.rememberMe}"/>
+                            <h:outputText value="Remember me:"/>
+                            <p:selectBooleanCheckbox id="rememberMe" value="#{loginService.rememberMe}"/>
 
-                    <h:outputText/>
-                    <p:commandButton value="Login" action="#{loginService.doLogin}"/>
-                    <h:outputText/>
-                    <p:commandButton value="logout" action="#{loginService.logout}"/>
-                </h:panelGrid>
+                            <h:outputText/>
+                            <p:commandButton value="Login" action="#{loginService.doLogin}"/>
+                            <h:outputText/>
+                            <p:commandButton value="logout" action="#{loginService.logout}"/>
+                        </h:panelGrid>
 
-                <p:messages id="messages" autoUpdate="true" closable="true"/>
-            </h:form>
-        </shiro:guest>
+                        <p:messages id="messages" autoUpdate="true" closable="true"/>
+                    </h:form>
+                </shiro:guest>
 
-        <shiro:user>
-            <h:form>
-                <p:commandButton value="logout" action="#{loginService.logout}"/>
-            </h:form>
-        </shiro:user>
-    </b:jumbotron>
+                <shiro:user>
+                    <h:form>
+                        <p:commandButton value="logout" action="#{loginService.logout}"/>
+                    </h:form>
+                </shiro:user>
+            </b:jumbotron>
+        </ui:define>
+    </ui:composition>
+
 </h:body>
 </html>
