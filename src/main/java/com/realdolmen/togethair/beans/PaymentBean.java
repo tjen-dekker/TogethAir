@@ -5,10 +5,13 @@ import net.bootsfaces.utils.FacesMessages;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean
 @SessionScoped
@@ -71,8 +74,10 @@ public class PaymentBean {
 
             if (responseMessage.startsWith("false"))
                 FacesMessages.error(responseMessage.substring(6));
-            else if (responseMessage.startsWith("true"))
+            else if (responseMessage.startsWith("true")) {
                 FacesMessages.info("Credit card exists.");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("invoice.xhtml");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,6 +87,12 @@ public class PaymentBean {
                 connection.disconnect();
             }
         }
+    }
+
+    public ArrayList<String> getDataList() {
+        ArrayList<String> dataList = new ArrayList<>();
+        dataList.add("test123");
+        return dataList;
     }
 
     public String getCcNumber() {

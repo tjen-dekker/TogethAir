@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition>
+    <style type="text/css" media="print">
+        .no-print {
+            display: none;
+        }
+    </style>
+    <b:panel title="Invoice" look="primary" collapsible="false">
+        <b:row value="test" >
+            <b:column tinyScreen="full">
+                <b:image value="resources/img/logo_realdolmen.png" width="200"/>
+            </b:column>
+        </b:row>
+        <b:row>
+            <b:column tinyScreen="8"/>
+            <b:column tinyScreen="1"><h:outputText value="Date:"/></b:column>
+            <b:column tinyScreen="1"><h:outputText value="12/08/1994"/></b:column>
+        </b:row>
+        <b:row>
+            <b:column tinyScreen="8"/>
+            <b:column tinyScreen="1"><h:outputText value="Total:"/></b:column>
+            <b:column tinyScreen="1"><h:outputText value="€600"/></b:column>
+        </b:row>
+        <b:button value="Print" onclick="window.print();" styleClass="no-print"/>
+    </b:panel>
+</ui:composition>
+</html>
