@@ -5,6 +5,7 @@
 <ui:composition>
     <b:panel title="Payment" look="primary" collapsible="false">
         <b:form>
+            <b:messages/>
             <b:inputText placeholder="5000xxxxxxxxxxx" mediumScreen="full" fieldSize="lg" value="#{bookingFlowBean.paymentBean.ccNumber}">
                 <f:facet name="prepend">
                     <h:outputText value="Credit Card Number" />
@@ -26,7 +27,6 @@
                 </f:facet>
             </b:inputText>
             <b:commandButton value="Search" ajax="true" action="#{bookingFlowBean.validate}" update="@form" fieldSize="lg"/>
-            <b:messages/>
         </b:form>
     </b:panel>
 </ui:composition>

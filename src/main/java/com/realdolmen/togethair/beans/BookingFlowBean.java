@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.ConstraintViolation;
+import javax.persistence.OptimisticLockException;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -88,9 +88,14 @@ public class BookingFlowBean implements Serializable{
         return flight;
     }
 
-    public String validate() throws SeatAlreadyTakenException {
-        recalculate();
-        save();
+    public String validate() throws  IOException {
+        try {
+            recalculate();
+            save();
+        } catch (OptimisticLockException | SeatAlreadyTakenException ex){
+            facesError("Something is wrong with your seats, try choosing others or start a new booking");
+            return "payment";
+        }
         return paymentBean.validate();
 
     }
@@ -193,9 +198,7 @@ public class BookingFlowBean implements Serializable{
         }
         p.setPassengers(ps);
         price = priceCalculationService.calculateTotalPrice(p,credit);
-        System.out.println("1 " + price);
         b.setTotalPrice(price);
-        System.out.println("2 " + b.getTotalPrice());
     }
 
     private void facesError(String message) throws IOException {

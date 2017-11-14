@@ -5,6 +5,7 @@ import com.realdolmen.togethair.domain.Passenger;
 import com.realdolmen.togethair.domain.Seat;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class PassengerDTO {
     @Pattern(regexp = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", message = "This is not a valid first name")
     private String firstName;
     @NotNull(message = "Please enter a date")
+    @Past(message = "Your date of birth is probably in the past")
     private Date birthDate;
     @NotNull
     private SeatDTO seat;
