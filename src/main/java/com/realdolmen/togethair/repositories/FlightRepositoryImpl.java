@@ -6,6 +6,7 @@ import com.realdolmen.togethair.domain.Flight;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -17,6 +18,7 @@ import java.util.List;
  * Created by TDKBG57 on 2017-11-07.
  */
 @Named("FlightServiceImpl")
+@Transactional
 public class FlightRepositoryImpl implements FlightRepository{
 
     @PersistenceContext

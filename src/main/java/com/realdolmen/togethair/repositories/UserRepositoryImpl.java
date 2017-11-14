@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Booking;
+import com.realdolmen.togethair.domain.FlightCompany;
 import com.realdolmen.togethair.domain.Passenger;
 import com.realdolmen.togethair.domain.User;
 
@@ -76,4 +77,10 @@ public class UserRepositoryImpl implements UserRepository {
         em.merge(u);
     }
 
+    @Override
+    public FlightCompany findUsersCompany(String username) {
+        return em.createQuery("select U.company from User U where U.email=:username", FlightCompany.class)
+                .setParameter("username", username)
+                .getSingleResult();
+    }
 }

@@ -32,6 +32,13 @@ public class AirportRepositoryImpl implements AirportRepository {
         return airport;
     }
 
+    @Override
+    public Airport getByName(String name) {
+        return em.createQuery("Select A from Airport A where A.name = :name", Airport.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+
     public List<Airport> findByCity(City city){
         return em.createQuery("select a from Airport a where a.city = :city")
         .setParameter("city",city)

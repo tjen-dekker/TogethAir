@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.beans;
 
 import com.realdolmen.togethair.DTO.FlightDTO;
+import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.TravelClass;
 import com.realdolmen.togethair.services.PriceCalculationService;
 import com.realdolmen.togethair.services.SearchServiceBean;
@@ -55,6 +56,7 @@ public class SearchBean {
     private boolean firstTimeSearch =true;
 	private boolean firstTimeBook =true;
     private List<String> allCityNames;
+    private List<Airport> allAirports;
 	
     @PostConstruct
     private void init(){
@@ -93,6 +95,8 @@ public class SearchBean {
 			}
 		}
 	}
+
+
 	
 	public void warning(AjaxBehaviorEvent event){
 		if(isFirstTimeBook())
@@ -102,7 +106,15 @@ public class SearchBean {
 	private void facesError(String message) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
 	}
-	
+
+	public List<Airport> getAllAirports() {
+		return allAirports;
+	}
+
+	public void setAllAirports(List<Airport> allAirports) {
+		this.allAirports = allAirports;
+	}
+
 	public List<String> getAllCityNames() {
 		return allCityNames;
 	}
