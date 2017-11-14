@@ -21,8 +21,9 @@ public class PaymentBean {
 
     private String targetURL = "http://localhost:9080/payment-service/api/creditcard/validation";
     private String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
+    private boolean advance = false;
 
-    public void validate() {
+    public String validate() {
         HttpURLConnection connection = null;
 
 
@@ -72,7 +73,7 @@ public class PaymentBean {
             if (responseMessage.startsWith("false"))
                 FacesMessages.error(responseMessage.substring(6));
             else if (responseMessage.startsWith("true"))
-                FacesMessages.info("Credit card exists.");
+                return "end";
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,6 +83,15 @@ public class PaymentBean {
                 connection.disconnect();
             }
         }
+        return null;
+    }
+
+    public boolean isAdvance() {
+        return advance;
+    }
+
+    public void setAdvance(boolean advance) {
+        this.advance = advance;
     }
 
     public String getCcNumber() {
