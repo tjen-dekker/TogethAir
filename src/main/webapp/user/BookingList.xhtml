@@ -9,7 +9,6 @@
     <f:event type="preRenderView" listener="#{userBean.initUser()}"/>
     <b:dataTable value="#{userBean.user.bookings}" var="booking">
         <b:dataTableColumn value="#{booking.getFlight().flightCode}"/>
-        <b:dataTableColumn value="#{booking.passengers.size}"/>
     </b:dataTable>
 </f:view>
 </html>

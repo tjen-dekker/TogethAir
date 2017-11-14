@@ -56,6 +56,8 @@ public class LoginService implements Serializable {
         try {
 
             subject.login(token);
+            setLastName(userRepository.getLastNameofCurrentUser(username));
+            setFirstName(userRepository.getFirstNameofCurrentUser(username));
 
             if (subject.hasRole("admin")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("admin/index.xhtml");
@@ -81,8 +83,7 @@ public class LoginService implements Serializable {
 
             token.clear();
 
-            setLastName(userRepository.getLastNameofCurrentUser(username));
-            setFirstName(userRepository.getFirstNameofCurrentUser(username));
+
         }
 
     }

@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @ManagedBean
-@Named
 @SessionScoped
 public class UserBean {
 
@@ -24,7 +23,7 @@ public class UserBean {
     public void initUser(){
         System.out.println("user is ier");
         user = userServiceBean.getUserByEmail(SecurityUtils.getSubject().getPrincipal().toString());
-        System.out.println(user.getBookings().get(0).getPassengers().size());
+        user.setBookings(userServiceBean.getAllBookingsFromUser(user.getEmail()));
     }
 
     public User getUser() {
