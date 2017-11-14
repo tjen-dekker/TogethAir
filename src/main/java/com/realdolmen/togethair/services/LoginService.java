@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -124,20 +125,19 @@ public class LoginService implements Serializable {
                 }
                 if (userRepository.getUserByEmail(username) != null) {
                     facesError("user already exists");
-                } else {
-                    userRepository.create(user);
-
-
-                    setRememberMe(false);
-
-                    doLogin();
-
-                    setUsername(SecurityUtils.getSubject().getPrincipal().toString());
-                    setFirstName(userRepository.getFirstNameofCurrentUser(username));
-                    setLastName(userRepository.getLastNameofCurrentUser(username));
-
-
                 }
+
+
+            } catch (NoResultException ex) {
+                userRepository.create(user);
+
+                setRememberMe(false);
+
+                doLogin();
+
+                setUsername(SecurityUtils.getSubject().getPrincipal().toString());
+                setFirstName(userRepository.getFirstNameofCurrentUser(username));
+                setLastName(userRepository.getLastNameofCurrentUser(username));
             } catch (IncorrectCredentialsException ex) {
                 facesError("password needs to be at least 5 characters long");
 
