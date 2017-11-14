@@ -1,0 +1,11 @@
+insert into flightcompany values (1,"SN","Brussels Airlines");
+insert into country values(1,"Belgium",4);
+insert into country values(2,"USA",6);
+insert into city values(1,"Brussel",1);
+insert into city values(2,"New York",2);
+insert into airport values (1,"BRU","Brussels Airport",1);
+insert into airport values (2,"JFK","JFK",2);
+insert into flight values (1,"2017-11-08 13:31:24",120,9410,100,0,1,1,2);
+insert into flight values (2,"2017-11-08 13:31:23",120,9415,100,0,1,1,2);
+insert into seat values(1,true,"21B",200,"ECONOMY",0,1);
+insert into seat values(2,true,"21A",210,"ECONOMY",0,1);

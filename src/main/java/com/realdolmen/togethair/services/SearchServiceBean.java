@@ -46,6 +46,11 @@ public class SearchServiceBean {
 		return mapFlightList(filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats));
 	}
 	
+	public List<FlightDTO> findFromToOnDate(String fromCityName, String toCityName,Date date1, TravelClass travelClass,int minNrOfFreeSeats){
+		List<Flight> flightList = flightRepository.findFromToOnDate(getAirportsFomCity(getCityFromName(fromCityName)), getAirportsFomCity(getCityFromName(toCityName)), date1);
+		return mapFlightList(filterMinNrOfFreeSeatsOfClass(flightList,travelClass,minNrOfFreeSeats));
+	}
+
 	private List<Flight>filterMinNrOfFreeSeatsOfClass(List<Flight> flights, TravelClass travelClass, int minNrOfFreeSeats){
 		List<Flight> filteredList= new ArrayList<>();
 		
@@ -58,6 +63,15 @@ public class SearchServiceBean {
 
 	private City getCityFromName(String cityName){
 		return cityRepository.findByName(cityName);
+	}
+	
+	public List<String> getAllCityNames(){
+		List<City> allCities = cityRepository.findAll();
+		List<String> allCitesStrings = new ArrayList<>();
+		for (City city :allCities) {
+			allCitesStrings.add(city.getName());
+		}
+		return allCitesStrings;
 	}
 	
 	private List<Airport> getAirportsFomCity(City city){

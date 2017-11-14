@@ -17,7 +17,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.MERGE) //TODO change this to lazy but fix flow
+	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH}) //TODO change this to lazy but fix flow
 	private List<Booking> bookings = new ArrayList<>();
 
 	@NotNull
