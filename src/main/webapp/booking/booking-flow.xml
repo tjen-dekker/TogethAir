@@ -19,6 +19,9 @@
             <vdl-document>/booking/booking-confirmation.xhtml</vdl-document>
         </view>
 
+        <view id="payment">
+            <vdl-document>/booking/payment.xhtml</vdl-document>
+        </view>
 
         <flow-return id="end">
             <from-outcome>/index.xhtml</from-outcome>
