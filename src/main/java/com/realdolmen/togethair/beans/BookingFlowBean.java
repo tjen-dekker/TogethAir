@@ -44,6 +44,9 @@ public class BookingFlowBean implements Serializable{
     private Flight f;
     private Booking b;
     private User user;
+    private boolean credit;
+    private boolean transfer = true;
+
 
     private float price;
     private Integer amountOfPassengers = 1;
@@ -192,5 +195,21 @@ public class BookingFlowBean implements Serializable{
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public boolean isCredit() {
+        return credit;
+    }
+
+    public void setCredit(boolean credit) {
+        this.credit = credit;
+    }
+
+    public boolean isTransfer() {
+        return transfer;
+    }
+
+    public void setTransfer(boolean transfer) {
+        this.transfer = transfer;
     }
 }

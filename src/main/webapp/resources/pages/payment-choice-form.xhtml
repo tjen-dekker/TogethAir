@@ -2,22 +2,24 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
-<ui:composition>
-    <b:panel title="Choose Payment Method" look="primary" collapsible="false">
-        <h:form>
-            <b:accordion expanded-panels="creditCard">
-                <b:panel id="creditCard" title="Credit Card">
-                    <b:radiobutton itemLabel="Pay by Mastercard, Visa or American Express" itemValue="creditcard" required="true" />
-                </b:panel>
-                <b:panel id="creditTransfer" title="Credit Transfer">
-                    <b:radiobutton itemLabel="Pay by credit transfer" itemValue="credittransfer" />
-                    <h:outputText value="Please make a transfer to following IBAN number with following message:"/>
-                    <h:outputText value="Amount: &euro;600"/>
-                    <h:outputText value="IBAN: NL95RABO0384948568"/>
-                    <h:outputText value="Strucured message: RF18 5390 0754 7034"/>
-                </b:panel>
-            </b:accordion>
-        </h:form>
-    </b:panel>
+<ui:composition template="/templates/index-template.xhtml">
+
+        <b:panel title="Choose Payment Method" look="primary" collapsible="false">
+            <h:form>
+                <!--<b:accordion expanded-panels="creditCard">-->
+                    <!--<b:panel id="creditCard" title="Credit Card">-->
+                        <b:radiobutton itemLabel="Pay by Mastercard, Visa or American Express" itemValue="creditcard" required="true" value="#{bookingFlowBean.credit}"/>
+                    <!--</b:panel>-->
+                    <!--<b:panel id="creditTransfer" title="Credit Transfer">-->
+                        <b:radiobutton itemLabel="Pay by credit transfer" itemValue="credittransfer" value="#{bookingFlowBean.transfer}"/>
+                        <h:outputText value="Please make a transfer to following IBAN number with following message:"/>
+                        <h:outputText value="Amount: €600"/>
+                        <h:outputText value="IBAN: NL95RABO0384948568"/>
+                        <h:outputText value="Strucured message: RF18 5390 0754 7034"/>
+                    <!--</b:panel>-->
+                <!--</b:accordion>-->
+                <b:commandButton value="back" action="confirmation"/>
+            </h:form>
+        </b:panel>
 </ui:composition>
 </html>
