@@ -4,6 +4,7 @@ import com.realdolmen.togethair.Exceptions.PassengerListIsemptyException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
@@ -21,6 +22,10 @@ public class Booking {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn
     private List<Passenger> passengers = new ArrayList<>();
+
+    @NotNull
+    @DecimalMin("1")
+    private float totalPrice;
 
     public Booking() {
     }
@@ -44,6 +49,14 @@ public class Booking {
 
     public void addPassenger(Passenger p) {
         passengers.add(p);
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Flight getFlight() throws Exception {
