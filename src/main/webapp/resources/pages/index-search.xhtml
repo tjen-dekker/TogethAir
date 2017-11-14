@@ -104,7 +104,7 @@
                     <b:dataTableColumn value="#{flight.priceOfCheapestSeat * searchBean.minNrOfSeats}"  label="total price" order="asc"/>
                     <b:dataTableColumn label="controls" >
                         <b:form>
-                            <b:commandButton value="book" look="success" action="booking" rendered=""/>
+                            <b:commandButton value="book" look="success" action="booking"/>
                             <h:inputHidden id="flightId" value="#{flight.id}"/>
                             <h:inputHidden id="amountOfPassengers" value="#{searchBean.minNrOfSeats}"/>
                         </b:form>

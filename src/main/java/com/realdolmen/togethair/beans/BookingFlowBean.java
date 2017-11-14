@@ -12,12 +12,14 @@ import com.realdolmen.togethair.domain.*;
 import com.realdolmen.togethair.services.*;
 import org.apache.shiro.SecurityUtils;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -128,16 +130,20 @@ public class BookingFlowBean implements Serializable{
         return this.amountOfPassengers;
     }
 
-    public void createPassengers() throws NotEnoughSeatsAvailableException, PassengerListIsemptyException, SeatAlreadyTakenException {
+    public String createPassengers() throws NotEnoughSeatsAvailableException, PassengerListIsemptyException, SeatAlreadyTakenException, IOException {
         Set<Seat> availableSeats = f.getAvailableSeats();
         List<PassengerDTO> passengers = booking.getPassengers();
         if(f.getAvailableSeats().size()<amountOfPassengers){
             //TODO should use i18n
-            throw new NotEnoughSeatsAvailableException("There are not enough seats available");
+            facesError("There are not enough seats available");
+            //throw new NotEnoughSeatsAvailableException("There are not enough seats available");
+            return "detail";
         }
         if(amountOfPassengers<=0){
             //TODO should use i18n
-            throw new PassengerListIsemptyException("You should select at least 1 passenger");
+            facesError("You should select at least 1 passenger");
+//            throw new PassengerListIsemptyException("You should select at least 1 passenger");
+            return "detail";
         }
         if(amountOfPassengers > passengers.size() ) {
             Iterator<Seat> iterator = availableSeats.iterator();
@@ -159,6 +165,7 @@ public class BookingFlowBean implements Serializable{
                 passengers.remove(i);
             }
         }
+        return "passengers";
     }
 
     public void recalculate() throws SeatAlreadyTakenException {
@@ -173,6 +180,10 @@ public class BookingFlowBean implements Serializable{
         }
         p.setPassengers(ps);
         price = priceCalculationService.calculateTotalPrice(p,false);
+    }
+
+    private void facesError(String message) throws IOException {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
 
     public float getPrice() {

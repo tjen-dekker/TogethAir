@@ -11,7 +11,7 @@
 
 <ui:composition template="/templates/index-template.xhtml">
     <ui:define name="content">
-        <f:event type="preRenderView" listener="#{bookingFlowBean.createPassengers()}"/>
+        <!--<f:event type="preRenderView" listener="#{bookingFlowBean.createPassengers()}"/>-->
         <f:event type="preRenderView" listener="#{bookingFlowBean.recalculate()}"/>
 
 
