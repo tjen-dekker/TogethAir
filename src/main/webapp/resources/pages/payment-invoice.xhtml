@@ -22,7 +22,7 @@
         <b:row>
             <b:column tinyScreen="8"/>
             <b:column tinyScreen="1"><h:outputText value="Total:"/></b:column>
-            <b:column tinyScreen="1"><h:outputText value="€600"/></b:column>
+            <b:column tinyScreen="1"><h:outputText value="€#{bookingFlowBean.price}"/></b:column>
         </b:row>
         <b:button value="Print" onclick="window.print();" styleClass="no-print"/>
     </b:panel>

@@ -28,6 +28,11 @@
             <vdl-document>/booking/payment.xhtml</vdl-document>
         </view>
 
+        <view id="invoice">
+            <vdl-document>/booking/invoice.xhtml</vdl-document>
+        </view>
+
+
 
 
         <flow-return id="end">
@@ -35,6 +40,6 @@
         </flow-return>
 
         <initializer>#{bookingFlowBean.prepare()}</initializer>
-        <finalizer>#{bookingFlowBean.save()}</finalizer>
+        <!--<finalizer>#{bookingFlowBean.save()}</finalizer>-->
     </flow-definition>
 </faces-config>

@@ -37,6 +37,8 @@ public class BookingFlowBean implements Serializable{
     private PriceCalculationService priceCalculationService;
     @Inject
     private UserServiceBean userService;
+    @Inject
+    private PaymentBean paymentBean;
 
     //TODO should probably use a DTO or DAO who knows
     private BookingDTO booking;
@@ -44,8 +46,7 @@ public class BookingFlowBean implements Serializable{
     private Flight f;
     private Booking b;
     private User user;
-    private boolean credit;
-    private boolean transfer = true;
+    private String paymentMethod = "credittransfer";
 
 
     private float price;
@@ -87,6 +88,13 @@ public class BookingFlowBean implements Serializable{
         return flight;
     }
 
+    public String validate() throws SeatAlreadyTakenException {
+        recalculate();
+        save();
+        return paymentBean.validate();
+
+    }
+
     //TODO we should probably catch the exception
     public void save() throws SeatAlreadyTakenException, ConstraintViolationException {
         try{
@@ -96,8 +104,6 @@ public class BookingFlowBean implements Serializable{
                 b.addPassenger(passenger);
             }
             //TODO there should be checks, can we check stuff after every step or only at the end?
-
-            b.setTotalPrice(priceCalculationService.calculateTotalPrice(b,false));
             if(user!=null){
                 user.setBookings(userService.getAllBookingsFromUser(user.getEmail()));
                 user.addBooking(b);
@@ -172,6 +178,10 @@ public class BookingFlowBean implements Serializable{
     }
 
     public void recalculate() throws SeatAlreadyTakenException {
+        boolean credit = false;
+        if("creditcard".equals(paymentMethod)){
+            credit = true;
+        }
         //convert BookingDTO to an actual Booking so we can calculate the price
         Booking p = new Booking();
         List<Passenger> ps = new ArrayList<>();
@@ -182,11 +192,24 @@ public class BookingFlowBean implements Serializable{
             ps.add(passenger);
         }
         p.setPassengers(ps);
-        price = priceCalculationService.calculateTotalPrice(p,false);
+        price = priceCalculationService.calculateTotalPrice(p,credit);
+        System.out.println("1 " + price);
+        b.setTotalPrice(price);
+        System.out.println("2 " + b.getTotalPrice());
     }
 
     private void facesError(String message) throws IOException {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    public String goToPayment() throws SeatAlreadyTakenException {
+        if("creditcard".equals(paymentMethod)){
+            return "payment";
+        }
+        else {
+            //TODO make page for transfer
+            return "";
+        }
     }
 
     public float getPrice() {
@@ -197,19 +220,20 @@ public class BookingFlowBean implements Serializable{
         this.price = price;
     }
 
-    public boolean isCredit() {
-        return credit;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setCredit(boolean credit) {
-        this.credit = credit;
+    public void setPaymentMethod(String paymentMethod) throws SeatAlreadyTakenException {
+        this.paymentMethod = paymentMethod;
+        recalculate();
     }
 
-    public boolean isTransfer() {
-        return transfer;
+    public PaymentBean getPaymentBean() {
+        return paymentBean;
     }
 
-    public void setTransfer(boolean transfer) {
-        this.transfer = transfer;
+    public void setPaymentBean(PaymentBean paymentBean) {
+        this.paymentBean = paymentBean;
     }
 }
