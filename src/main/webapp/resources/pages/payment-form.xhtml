@@ -5,27 +5,28 @@
 <ui:composition>
     <b:panel title="Payment" look="primary" collapsible="false">
         <b:form>
-            <b:inputText placeholder="5000xxxxxxxxxxx" mediumScreen="full" fieldSize="lg">
+            <b:inputText placeholder="5000xxxxxxxxxxx" mediumScreen="full" fieldSize="lg" value="#{paymentBean.ccNumber}">
                 <f:facet name="prepend">
                     <h:outputText value="Credit Card Number" />
                 </f:facet>
             </b:inputText>
-            <b:inputText placeholder="John Doe" mediumScreen="full" fieldSize="lg">
+            <b:inputText placeholder="John Doe" mediumScreen="full" fieldSize="lg" value="#{paymentBean.ccName}">
                 <f:facet name="prepend">
                     <h:outputText value="Name" />
                 </f:facet>
             </b:inputText>
-            <b:inputText placeholder="dd/mm" mediumScreen="half" fieldSize="lg">
+            <b:inputText placeholder="dd/mm" mediumScreen="half" fieldSize="lg" value="#{paymentBean.ccValidDate}">
                 <f:facet name="prepend">
                     <h:outputText value="Valid Until" />
                 </f:facet>
             </b:inputText>
-            <b:inputText placeholder="xxx" mediumScreen="half" fieldSize="lg">
+            <b:inputText placeholder="xxx" mediumScreen="half" fieldSize="lg" value="#{paymentBean.ccv}">
                 <f:facet name="append">
                     <h:outputText value="ccv" />
                 </f:facet>
             </b:inputText>
-            <b:commandButton action="index.xhtml" value="Search" ajax="false" fieldSize="lg"/>
+            <b:commandButton value="Search" ajax="true" action="#{paymentBean.validate}" update="@form" fieldSize="lg"/>
+            <b:messages/>
         </b:form>
     </b:panel>
 </ui:composition>
