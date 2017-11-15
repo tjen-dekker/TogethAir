@@ -2,6 +2,7 @@ package com.realdolmen.togethair.beans;
 
 import com.realdolmen.togethair.DTO.FlightDTO;
 import com.realdolmen.togethair.domain.Airport;
+import com.realdolmen.togethair.domain.Region;
 import com.realdolmen.togethair.domain.TravelClass;
 import com.realdolmen.togethair.services.PriceCalculationService;
 import com.realdolmen.togethair.services.SearchServiceBean;

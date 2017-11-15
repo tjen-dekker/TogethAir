@@ -21,6 +21,14 @@
                         <h:outputText value="Country" />
                     </f:facet>
                 </b:inputText>
+                    <b:selectOneMenu mediumScreen="one-third"
+                                     render-label="false" fieldSize="lg"
+                                     value="#{searchBean.travelClass}">
+                        <f:selectItems value="#{bean.getEnums}" var="seat" itemLabel="" itemValue="" />
+                        <f:facet name="append">
+                            <h:outputText value="Region"/>
+                        </f:facet>
+                    </b:selectOneMenu>
                 <b:inputText mediumScreen="two-thirds" placeholder="Brussels" typeahead="true"
                              typeaheadValues=""
                              fieldSize="lg"
