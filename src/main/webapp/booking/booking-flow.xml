@@ -37,6 +37,9 @@
         <view id="invoice">
             <vdl-document>/booking/invoice.xhtml</vdl-document>
         </view>
+        <view id="transfer-invoice">
+            <vdl-document>/booking/transfer-invoice.xhtml</vdl-document>
+        </view>
 
 
 

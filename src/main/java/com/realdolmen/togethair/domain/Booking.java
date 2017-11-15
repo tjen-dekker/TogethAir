@@ -30,7 +30,6 @@ public class Booking {
     public Booking() {
     }
 
-
     public Booking(List<Passenger> passengers) {
         this.passengers = passengers;
     }
