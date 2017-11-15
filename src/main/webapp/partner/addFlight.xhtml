@@ -35,10 +35,22 @@
                                  value="#{flightBean.to}"
                                  id="to" label="To">
                     </b:inputText>
+                    <b:inputText placeholder="0.0"
+                                 value="#{flightBean.baseEconomy}"
+                                 id="BasePriceEconomy" label="Base Price Economy">
+                    </b:inputText>
+                    <b:inputText placeholder="0.0"
+                                 value="#{flightBean.baseBusiness}"
+                                 id="BasePriceBusiness" label="Base Price Business">
+                    </b:inputText>
+                    <b:inputText placeholder="0.0"
+                                 value="#{flightBean.baseFirstClass}"
+                                 id="BasePriceFirstClass" label="Base Price First Class">
+                    </b:inputText>
                     <b:inputText required="true" label="From Row" value="#{flightBean.rowStart}" placeholder="1-26"/>
                     <b:inputText required="true" label="To Row" value="#{flightBean.rowEnd}" placeholder="1-26"/>
                     <b:commandButton value="Create" action="#{flightBean.addFlight}"/>
-                    <b:commandButton value="Clear" action="#{flightBean.clear}"/>
+                    <!--<b:commandButton value="Clear" action="#{flightBean.clear}"/>-->
                     <h:outputText/>
                 </b:form>
                 <shiro:user>
