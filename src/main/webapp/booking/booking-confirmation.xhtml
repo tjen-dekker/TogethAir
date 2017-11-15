@@ -14,7 +14,7 @@
         <b:jumbotron>
             <h3>Flight details</h3>
             <b:panel title="Flight details">
-            <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}"/></p>
+            <p><h:outputText value="#{bookingFlowBean.flight.flightCompany.name}"/></p>
             <p><h:outputText value="Departure: #{bookingFlowBean.flight.from.name} (#{bookingFlowBean.flight.from.code})"/></p>
             <p><h:outputText value="Destination: #{bookingFlowBean.flight.to.name} (#{bookingFlowBean.flight.to.code})"/></p>
             <p>Departure time: <h:outputText value="#{bookingFlowBean.flight.departureDateTime}">
