@@ -15,7 +15,6 @@
             <b:jumbotron styleClass="search-background">
                 <b:form horizontal="true">
                     <b:messages id="messages" autoUpdate="true" closable="true"/>
-
                     <b:inputText placeholder="FlightCode" id="FlightCode" required="true"
                                  render-label="false"
                                  value="#{flightBean.flight.flightCode}">
@@ -23,10 +22,15 @@
                             <h:outputText value="flight code"/>
                         </f:facet>
                     </b:inputText>
-                    <b:dateTimePicker required="true" format="DD/MM/YYYY hh:mm" showTime="true"
-                                      render-label="false"
-                                      value="#{flightBean.flight.departureDateTime}" showIcon="true" iconPosition="left">
-                    </b:dateTimePicker>
+                    <b:formGroup>
+                        <b:dateTimePicker required="true" format="DD/MM/YYYY hh:mm" showTime="true"
+                                          render-label="false"
+                                          value="#{flightBean.flight.departureDateTime}" showIcon="true" iconPosition="left">
+                            <f:facet name="prepend">
+                                <h:outputText value="flight code"/>
+                            </f:facet>
+                        </b:dateTimePicker>
+                    </b:formGroup>
                     <b:inputText placeholder="Duration in minutes" id="Duration"
                                  render-label="false"
                                     value="#{flightBean.flight.duration}">
