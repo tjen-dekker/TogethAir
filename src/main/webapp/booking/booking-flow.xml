@@ -49,6 +49,6 @@
         </flow-return>
 
         <initializer>#{bookingFlowBean.prepare()}</initializer>
-        <!--<finalizer>#{bookingFlowBean.save()}</finalizer>-->
+        <!--<finalizer>#{bookingFlowBean.end()}</finalizer>-->
     </flow-definition>
 </faces-config>
