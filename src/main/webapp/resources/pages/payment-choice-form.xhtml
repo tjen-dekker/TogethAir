@@ -7,7 +7,9 @@
             <h:form>
                 <!--<b:accordion expanded-panels="creditCard,creditTransfer">-->
                     <b:panel id="creditCard" title="Credit Card" collapsed="false">
-                        <b:radiobutton itemLabel="Pay by Mastercard, Visa or American Express (you will receive a discount of #{priceCalculation['creditcardDiscountPercentage']}%)" itemValue="creditcard" required="true" value="#{bookingFlowBean.paymentMethod}"/>
+                        <b:radiobutton itemLabel="Pay by Mastercard, Visa or American Express (you will receive a discount of
+                        #{priceCalculation['creditcardDiscountPercentage']}%)" itemValue="creditcard" required="true"
+                                       value="#{bookingFlowBean.paymentMethod}" />
                     </b:panel>
                     <b:panel id="creditTransfer" title="Credit Transfer" collapsed="false">
                         <b:radiobutton itemLabel="Pay by credit transfer" itemValue="credittransfer" value="#{bookingFlowBean.paymentMethod}"/>

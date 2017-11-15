@@ -17,7 +17,8 @@
                     <b:messages id="messages" autoUpdate="true" closable="true"/>
                     <b:inputText placeholder="FlightCode" id="FlightCode" required="true"
                                  render-label="false"
-                                 value="#{flightBean.flight.flightCode}">
+                                 value="#{flightBean.flight.flightCode}"
+                                 requiredMessage="flightcode is required">
                         <f:facet name="prepend">
                             <h:outputText value="flight code"/>
                         </f:facet>
@@ -25,7 +26,8 @@
                     <b:formGroup>
                         <b:dateTimePicker required="true" format="DD/MM/YYYY hh:mm" showTime="true"
                                           render-label="false"
-                                          value="#{flightBean.flight.departureDateTime}" showIcon="true" iconPosition="left">
+                                          value="#{flightBean.flight.departureDateTime}" showIcon="true" iconPosition="left"
+                                          requiredMessage="Date/time is required">
                             <f:facet name="prepend">
                                 <h:outputText value="flight code"/>
                             </f:facet>

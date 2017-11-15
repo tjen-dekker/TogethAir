@@ -18,7 +18,7 @@
                                  typeaheadValues="#{searchBean.allCityNames}"
                                  fieldSize="lg"
                                  value="#{searchBean.fromCityName}"
-                                 id="from">
+                                 id="from" >
                         <f:facet name="prepend">
                             <h:outputText value="From"/>
                         </f:facet>
@@ -66,7 +66,8 @@
                                       fieldSize="lg"
                                       format="DD/MM/YYYY"
                                       placeholder="From"
-                                      required="true"/>
+                                      required="true"
+                                      requiredMessage="Dates are required"/>
                     <b:dateTimePicker mediumScreen="half"
                                       value="#{searchBean.date2}"
                                       showIcon="true"
@@ -78,7 +79,8 @@
                                       fieldSize="lg"
                                       format="DD/MM/YYYY"
                                       placeholder="Until"
-                                      required="true"/>
+                                      required="true"
+                                      requiredMessage="Dates are required"/>
                 </b:formGroup>
                 <b:commandButton value="Search" look="success">
                     <f:ajax listener="#{searchBean.search}"

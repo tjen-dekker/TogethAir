@@ -15,22 +15,22 @@
                         <b:messages id="messages" autoUpdate="true" closable="true"/>
 
                         <b:inputText id="email" placeholder="Email" label="Email" required="true"
-                                     value="#{loginService.username}"/>
+                                     value="#{loginService.username}" requiredMessage="email is required"/>
 
 
                         <b:inputText id="firstName" placeholder="First Name" label="First Name" required="true"
-                                     value="#{loginService.firstName}"/>
+                                     value="#{loginService.firstName}" requiredMessage="First name is required"/>
 
 
                         <b:inputText id="lastName" placeholder="Last Name" label="Last Name" required="true"
-                                     value="#{loginService.lastName}"/>
+                                     value="#{loginService.lastName}" requiredMessage="Last name is required"/>
 
 
                         <b:inputSecret placeholder="Password" label="Password" id="password" required="true"
                                        value="#{loginService.password}"/>
 
                         <b:inputSecret placeholder="re-enter passord" label="re-enter password" id="compareToPassword"
-                                       required="true"
+                                       required="true" requiredMessage="Password is required"
                                        value="#{loginService.compareToPassword}"/>
 
 

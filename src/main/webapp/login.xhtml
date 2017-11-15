@@ -16,13 +16,13 @@
                         <b:messages id="messages" autoUpdate="true" closable="true"/>
 
                         <b:inputText placeholder="Email" id="email" required="true" span="6"
-                                     value="#{loginService.username}">
+                                     value="#{loginService.username}" requiredMessage="email is required">
                             <f:facet name="prepend">
                                 <b:icon name="user"/>
                             </f:facet>
                         </b:inputText>
                         <b:inputSecret placeholder="Password" id="password" required="true" span="6"
-                                     value="#{loginService.password}">
+                                     value="#{loginService.password}" requiredMessage="password">
                             <f:facet name="prepend">
                                 <b:iconAwesome name="key"/>
                             </f:facet>
