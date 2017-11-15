@@ -16,4 +16,6 @@ public interface CityRepository {
     public City findByName(String cityName);
 
     public City create(City city);
+
+    void merge(City city);
 }

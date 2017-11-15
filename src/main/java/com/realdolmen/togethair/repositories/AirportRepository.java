@@ -19,4 +19,6 @@ public interface AirportRepository {
      Airport create(Airport airport);
 
      Airport getByName(String name);
+
+     void merge(Airport airport);
 }

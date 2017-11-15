@@ -27,6 +27,15 @@ public class AirportServiceBean implements Serializable {
     private List<City> allCities = new ArrayList<>();
     private List<Country> allCountries = new ArrayList<>();
 
+    public void updateCountry(Country country){
+        countryRepository.merge(country);
+    }
+
+    public void updateCity(City city){
+        cityRepository.merge(city);
+    }
+
+
     public void saveAirport(Airport airport){
         airportRepository.create(airport);
     }

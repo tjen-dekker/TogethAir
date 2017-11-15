@@ -47,4 +47,9 @@ public class AirportRepositoryImpl implements AirportRepository {
         .setParameter("city",city)
                 .getResultList();
     }
+
+    @Override
+    public void merge(Airport airport) {
+        em.merge(airport);
+    }
 }

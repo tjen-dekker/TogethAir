@@ -39,7 +39,6 @@ public class AirportBean {
     private List<Region> allRegionNames = new ArrayList<>();
 
 
-
     private String normalizeInput(String input) {
         String[] words = input.split("([ -])");
         StringBuilder ret = new StringBuilder();
@@ -56,8 +55,8 @@ public class AirportBean {
 
     @PostConstruct
     public void init() {
-        city=new City();
-        airport= new Airport();
+        city = new City();
+        airport = new Airport();
         country = new Country();
         allAirportNames = serviceBean.allAirportNames();
         allCityNames = serviceBean.allCityNames();
@@ -72,16 +71,24 @@ public class AirportBean {
     public void createAirport() {
 
         if (allCountryNames.contains(normalizeInput(countryName))) {
-            city.setCountry(serviceBean.countryByName(countryName));
-        } else {
-            country.setName(countryName);
-            region=Region.WESTERN_EUROPE;
-            country.setRegion(region);
+            Country country = serviceBean.countryByName(countryName);
+
+            serviceBean.updateCountry(country);
+//            country.setId(null);
             city.setCountry(country);
+        } else {
+            this.country.setName(countryName);
+            region = Region.WESTERN_EUROPE;
+            this.country.setRegion(region);
+            city.setCountry(this.country);
         }
 
         if (allCityNames.contains(normalizeInput(cityName))) {
-            airport.setCity(serviceBean.cityByName(cityName));
+            City city = serviceBean.cityByName(cityName);
+
+            serviceBean.updateCity(city);
+//            city.setId(null);
+            airport.setCity(city);
         } else {
             city.setName(cityName);
             airport.setCity(city);
@@ -89,7 +96,7 @@ public class AirportBean {
         airport.setCode(airportCode);
         airport.setName(airportName);
 
-        serviceBean.saveAirport(airport);
+        this.serviceBean.saveAirport(airport);
 
         facesMessage("Airport was added successfully");
 

@@ -37,4 +37,9 @@ public class CountryRepositoryImpl implements CountryRepository{
         em.persist(country);
         return country;
     }
+
+    @Override
+    public void merge(Country country) {
+        em.merge(country);
+    }
 }
