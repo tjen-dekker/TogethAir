@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:shiro="http://shiro.apache.org/tags">
+      xmlns:shiro="http://shiro.apache.org/tags" xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 </h:head>
 <h:body>
@@ -16,41 +16,79 @@
                 <b:form horizontal="true">
                     <b:messages id="messages" autoUpdate="true" closable="true"/>
 
-                    <b:inputText placeholder="FlightCode" id="FlightCode" label="FlightCode" required="true"
+                    <b:inputText placeholder="FlightCode" id="FlightCode" required="true"
+                                 render-label="false"
                                  value="#{flightBean.flight.flightCode}">
+                        <f:facet name="prepend">
+                            <h:outputText value="flight code"/>
+                        </f:facet>
                     </b:inputText>
-                    <b:dateTimePicker required="true" format="DD/MM/YYYY hh:mm" label="Departure Date/Time" showTime="true"
-                                      value="#{flightBean.flight.departureDateTime}">
+                    <b:dateTimePicker required="true" format="DD/MM/YYYY hh:mm" showTime="true"
+                                      render-label="false"
+                                      value="#{flightBean.flight.departureDateTime}" showIcon="true" iconPosition="left">
                     </b:dateTimePicker>
-                    <b:inputText placeholder="Duration in minutes" id="Duration" label="Duration in minutes"
+                    <b:inputText placeholder="Duration in minutes" id="Duration"
+                                 render-label="false"
                                     value="#{flightBean.flight.duration}">
+                        <f:facet name="prepend">
+                            <h:outputText value="Duration in minutes"/>
+                        </f:facet>
                     </b:inputText>
                     <b:inputText placeholder="Brussels" typeahead="true"
                                  typeaheadValues="#{flightBean.allAirports}"
+                                 render-label="false"
                                  value="#{flightBean.from}"
-                                 id="from" label="From">
+                                 id="from">
+                        <f:facet name="prepend">
+                            <h:outputText value="From"/>
+                        </f:facet>
                     </b:inputText>
                     <b:inputText placeholder="Brussels" typeahead="true"
                                  typeaheadValues="#{flightBean.allAirports}"
+                                 render-label="false"
                                  value="#{flightBean.to}"
-                                 id="to" label="To">
+                                 id="to">
+                        <f:facet name="prepend">
+                            <h:outputText value="To"/>
+                        </f:facet>
                     </b:inputText>
                     <b:inputText placeholder="0.0"
                                  value="#{flightBean.baseEconomy}"
-                                 id="BasePriceEconomy" label="Base Price Economy">
+                                 render-label="false"
+                                 id="BasePriceEconomy" >
+                        <f:facet name="prepend">
+                            <h:outputText value="Base Price Economy"/>
+                        </f:facet>
                     </b:inputText>
                     <b:inputText placeholder="0.0"
                                  value="#{flightBean.baseBusiness}"
-                                 id="BasePriceBusiness" label="Base Price Business">
+                                 render-label="false"
+                                 id="BasePriceBusiness">
+                        <f:facet name="prepend">
+                            <h:outputText value="Base Price Business"/>
+                        </f:facet>
                     </b:inputText>
                     <b:inputText placeholder="0.0"
                                  value="#{flightBean.baseFirstClass}"
-                                 id="BasePriceFirstClass" label="Base Price First Class">
+                                 render-label="false"
+                                 id="BasePriceFirstClass">
+                        <f:facet name="prepend">
+                            <h:outputText value="Base Price First Class"/>
+                        </f:facet>
                     </b:inputText>
-                    <b:inputText required="true" label="From Row" value="#{flightBean.rowStart}" placeholder="1-26"/>
-                    <b:inputText required="true" label="To Row" value="#{flightBean.rowEnd}" placeholder="1-26"/>
+                    <b:inputText required="true" value="#{flightBean.rowStart}" placeholder="1-26"
+                                 render-label="false">
+                        <f:facet name="prepend">
+                            <h:outputText value="From Row"/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText required="true" label="To Row" value="#{flightBean.rowEnd}" placeholder="1-26"
+                                 render-label="false">
+                        <f:facet name="prepend">
+                            <h:outputText value="To Row"/>
+                        </f:facet>
+                    </b:inputText>
                     <b:commandButton value="Create" action="#{flightBean.addFlight}"/>
-                    <!--<b:commandButton value="Clear" action="#{flightBean.clear}"/>-->
                     <h:outputText/>
                 </b:form>
                 <shiro:user>

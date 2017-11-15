@@ -34,6 +34,7 @@
                                  typeaheadValues="#{airportBean.allCityNames}"
                                  fieldSize="lg"
                                  value="#{airportBean.cityName}"
+                                 render-label="false"
                                  id="cityName">
                         <f:facet name="prepend">
                             <h:outputText value="City"/>
@@ -53,7 +54,7 @@
                                  placeholder="BRU"
                                  render-label="false" fieldSize="lg"
                                  value="#{airportBean.airportCode}">
-                        <f:facet name="append">
+                        <f:facet name="prepend">
                             <h:outputText value="Airport code"/>
                         </f:facet>
                     </b:inputText>

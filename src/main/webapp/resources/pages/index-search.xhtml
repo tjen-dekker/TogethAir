@@ -106,8 +106,9 @@
 
                 <b:dataTableColumn value="#{flight.flightCompany.name}" label="provider"/>
                 <b:dataTableColumn value="#{flight.flightCompany.code} #{flight.flightCode}" label="flight code"/>
-                <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
-                <b:dataTableColumn value="#{flight.duration / 60} hours" label="estimated duration"/>
+                <b:dataTableColumn value="#{flight.departureDateTime}" label="departure">
+                </b:dataTableColumn>
+                <b:dataTableColumn value="#{flight.duration} minutes" label="estimated duration"/>
                 <b:dataTableColumn value="#{flight.priceOfCheapestSeatRoundedString} EUR" label="price per seat"
                                    order="asc"/>
                 <b:dataTableColumn label="controls">
