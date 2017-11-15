@@ -41,10 +41,18 @@ public class FlightBean implements Serializable {
 
     private List<String> allAirports = new ArrayList<>();
 
+    private String firstLetter;
+
 
     private int rowStart;
 
     private int rowEnd;
+
+    private float baseEconomy = 65.7f;
+
+    private float  baseBusiness = 120.7f;
+
+    private float  baseFirstClass = 210.4f;
 
     public FlightBean() {
     }
@@ -76,107 +84,112 @@ public class FlightBean implements Serializable {
         clear();
     }
 
+    private void changeLetter(){
+
+    }
+
     private void initializeSeats() {
-        String firstLetter = "A";
-        switch (rowStart) {
-            case 1:
-                break;
-            case 2:
-                firstLetter = "B";
-                break;
-            case 3:
-                firstLetter = "C";
-                break;
-            case 4:
-                firstLetter = "D";
-                break;
-            case 5:
-                firstLetter = "E";
-                break;
-            case 6:
-                firstLetter = "F";
-                break;
-            case 7:
-                firstLetter = "G";
-                break;
-            case 8:
-                firstLetter = "H";
-                break;
-            case 9:
-                firstLetter = "I";
-                break;
-            case 10:
-                firstLetter = "J";
-                break;
-            case 11:
-                firstLetter = "K";
-                break;
-            case 12:
-                firstLetter = "L";
-                break;
-            case 13:
-                firstLetter = "M";
-                break;
-            case 14:
-                firstLetter = "N";
-                break;
-            case 15:
-                firstLetter = "O";
-                break;
-            case 16:
-                firstLetter = "P";
-                break;
-            case 17:
-                firstLetter = "Q";
-                break;
-            case 18:
-                firstLetter = "R";
-                break;
-            case 19:
-                firstLetter = "S";
-                break;
-            case 20:
-                firstLetter = "T";
-                break;
-            case 21:
-                firstLetter = "U";
-                break;
-            case 22:
-                firstLetter = "V";
-                break;
-            case 23:
-                firstLetter = "W";
-                break;
-            case 24:
-                firstLetter = "X";
-                break;
-            case 25:
-                firstLetter = "Y";
-                break;
-            case 26:
-                firstLetter = "Z";
-                break;
 
-
-        }
         for (int i = rowStart; i <= rowEnd; i++) {
-            Seat seat = new Seat(firstLetter + "1", 25.3f, TravelClass.ECONOMY, true, flight);
+            firstLetter = "A";
+            switch (i) {
+                case 1:
+                    break;
+                case 2:
+                    firstLetter = "B";
+                    break;
+                case 3:
+                    firstLetter = "C";
+                    break;
+                case 4:
+                    firstLetter = "D";
+                    break;
+                case 5:
+                    firstLetter = "E";
+                    break;
+                case 6:
+                    firstLetter = "F";
+                    break;
+                case 7:
+                    firstLetter = "G";
+                    break;
+                case 8:
+                    firstLetter = "H";
+                    break;
+                case 9:
+                    firstLetter = "I";
+                    break;
+                case 10:
+                    firstLetter = "J";
+                    break;
+                case 11:
+                    firstLetter = "K";
+                    break;
+                case 12:
+                    firstLetter = "L";
+                    break;
+                case 13:
+                    firstLetter = "M";
+                    break;
+                case 14:
+                    firstLetter = "N";
+                    break;
+                case 15:
+                    firstLetter = "O";
+                    break;
+                case 16:
+                    firstLetter = "P";
+                    break;
+                case 17:
+                    firstLetter = "Q";
+                    break;
+                case 18:
+                    firstLetter = "R";
+                    break;
+                case 19:
+                    firstLetter = "S";
+                    break;
+                case 20:
+                    firstLetter = "T";
+                    break;
+                case 21:
+                    firstLetter = "U";
+                    break;
+                case 22:
+                    firstLetter = "V";
+                    break;
+                case 23:
+                    firstLetter = "W";
+                    break;
+                case 24:
+                    firstLetter = "X";
+                    break;
+                case 25:
+                    firstLetter = "Y";
+                    break;
+                case 26:
+                    firstLetter = "Z";
+                    break;
+
+
+            }
+            Seat seat = new Seat(firstLetter + "1", baseEconomy, TravelClass.ECONOMY, true, flight);
             flight.addSeat(seat);
-            Seat seat1 = new Seat(firstLetter + "2", 24.2f, TravelClass.ECONOMY, true, flight);
+            Seat seat1 = new Seat(firstLetter + "2", baseEconomy, TravelClass.ECONOMY, true, flight);
             flight.addSeat(seat1);
-            Seat seat2 = new Seat(firstLetter + "3", 28.3f, TravelClass.ECONOMY, true, flight);
+            Seat seat2 = new Seat(firstLetter + "3", baseEconomy, TravelClass.ECONOMY, true, flight);
             flight.addSeat(seat2);
-            Seat seat3 = new Seat(firstLetter + "4", 28.4f, TravelClass.ECONOMY, true, flight);
+            Seat seat3 = new Seat(firstLetter + "4", baseEconomy, TravelClass.ECONOMY, true, flight);
             flight.addSeat(seat3);
-            Seat seat4 = new Seat(firstLetter + "5", 21.7f, TravelClass.ECONOMY, true, flight);
+            Seat seat4 = new Seat(firstLetter + "5", baseEconomy, TravelClass.ECONOMY, true, flight);
             flight.addSeat(seat4);
-            Seat seat5 = new Seat(firstLetter + "6", 50.3f, TravelClass.BUSINESS, true, flight);
+            Seat seat5 = new Seat(firstLetter + "6", baseBusiness, TravelClass.BUSINESS, true, flight);
             flight.addSeat(seat5);
-            Seat seat6 = new Seat(firstLetter + "7", 60.7f, TravelClass.BUSINESS, true, flight);
+            Seat seat6 = new Seat(firstLetter + "7", baseBusiness, TravelClass.BUSINESS, true, flight);
             flight.addSeat(seat6);
-            Seat seat7 = new Seat(firstLetter + "8", 55.3f, TravelClass.BUSINESS, true, flight);
+            Seat seat7 = new Seat(firstLetter + "8", baseBusiness, TravelClass.BUSINESS, true, flight);
             flight.addSeat(seat7);
-            Seat seat8 = new Seat(firstLetter + "9", 121.3f, TravelClass.FIRSTCLASS, true, flight);
+            Seat seat8 = new Seat(firstLetter + "9", baseFirstClass, TravelClass.FIRSTCLASS, true, flight);
             flight.addSeat(seat8);
         }
 
@@ -193,6 +206,8 @@ public class FlightBean implements Serializable {
         flight.setVolumeDiscounts(new HashMap<>());
         flight.setSeats(new HashSet<>());
     }
+
+
 
     public String getFrom() {
         return from;
