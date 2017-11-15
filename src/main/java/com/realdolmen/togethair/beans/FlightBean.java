@@ -14,6 +14,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.*;
 
@@ -31,10 +33,13 @@ public class FlightBean implements Serializable {
 
     @Inject
     private SearchServiceBean searchService;
-
-
+    
+    @Size(min=3, max=85, message = "city where the flight is flying <b>from</b> is empty or too long")
+    @Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*", message = "city where the flight is flying <b>from</b> contains illegal characters")
     private String from;
-
+    
+    @Size(min=3, max=85, message = "city where the flight is flying <b>to</b> is empty or too long")
+    @Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*", message = "city where the flight is flying <b>to</b> contains illegal characters")
     private String to;
 
     private Flight flight;
@@ -71,11 +76,22 @@ public class FlightBean implements Serializable {
 
     @RequiresRoles("partner:create")
     public void addFlight() {
-        Airport toAirport = flightServiceBean.findAirportByName(to);
-        flight.setTo(toAirport);
-        Airport fromAirport = flightServiceBean.findAirportByName(from);
-        flight.setFrom(fromAirport);
-        flight.setFlightCompany(userServiceBean.usersCompany(SecurityUtils.getSubject().getPrincipal().toString()));
+        try{
+            Airport toAirport = flightServiceBean.findAirportByName(to);
+            flight.setTo(toAirport);
+            Airport fromAirport = flightServiceBean.findAirportByName(from);
+            flight.setFrom(fromAirport);
+            flight.setFlightCompany(userServiceBean.usersCompany(SecurityUtils.getSubject().getPrincipal().toString()));
+            initializeSeats();
+            flightServiceBean.Create(flight);
+            facesMessage("Flight has been created successfully");
+        }
+        catch (javax.persistence.PersistenceException e){
+            facesError("something is wrong with our database, please come back later.");
+        }
+        catch(Exception e){
+            facesError(e.getMessage());
+        }
 
         initializeSeats();
         flightServiceBean.Create(flight);
@@ -235,6 +251,10 @@ public class FlightBean implements Serializable {
 
     private void facesMessage(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
+    
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
 
     public int getRowStart() {

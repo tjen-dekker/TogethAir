@@ -16,9 +16,11 @@
             <b:navBar brand="To Get Air" brandAlign="left" brandHref="http://localhost:8080/togethAir/index.xhtml" sticky="true" position="top" >
                 <b:navbarLinks>
                     <b:navLink value="Home" href="http://localhost:8080/togethAir/index.xhtml"/>
-                    <b:navLink value="Link1" href="#"/>
-                    <b:navLink value="Link2" href="#"/>
+                    <shiro:hasPermission name="partner">
+                        <b:navLink value="partner page" href="http://localhost:8080/togethAir/partner/index.xhtml"/>
+                    </shiro:hasPermission>
                     <shiro:authenticated>
+                        <b:navLink value="Bookings" href="http://localhost:8080/togethAir/user/BookingList.xhtml"/>
                         <b:navLink value="Logout">
                             <f:ajax event="click" listener="#{loginService.logout}"/>
                         </b:navLink>
