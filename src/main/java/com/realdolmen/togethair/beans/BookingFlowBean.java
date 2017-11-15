@@ -21,6 +21,7 @@ import javax.persistence.OptimisticLockException;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Named
@@ -47,7 +48,7 @@ public class BookingFlowBean implements Serializable{
     private Booking b;
     private User user;
     private String paymentMethod = "credittransfer";
-
+    private String currentDate;
 
     private float price;
     private Integer amountOfPassengers = 1;
@@ -111,7 +112,7 @@ public class BookingFlowBean implements Serializable{
             facesError("Something is wrong with your seats, try choosing others or start a new booking");
             return "payment";
         }
-        return "invoice";
+        return "transfer-invoice";
     }
 
     //TODO we should probably catch the exception
@@ -251,5 +252,15 @@ public class BookingFlowBean implements Serializable{
 
     public void setPaymentBean(PaymentBean paymentBean) {
         this.paymentBean = paymentBean;
+    }
+
+    public String getCurrentDate() {
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(date);
+    }
+
+    public Booking getB() {
+        return b;
     }
 }
