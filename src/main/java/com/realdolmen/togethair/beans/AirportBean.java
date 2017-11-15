@@ -73,7 +73,7 @@ public class AirportBean {
         if (allCountryNames.contains(normalizeInput(countryName))) {
             Country country = serviceBean.countryByName(countryName);
 
-            serviceBean.updateCountry(country);
+//            serviceBean.updateCountry(country);
 //            country.setId(null);
             city.setCountry(country);
         } else {
@@ -86,7 +86,7 @@ public class AirportBean {
         if (allCityNames.contains(normalizeInput(cityName))) {
             City city = serviceBean.cityByName(cityName);
 
-            serviceBean.updateCity(city);
+//            serviceBean.updateCity(city);
 //            city.setId(null);
             airport.setCity(city);
         } else {

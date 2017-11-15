@@ -20,7 +20,6 @@ public class Airport {
 	
 	@NotNull
 	@Column(length = 50)
-	@Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*")
 	private String name;
 	
 	@NotNull

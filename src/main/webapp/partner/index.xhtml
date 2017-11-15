@@ -5,12 +5,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:b="http://bootsfaces.net/ui">
 <head>
     <title>Search flights</title>
 </head>
 <body>
-<h1>Hiya partner</h1>
+<ui:composition template="/templates/index-template.xhtml">
+<ui:define name="content">
+<div style="height: 7em;"/>
+<b:jumbotron styleClass="search-background">
+<h1> Partner Landing page</h1>
+    <b:button value="add airport" icon="fa-building" iconAwesome="fa-building" href="addAirport.xhtml" look="success" size="lg"/>
+
+    <b:button value="add flight" icon="fa-plane" iconAwesome="fa-plane" href="addFlight.xhtml" look="success" size="lg"/>
+
+</b:jumbotron>
+</ui:define>
+</ui:composition>
 
 </body>
 </html>

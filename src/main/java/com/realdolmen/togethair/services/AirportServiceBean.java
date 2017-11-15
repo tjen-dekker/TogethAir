@@ -37,7 +37,15 @@ public class AirportServiceBean implements Serializable {
 
 
     public void saveAirport(Airport airport){
-        airportRepository.create(airport);
+
+        try {
+            airportRepository.create(airport);
+
+        }
+
+        catch (Exception ex){
+            airportRepository.merge(airport);
+        }
     }
 
     public List<String> allCityNames() {
