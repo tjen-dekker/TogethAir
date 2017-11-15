@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.validation.constraints.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -70,6 +71,9 @@ public class SearchBean {
 		LocalDate localDate2 = LocalDateTime.ofInstant(date2.toInstant(), ZoneId.systemDefault()).toLocalDate();
 		LocalDate today= LocalDate.now();
 		
+		fromCityName = normalizeInput(fromCityName);
+		toCityName = normalizeInput(toCityName);
+		
 		if(!allCityNames.contains(fromCityName) || !allCityNames.contains(toCityName)){
 			facesError("no flights are currently flying on "+fromCityName);
 			searchResults.clear();
@@ -84,14 +88,37 @@ public class SearchBean {
 		}
 		else
 		{
-			searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+			try{
+				searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+			}
+			catch (javax.persistence.PersistenceException e){
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+				} catch (IOException e1) {
+				
+				}
+			}
 			
 			//calculate actual price for cheapest seats from baseprice
 			for (FlightDTO flight : searchResults) {
 				flight.setPriceOfCheapestSeat(priceCalculationService.calculateTotalPrice(flight.getPriceOfCheapestSeat(),
 						flight.getPriceOverridePercentage(),flight.getVolumeDiscounts(),minNrOfSeats));
 			}
+			
 		}
+	}
+	
+	private String normalizeInput(String input) {
+		String[] words = input.split("([ -])");
+		StringBuilder ret = new StringBuilder();
+		for(int i = 0; i < words.length; i++) {
+			ret.append(Character.toUpperCase(words[i].charAt(0)));
+			ret.append(words[i].substring(1));
+			if(i < words.length - 1) {
+				ret.append(' ');
+			}
+		}
+		return ret.toString();
 	}
 	
 	public void warning(AjaxBehaviorEvent event){
