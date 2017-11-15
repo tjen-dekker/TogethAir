@@ -13,5 +13,9 @@ public interface CountryRepository {
 
     public Country findById(Long id);
 
+    public Country findByName(String name);
+
     public Country create(Country country);
+
+    void merge(Country country);
 }

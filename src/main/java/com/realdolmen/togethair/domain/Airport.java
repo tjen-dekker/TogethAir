@@ -20,7 +20,6 @@ public class Airport {
 	
 	@NotNull
 	@Column(length = 50)
-	@Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*")
 	private String name;
 	
 	@NotNull
@@ -29,7 +28,7 @@ public class Airport {
 	private String code;
 	
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private City city;
 	
 	public Long getId() {

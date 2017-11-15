@@ -32,10 +32,6 @@
         <mapping class="com.realdolmen.togethair.domain.RolesPermission"></mapping>
 
 
-
-
-
-
     </session-factory>
 
 </hibernate-configuration>

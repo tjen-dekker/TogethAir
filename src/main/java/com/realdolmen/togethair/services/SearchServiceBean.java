@@ -61,6 +61,10 @@ public class SearchServiceBean {
 		return filteredList;
 	}
 
+	public List<Airport> findAllAirports(){
+		return airportRepository.findAll();
+	}
+
 	private City getCityFromName(String cityName){
 		return cityRepository.findByName(cityName);
 	}
@@ -73,7 +77,7 @@ public class SearchServiceBean {
 		}
 		return allCitesStrings;
 	}
-	
+
 	private List<Airport> getAirportsFomCity(City city){
 		return airportRepository.findByCity(city);
 	}

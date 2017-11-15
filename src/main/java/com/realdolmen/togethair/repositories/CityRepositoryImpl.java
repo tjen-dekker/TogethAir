@@ -32,4 +32,9 @@ public class CityRepositoryImpl implements CityRepository{
         em.persist(city);
         return city;
     }
+
+    @Override
+    public void merge(City city) {
+        em.merge(city);
+    }
 }

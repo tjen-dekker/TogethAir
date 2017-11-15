@@ -2,99 +2,100 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:shiro="http://shiro.apache.org/tags">
 <ui:composition>
     <!--<h1>Home</h1>-->
     <!-- TODO: FIX THIS DIV -->
     <div style="height: 7em;"/>
-    <h:panelGroup id="results" >
-    <b:jumbotron styleClass="search-background">
-        <h1>To Get Air</h1>
-        <b:form id="search" horizontal="true">
-            <!--<h2>Destination</h2>-->
-            <b:formGroup>
-                <b:messages id="messages" autoUpdate="true" escape="false"/>
-                <b:inputText mediumScreen="two-thirds" placeholder="Brussels" typeahead="true"
-                             typeaheadValues="#{searchBean.allCityNames}"
-                             fieldSize="lg"
-                             value="#{searchBean.fromCityName}"
-                              id="from">
-                    <f:facet name="prepend">
-                        <h:outputText value="From" />
-                    </f:facet>
-                </b:inputText>
-                <b:selectOneMenu mediumScreen="one-third"
-                             placeholder="1"
-                             render-label="false" fieldSize="lg"
-                             value="#{searchBean.travelClass}">
-                    <f:selectItem itemLabel="Economy" itemValue="ECONOMY" />
-                    <f:selectItem itemLabel="Business" itemValue="BUSINESS" />
-                    <f:selectItem itemLabel="First Class" itemValue="FIRSTCLASS" />
-                    <f:facet name="append">
-                        <h:outputText value="Class"/>
-                    </f:facet>
-                </b:selectOneMenu>
-                <b:inputText mediumScreen="two-thirds" typeahead="true"
-                             typeaheadValues="#{searchBean.allCityNames}"
-                             placeholder="Madrid"
-                             render-label="false" fieldSize="lg"
-                             value="#{searchBean.toCityName}"
-                            id="to">
-                    <f:facet name="prepend">
-                        <h:outputText value="To" />
-                    </f:facet>
-                </b:inputText>
-                <b:inputText mediumScreen="one-third" mask="integer"
-                             placeholder="1"
-                             render-label="false" fieldSize="lg"
-                             value="#{searchBean.minNrOfSeats}">
-                    <f:facet name="append">
-                        <h:outputText value="Passengers"/>
-                    </f:facet>
-                </b:inputText>
-            </b:formGroup>
-            <h3>Time Period</h3>
-            <b:formGroup>
-                <b:dateTimePicker mediumScreen="half"
-                                  value="#{searchBean.date1}"
-                                  showIcon="true"
-                                  iconPosition="left"
-                                  allowInputToggle="true"
-                                  showDate="true"
-                                  showTime="false"
-                                  useCurrent="true"
-                                  fieldSize="lg"
-                                  format="DD/MM/YYYY"
-                                  placeholder="From"
-                                  required="true"/>
-                <b:dateTimePicker mediumScreen="half"
-                                  value="#{searchBean.date2}"
-                                  showIcon="true"
-                                  iconPosition="left"
-                                  allowInputToggle="true"
-                                  showDate="true"
-                                  showTime="false"
-                                  useCurrent="true"
-                                  fieldSize="lg"
-                                  format="DD/MM/YYYY"
-                                  placeholder="Until"
-                                  required="true"/>
-            </b:formGroup>
-            <b:commandButton value="Search" look="success">
-                <f:ajax listener="#{searchBean.search}"
-                execute="@form"
-                render="results"/>
-            </b:commandButton>
-        </b:form>
-    </b:jumbotron>
+    <h:panelGroup id="results">
+        <b:jumbotron styleClass="search-background">
+            <h1>To Get Air</h1>
+            <b:form id="search" horizontal="true">
+                <!--<h2>Destination</h2>-->
+                <b:formGroup>
+                    <b:messages id="messages" autoUpdate="true" escape="false"/>
+                    <b:inputText mediumScreen="two-thirds" placeholder="Brussels" typeahead="true"
+                                 typeaheadValues="#{searchBean.allCityNames}"
+                                 fieldSize="lg"
+                                 value="#{searchBean.fromCityName}"
+                                 id="from">
+                        <f:facet name="prepend">
+                            <h:outputText value="From"/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:selectOneMenu mediumScreen="one-third"
+                                     placeholder="1"
+                                     render-label="false" fieldSize="lg"
+                                     value="#{searchBean.travelClass}">
+                        <f:selectItem itemLabel="Economy" itemValue="ECONOMY"/>
+                        <f:selectItem itemLabel="Business" itemValue="BUSINESS"/>
+                        <f:selectItem itemLabel="First Class" itemValue="FIRSTCLASS"/>
+                        <f:facet name="append">
+                            <h:outputText value="Class"/>
+                        </f:facet>
+                    </b:selectOneMenu>
+                    <b:inputText mediumScreen="two-thirds" typeahead="true"
+                                 typeaheadValues="#{searchBean.allCityNames}"
+                                 placeholder="Madrid"
+                                 render-label="false" fieldSize="lg"
+                                 value="#{searchBean.toCityName}"
+                                 id="to">
+                        <f:facet name="prepend">
+                            <h:outputText value="To  "/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText mediumScreen="one-third" mask="integer"
+                                 placeholder="1"
+                                 render-label="false" fieldSize="lg"
+                                 value="#{searchBean.minNrOfSeats}">
+                        <f:facet name="append">
+                            <h:outputText value="Passengers"/>
+                        </f:facet>
+                    </b:inputText>
+                </b:formGroup>
+                <h3>Time Period</h3>
+                <b:formGroup>
+                    <b:dateTimePicker mediumScreen="half"
+                                      value="#{searchBean.date1}"
+                                      showIcon="true"
+                                      iconPosition="left"
+                                      allowInputToggle="true"
+                                      showDate="true"
+                                      showTime="false"
+                                      useCurrent="true"
+                                      fieldSize="lg"
+                                      format="DD/MM/YYYY"
+                                      placeholder="From"
+                                      required="true"/>
+                    <b:dateTimePicker mediumScreen="half"
+                                      value="#{searchBean.date2}"
+                                      showIcon="true"
+                                      iconPosition="left"
+                                      allowInputToggle="true"
+                                      showDate="true"
+                                      showTime="false"
+                                      useCurrent="true"
+                                      fieldSize="lg"
+                                      format="DD/MM/YYYY"
+                                      placeholder="Until"
+                                      required="true"/>
+                </b:formGroup>
+                <b:commandButton value="Search" look="success">
+                    <f:ajax listener="#{searchBean.search}"
+                            execute="@form"
+                            render="results"/>
+                </b:commandButton>
+            </b:form>
+        </b:jumbotron>
 
 
         <b:jumbotron styleClass="search-background" rendered="#{not searchBean.firstTimeSearch}">
             <h2>Results</h2>
-            <b:alert rendered="#{empty searchBean.searchResults}">no flights were found using the current filter criteria.</b:alert>
+            <b:alert
+                    rendered="#{empty searchBean.searchResults}">no flights were found using the current filter criteria.</b:alert>
             <shiro:guest>
-                <b:alert severity="warning" title="Not logged in" closable="true" rendered="#{not searchBean.firstTimeBook}"><strong>Warning!</strong>You are not logged in,
+                <b:alert severity="warning" title="Not logged in" closable="true"
+                         rendered="#{not searchBean.firstTimeBook}"><strong>Warning!</strong>You are not logged in,
                     we will not be able to save your booking to a user account. Booking is allowed but no history will be saved.</b:alert>
             </shiro:guest>
 
@@ -103,28 +104,30 @@
                          var="flight"
                          searching="false">
 
-                    <b:dataTableColumn value="#{flight.flightCompany}" label="provider"/>
-                    <b:dataTableColumn value="#{flight.flightCode}" label="flight code"/>
-                    <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
-                    <b:dataTableColumn value="#{flight.duration / 60} hours" label="estimated duration"/>
-                    <b:dataTableColumn value="#{flight.priceOfCheapestSeat * searchBean.minNrOfSeats} EUR"  label="total price" order="asc"/>
-                    <b:dataTableColumn label="controls" >
-                        <b:form>
-                            <shiro:authenticated>
-                                <b:commandButton value="book" look="success" action="booking"/>
-                            </shiro:authenticated>
-                            <shiro:guest>
-                                <b:commandButton value="book" look="success" rendered="#{searchBean.firstTimeBook}">
-                                    <f:ajax listener="#{searchBean.warning}"
-                                            execute="@form"
-                                            render="results"/>
-                                </b:commandButton>
-                                <b:commandButton value="book" look="success" action="booking" rendered="#{not searchBean.firstTimeBook}"/>
-                            </shiro:guest>
-                            <h:inputHidden id="flightId" value="#{flight.id}"/>
-                            <h:inputHidden id="amountOfPassengers" value="#{searchBean.minNrOfSeats}"/>
-                        </b:form>
-                    </b:dataTableColumn>
+                <b:dataTableColumn value="#{flight.flightCompany.name}" label="provider"/>
+                <b:dataTableColumn value="#{flight.flightCompany.code} #{flight.flightCode}" label="flight code"/>
+                <b:dataTableColumn value="#{flight.departureDateTime}" label="departure"/>
+                <b:dataTableColumn value="#{flight.duration / 60} hours" label="estimated duration"/>
+                <b:dataTableColumn value="#{flight.priceOfCheapestSeatRoundedString} EUR" label="price per seat"
+                                   order="asc"/>
+                <b:dataTableColumn label="controls">
+                    <b:form>
+                        <shiro:authenticated>
+                            <b:commandButton value="book" look="success" action="booking"/>
+                        </shiro:authenticated>
+                        <shiro:guest>
+                            <b:commandButton value="book" look="success" rendered="#{searchBean.firstTimeBook}">
+                                <f:ajax listener="#{searchBean.warning}"
+                                        execute="@form"
+                                        render="results"/>
+                            </b:commandButton>
+                            <b:commandButton value="book" look="success" action="booking"
+                                             rendered="#{not searchBean.firstTimeBook}"/>
+                        </shiro:guest>
+                        <h:inputHidden id="flightId" value="#{flight.id}"/>
+                        <h:inputHidden id="amountOfPassengers" value="#{searchBean.minNrOfSeats}"/>
+                    </b:form>
+                </b:dataTableColumn>
             </b:dataTable>
         </b:jumbotron>
     </h:panelGroup>

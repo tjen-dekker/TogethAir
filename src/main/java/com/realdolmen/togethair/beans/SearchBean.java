@@ -1,6 +1,8 @@
 package com.realdolmen.togethair.beans;
 
 import com.realdolmen.togethair.DTO.FlightDTO;
+import com.realdolmen.togethair.domain.Airport;
+import com.realdolmen.togethair.domain.Region;
 import com.realdolmen.togethair.domain.TravelClass;
 import com.realdolmen.togethair.services.PriceCalculationService;
 import com.realdolmen.togethair.services.SearchServiceBean;
@@ -13,6 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.validation.constraints.*;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +58,7 @@ public class SearchBean {
     private boolean firstTimeSearch =true;
 	private boolean firstTimeBook =true;
     private List<String> allCityNames;
+    private List<Airport> allAirports;
 	
     @PostConstruct
     private void init(){
@@ -61,24 +68,63 @@ public class SearchBean {
 	public void search(AjaxBehaviorEvent event) {
 		if(isFirstTimeSearch())
 			setFirstTimeSearch(false);
-
+		
+		
+		LocalDate localDate1 = LocalDateTime.ofInstant(date1.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		LocalDate localDate2 = LocalDateTime.ofInstant(date2.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		LocalDate today= LocalDate.now();
+		
+		fromCityName = normalizeInput(fromCityName);
+		toCityName = normalizeInput(toCityName);
+		
 		if(!allCityNames.contains(fromCityName) || !allCityNames.contains(toCityName)){
-			facesError("no flights are currently flying on"+fromCityName);
+			facesError("no flights are currently flying on "+fromCityName);
+			searchResults.clear();
+		}
+		else if(localDate1.isBefore(today) || localDate2.isBefore(today)){
+			facesError("not allowed to search flights in the past");
+			searchResults.clear();
 		}
 		else if(date2.before(date1)){
 			facesError("second date needs to be later then or equal to the first date");
+			searchResults.clear();
 		}
 		else
 		{
-			searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+			try{
+				searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
+			}
+			catch (javax.persistence.PersistenceException e){
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
+				} catch (IOException e1) {
+				
+				}
+			}
 			
 			//calculate actual price for cheapest seats from baseprice
 			for (FlightDTO flight : searchResults) {
 				flight.setPriceOfCheapestSeat(priceCalculationService.calculateTotalPrice(flight.getPriceOfCheapestSeat(),
 						flight.getPriceOverridePercentage(),flight.getVolumeDiscounts(),minNrOfSeats));
 			}
+			
 		}
 	}
+	
+	private String normalizeInput(String input) {
+		String[] words = input.split("([ -])");
+		StringBuilder ret = new StringBuilder();
+		for(int i = 0; i < words.length; i++) {
+			ret.append(Character.toUpperCase(words[i].charAt(0)));
+			ret.append(words[i].substring(1));
+			if(i < words.length - 1) {
+				ret.append(' ');
+			}
+		}
+		return ret.toString();
+	}
+
+
 	
 	public void warning(AjaxBehaviorEvent event){
 		if(isFirstTimeBook())
@@ -88,7 +134,15 @@ public class SearchBean {
 	private void facesError(String message) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
 	}
-	
+
+	public List<Airport> getAllAirports() {
+		return allAirports;
+	}
+
+	public void setAllAirports(List<Airport> allAirports) {
+		this.allAirports = allAirports;
+	}
+
 	public List<String> getAllCityNames() {
 		return allCityNames;
 	}
@@ -108,7 +162,6 @@ public class SearchBean {
 	public void setFirstTimeBook(boolean firstTimeBook) {
 		this.firstTimeBook = firstTimeBook;
 	}
-	
 	
 	public long getFlightId() {
 		return flightId;

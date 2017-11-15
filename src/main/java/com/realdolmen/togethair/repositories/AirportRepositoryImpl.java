@@ -3,10 +3,13 @@ package com.realdolmen.togethair.repositories;
 import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.City;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-
+@Transactional
+@Named("airportServiceImpl")
 public class AirportRepositoryImpl implements AirportRepository {
 
     @PersistenceContext
@@ -32,9 +35,21 @@ public class AirportRepositoryImpl implements AirportRepository {
         return airport;
     }
 
+    @Override
+    public Airport getByName(String name) {
+        return em.createQuery("Select A from Airport A where A.name = :name", Airport.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+
     public List<Airport> findByCity(City city){
         return em.createQuery("select a from Airport a where a.city = :city")
         .setParameter("city",city)
                 .getResultList();
+    }
+
+    @Override
+    public void merge(Airport airport) {
+        em.merge(airport);
     }
 }

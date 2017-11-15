@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  */
 public class FlightDTO {
 	
-	private String flightCompany;
+	private FlightCompanyDTO flightCompany;
 	private Long id;
 	
 	private Set<SeatDTO> seats = new HashSet<>();
@@ -26,6 +26,8 @@ public class FlightDTO {
 	
 	private float priceOfCheapestSeat;
 	
+	private String priceOfCheapestSeatRoundedString;
+	
 	private Map<Integer, Integer> volumeDiscounts;
 	private int priceOverridePercentage;
 	
@@ -38,7 +40,7 @@ public class FlightDTO {
 		setFlightCode(flight.getFlightCode());
 		setDepartureDateTime(flight.getDepartureDateTime());
 		setDuration(flight.getDuration());
-		setFlightCompany(flight.getFlightCompany().getName());
+		setFlightCompany(new FlightCompanyDTO(flight.getFlightCompany()));
 		setFrom(new AirportDTO(flight.getFrom()));
 		setTo(new AirportDTO(flight.getTo()));
 		setPriceOfCheapestSeat(flight.getPriceOfCheapestSeat());
@@ -64,13 +66,14 @@ public class FlightDTO {
 	
 	public void setPriceOfCheapestSeat(float priceOfCheapestSeat) {
 		this.priceOfCheapestSeat = priceOfCheapestSeat;
+		setPriceOfCheapestSeatRoundedString(String.format("%.2f", priceOfCheapestSeat));
 	}
 	
-	public String getFlightCompany() {
+	public FlightCompanyDTO getFlightCompany() {
 		return flightCompany;
 	}
 	
-	public void setFlightCompany(String flightCompany) {
+	public void setFlightCompany(FlightCompanyDTO flightCompany) {
 		this.flightCompany = flightCompany;
 	}
 	
@@ -118,6 +121,14 @@ public class FlightDTO {
 	
 	public void setDuration(int duration) {
 		this.duration = duration;
+	}
+	
+	public String getPriceOfCheapestSeatRoundedString() {
+		return priceOfCheapestSeatRoundedString;
+	}
+	
+	public void setPriceOfCheapestSeatRoundedString(String priceOfCheapestSeatRoundedString) {
+		this.priceOfCheapestSeatRoundedString = priceOfCheapestSeatRoundedString;
 	}
 	
 	public Date getDepartureDateTime() {
