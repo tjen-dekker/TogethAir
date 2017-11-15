@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:shiro="http://shiro.apache.org/tags">
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition template="/templates/index-template.xhtml">
+        <ui:define name="content">
+            <div style="height: 7em;"/>
+            <b:jumbotron styleClass="search-background">
+                <b:form id="airportForm" horizontal="true">
+                <b:inputText mediumScreen="two-thirds" typeahead="true"
+                             typeaheadValues=""
+                             placeholder="Belgium"
+                             render-label="false" fieldSize="lg"
+                             value=""
+                             id="countryName">
+                    <f:facet name="prepend">
+                        <h:outputText value="Country" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText mediumScreen="two-thirds" placeholder="Brussels" typeahead="true"
+                             typeaheadValues=""
+                             fieldSize="lg"
+                             value=""
+                             id="cityName">
+                    <f:facet name="prepend">
+                        <h:outputText value="City" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText mediumScreen="two-thirds" typeahead="true"
+                             typeaheadValues=""
+                             placeholder="Brussels Airport"
+                             render-label="false" fieldSize="lg"
+                             value=""
+                             id="airportName">
+                    <f:facet name="prepend">
+                        <h:outputText value="Airport" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText mediumScreen="one-third"
+                             placeholder="BRU"
+                             render-label="false" fieldSize="lg"
+                             value="">
+                    <f:facet name="append">
+                        <h:outputText value="Airport code"/>
+                    </f:facet>
+                </b:inputText>
+                    <b:commandButton value="Create" action=""/>
+                </b:form>
+            </b:jumbotron>
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>
