@@ -53,11 +53,11 @@ public class FlightBean implements Serializable {
 
     private int rowEnd;
 
-    private float baseEconomy = 65.7f;
+    private Float baseEconomy;
 
-    private float  baseBusiness = 120.7f;
+    private Float  baseBusiness;
 
-    private float  baseFirstClass = 210.4f;
+    private Float  baseFirstClass;
 
     public FlightBean() {
     }
@@ -100,9 +100,6 @@ public class FlightBean implements Serializable {
         clear();
     }
 
-    private void changeLetter(){
-
-    }
 
     private void initializeSeats() {
 
@@ -224,6 +221,29 @@ public class FlightBean implements Serializable {
     }
 
 
+    public Float getBaseEconomy() {
+        return baseEconomy;
+    }
+
+    public void setBaseEconomy(Float baseEconomy) {
+        this.baseEconomy = baseEconomy;
+    }
+
+    public Float getBaseBusiness() {
+        return baseBusiness;
+    }
+
+    public void setBaseBusiness(Float baseBusiness) {
+        this.baseBusiness = baseBusiness;
+    }
+
+    public Float getBaseFirstClass() {
+        return baseFirstClass;
+    }
+
+    public void setBaseFirstClass(Float baseFirstClass) {
+        this.baseFirstClass = baseFirstClass;
+    }
 
     public String getFrom() {
         return from;

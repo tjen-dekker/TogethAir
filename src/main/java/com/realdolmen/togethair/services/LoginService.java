@@ -65,7 +65,7 @@ public class LoginService implements Serializable {
             setFirstName(userRepository.getFirstNameofCurrentUser(username));
 
             if (subject.hasRole("admin")) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("admin/index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("partner/index.xhtml");
             } else if (subject.hasRole("partner")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("partner/index.xhtml");
             } else {
