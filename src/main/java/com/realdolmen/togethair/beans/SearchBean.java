@@ -95,11 +95,8 @@ public class SearchBean {
 				searchResults = searchService.findFromToBetweenDates(fromCityName,toCityName,date1,date2, travelClass, minNrOfSeats);
 			}
 			catch (javax.persistence.PersistenceException e){
-				try {
-					FacesContext.getCurrentInstance().getExternalContext().redirect("error.xhtml");
-				} catch (IOException e1) {
-				
-				}
+				facesError("something is wrong with our database, please come back later.");
+				searchResults.clear();
 			}
 			
 			//calculate actual price for cheapest seats from baseprice

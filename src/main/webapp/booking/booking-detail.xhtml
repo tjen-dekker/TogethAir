@@ -13,7 +13,7 @@
 
                <h1>Flight details</h1>
                 <b:messages />
-                <p><h:outputText value="#{bookingFlowBean.flight.flightCompany}" size="small"/></p>
+                <p><h:outputText value="#{bookingFlowBean.flight.flightCompany.name}" size="small"/></p>
                 <p><h:outputText value="Departure: #{bookingFlowBean.flight.from.name} (#{bookingFlowBean.flight.from.code})" size="small"/></p>
                 <p><h:outputText value="Destination: #{bookingFlowBean.flight.to.name} (#{bookingFlowBean.flight.to.code})" size="small"/></p>
                 <p>Departure time: <h:outputText value="#{bookingFlowBean.flight.departureDateTime}" size="small">

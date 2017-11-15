@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:b="http://bootsfaces.net/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui" xmlns:shiro="http://shiro.apache.org/tags">
 <head>
     <title>Search flights</title>
 </head>
@@ -17,7 +18,9 @@
 <h1> Partner Landing page</h1>
     <b:button value="add airport" icon="fa-building" iconAwesome="fa-building" href="addAirport.xhtml" look="success" size="lg"/>
 
-    <b:button value="add flight" icon="fa-plane" iconAwesome="fa-plane" href="addFlight.xhtml" look="success" size="lg"/>
+    <shiro:hasRole name="admin">
+        <b:button value="add flight" icon="fa-plane" iconAwesome="fa-plane" href="addFlight.xhtml" look="success" size="lg"/>
+    </shiro:hasRole>
 
 </b:jumbotron>
 </ui:define>

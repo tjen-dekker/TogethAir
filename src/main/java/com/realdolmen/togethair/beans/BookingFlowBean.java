@@ -90,14 +90,18 @@ public class BookingFlowBean implements Serializable{
     }
 
     public String validate() throws  IOException {
+        String outcome;
         try {
             recalculate();
-            save();
+            outcome = paymentBean.validate();
+            if("invoice".equals(outcome)){
+                save();
+            }
         } catch (OptimisticLockException | SeatAlreadyTakenException ex){
             facesError("Something is wrong with your seats, try choosing others or start a new booking");
-            return "payment";
+            outcome = "payment";
         }
-        return paymentBean.validate();
+        return outcome;
 
     }
     public String confirmTransfer() throws IOException {

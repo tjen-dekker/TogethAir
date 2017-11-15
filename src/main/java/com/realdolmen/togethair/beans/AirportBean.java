@@ -5,6 +5,7 @@ import com.realdolmen.togethair.domain.City;
 import com.realdolmen.togethair.domain.Country;
 import com.realdolmen.togethair.domain.Region;
 import com.realdolmen.togethair.services.AirportServiceBean;
+import org.apache.shiro.SecurityUtils;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -12,6 +13,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +24,20 @@ public class AirportBean {
 
     @Inject
     private AirportServiceBean serviceBean;
-
+    
+    @Size(min=3, max=85, message = "city is empty or too long")
+    @Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*", message = "city contains illegal characters")
     private String cityName;
+    
+    @Size(min=3, max=85, message = "country is empty or too long")
+    @Pattern(regexp = "[a-zA-Z]+(?:[ '-][a-zA-Z]+)*", message = "country contains illegal characters")
     private String countryName;
+    
+    @Size(min=3, max=85, message = "airport name is empty or too long")
     private String airportName;
+    
+    @Size(min=3, message = "airport code has to be 3 capital letters")
+    @Pattern(regexp = "([A-Z]){3}", message = "airport code has to be 3 capital letters")
     private String airportCode;
     private String regionString;
     private Region region;
@@ -70,35 +83,43 @@ public class AirportBean {
 
     public void createAirport() {
 
-        if (allCountryNames.contains(normalizeInput(countryName))) {
-            Country country = serviceBean.countryByName(countryName);
+        try {
+            if (allCountryNames.contains(normalizeInput(countryName))) {
+                Country country = serviceBean.countryByName(countryName);
 
 //            serviceBean.updateCountry(country);
 //            country.setId(null);
-            city.setCountry(country);
-        } else {
-            this.country.setName(countryName);
-            region = Region.WESTERN_EUROPE;
-            this.country.setRegion(region);
-            city.setCountry(this.country);
-        }
-
-        if (allCityNames.contains(normalizeInput(cityName))) {
-            City city = serviceBean.cityByName(cityName);
+                city.setCountry(country);
+            } else {
+                this.country.setName(countryName);
+                region = Region.WESTERN_EUROPE;
+                this.country.setRegion(region);
+                city.setCountry(this.country);
+            }
+    
+            if (allCityNames.contains(normalizeInput(cityName))) {
+                City city = serviceBean.cityByName(cityName);
 
 //            serviceBean.updateCity(city);
 //            city.setId(null);
-            airport.setCity(city);
-        } else {
-            city.setName(cityName);
-            airport.setCity(city);
+                airport.setCity(city);
+            } else {
+                city.setName(cityName);
+                airport.setCity(city);
+            }
+            airport.setCode(airportCode);
+            airport.setName(airportName);
+    
+            this.serviceBean.saveAirport(airport);
+    
+            facesMessage("Airport was added successfully");
         }
-        airport.setCode(airportCode);
-        airport.setName(airportName);
-
-        this.serviceBean.saveAirport(airport);
-
-        facesMessage("Airport was added successfully");
+        catch (javax.persistence.PersistenceException e){
+            facesError("something is wrong with our database, please come back later.");
+        }
+        catch(Exception e){
+            facesError(e.getMessage());
+        }
 
     }
 
@@ -113,6 +134,12 @@ public class AirportBean {
     private void facesMessage(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
+    
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
+
+
 
     public Airport getAirport() {
         return airport;
