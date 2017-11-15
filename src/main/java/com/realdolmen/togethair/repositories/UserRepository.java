@@ -1,6 +1,7 @@
 package com.realdolmen.togethair.repositories;
 
 import com.realdolmen.togethair.domain.Booking;
+import com.realdolmen.togethair.domain.FlightCompany;
 import com.realdolmen.togethair.domain.User;
 
 import javax.faces.bean.ApplicationScoped;
@@ -28,4 +29,6 @@ public interface UserRepository {
     List<Booking> findAllBookingsForUser(String email);
 
     void update(User u);
+
+    FlightCompany findUsersCompany(String username);
 }

@@ -17,4 +17,6 @@ public interface AirportRepository {
     List<Airport> findByCity(City city);
 
      Airport create(Airport airport);
+
+     Airport getByName(String name);
 }

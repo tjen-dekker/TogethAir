@@ -8,7 +8,6 @@ import org.apache.shiro.authz.annotation.RequiresUser;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 @ManagedBean
 @SessionScoped

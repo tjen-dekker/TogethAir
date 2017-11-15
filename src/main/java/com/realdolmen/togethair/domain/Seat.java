@@ -49,6 +49,14 @@ public class Seat {
 		this.available = available;
 	}
 
+	public Seat(String location, float price, TravelClass travelClassName, boolean available, Flight flight) {
+		this.location = location;
+		this.price = price;
+		this.travelClassName = travelClassName;
+		this.available = available;
+		this.flight = flight;
+	}
+
 	public String getLocation() {
 		return location;
 	}
@@ -109,13 +117,6 @@ public class Seat {
 		return flight != null ? flight.equals(seat.flight) : seat.flight == null;
 	}
 
-	@Override
-	public int hashCode() {
-		int result = id != null ? id.hashCode() : 0;
-		result = 31 * result + (location != null ? location.hashCode() : 0);
-		result = 31 * result + (flight != null ? flight.hashCode() : 0);
-		return result;
-	}
 
 	@Override
 	public String toString() {

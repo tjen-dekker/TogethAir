@@ -42,6 +42,7 @@ public class LoginService implements Serializable {
     private String hashedPassword;
     private boolean isAdmin;
     private Boolean rememberMe;
+    private boolean isPartner;
 
     public LoginService() {
 
@@ -123,6 +124,13 @@ public class LoginService implements Serializable {
                     role.setRoleName("admin");
                     rolesRepository.create(role);
                 }
+
+                if(isPartner){
+                    Role role = new Role();
+                    role.setEmail(username);
+                    role.setRoleName("partner");
+                    rolesRepository.create(role);
+                }
                 if (userRepository.getUserByEmail(username) != null) {
                     facesError("user already exists");
                 }
@@ -165,6 +173,14 @@ public class LoginService implements Serializable {
      */
     private void facesError(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    public boolean isPartner() {
+        return isPartner;
+    }
+
+    public void setPartner(boolean partner) {
+        isPartner = partner;
     }
 
     public String getCompareToPassword() {

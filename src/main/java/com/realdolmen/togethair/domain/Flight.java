@@ -27,7 +27,7 @@ public class Flight implements Serializable{
 	private FlightCompany flightCompany;
 	
 	@NotNull
-	@OneToMany(fetch = FetchType.EAGER,orphanRemoval = true,mappedBy = "flight")
+	@OneToMany(fetch = FetchType.EAGER,orphanRemoval = true,mappedBy = "flight", cascade = CascadeType.ALL)
 	private Set<Seat> seats = new HashSet<>();
 	
 	@NotNull
@@ -204,12 +204,7 @@ public class Flight implements Serializable{
 		return departureDateTime != null ? departureDateTime.equals(flight.departureDateTime) : flight.departureDateTime == null;
 	}
 
-	@Override
-	public int hashCode() {
-		int result = (int) (id ^ (id >>> 32));
-		result = 31 * result + (from != null ? from.hashCode() : 0);
-		result = 31 * result + (to != null ? to.hashCode() : 0);
-		result = 31 * result + (departureDateTime != null ? departureDateTime.hashCode() : 0);
-		return result;
-	}
+
+
+
 }

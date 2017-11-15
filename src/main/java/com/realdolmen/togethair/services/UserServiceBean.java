@@ -2,6 +2,7 @@ package com.realdolmen.togethair.services;
 
 
 import com.realdolmen.togethair.domain.Booking;
+import com.realdolmen.togethair.domain.FlightCompany;
 import com.realdolmen.togethair.domain.User;
 import com.realdolmen.togethair.repositories.UserRepository;
 
@@ -27,5 +28,9 @@ public class UserServiceBean implements Serializable{
 
     public void update(User u){
         repository.update(u);
+    }
+
+    public FlightCompany usersCompany(String username){
+        return repository.findUsersCompany(username);
     }
 }
