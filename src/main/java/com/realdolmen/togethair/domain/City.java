@@ -21,7 +21,7 @@ public class City {
     private String name;
     
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Country country;
     
     public Long getId() {

@@ -29,7 +29,7 @@ public class Airport {
 	private String code;
 	
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private City city;
 	
 	public Long getId() {

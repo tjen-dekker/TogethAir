@@ -3,10 +3,13 @@ package com.realdolmen.togethair.repositories;
 import com.realdolmen.togethair.domain.Airport;
 import com.realdolmen.togethair.domain.City;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
-
+@Transactional
+@Named("airportServiceImpl")
 public class AirportRepositoryImpl implements AirportRepository {
 
     @PersistenceContext

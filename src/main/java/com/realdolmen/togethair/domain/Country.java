@@ -23,7 +23,7 @@ public class Country {
 
 	@NotNull
 	@Column(length = 40)
-	@Pattern(regexp = "^([A-Z][a-z]*)+(?:[\\\\s-][A-Z][a-z]*)*$ ")
+//	todo @Pattern(regexp = "^([A-Z][a-z]*)+(?:[\\\\s-][A-Z][a-z]*)*$ ")
 	private String name;
 
 	public Long getId() {

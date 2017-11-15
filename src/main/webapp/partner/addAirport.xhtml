@@ -11,52 +11,53 @@
             <div style="height: 7em;"/>
             <b:jumbotron styleClass="search-background">
                 <b:form id="airportForm" horizontal="true">
-                <b:inputText mediumScreen="two-thirds" typeahead="true"
-                             typeaheadValues=""
-                             placeholder="Belgium"
-                             render-label="false" fieldSize="lg"
-                             value=""
-                             id="countryName">
-                    <f:facet name="prepend">
-                        <h:outputText value="Country" />
-                    </f:facet>
-                </b:inputText>
-                    <b:selectOneMenu mediumScreen="one-third"
-                                     render-label="false" fieldSize="lg"
-                                     value="#{searchBean.travelClass}">
-                        <f:selectItems value="#{bean.getEnums}" var="seat" itemLabel="" itemValue="" />
-                        <f:facet name="append">
-                            <h:outputText value="Region"/>
+                    <b:messages id="messages" autoUpdate="true" closable="true"/>
+                    <b:inputText mediumScreen="two-thirds" typeahead="true"
+                                 typeaheadValues="#{airportBean.allCountryNames}"
+                                 placeholder="Belgium"
+                                 render-label="false" fieldSize="lg"
+                                 value="#{airportBean.countryName}"
+                                 id="countryName">
+                        <f:facet name="prepend">
+                            <h:outputText value="Country"/>
                         </f:facet>
-                    </b:selectOneMenu>
-                <b:inputText mediumScreen="two-thirds" placeholder="Brussels" typeahead="true"
-                             typeaheadValues=""
-                             fieldSize="lg"
-                             value=""
-                             id="cityName">
-                    <f:facet name="prepend">
-                        <h:outputText value="City" />
-                    </f:facet>
-                </b:inputText>
-                <b:inputText mediumScreen="two-thirds" typeahead="true"
-                             typeaheadValues=""
-                             placeholder="Brussels Airport"
-                             render-label="false" fieldSize="lg"
-                             value=""
-                             id="airportName">
-                    <f:facet name="prepend">
-                        <h:outputText value="Airport" />
-                    </f:facet>
-                </b:inputText>
-                <b:inputText mediumScreen="one-third"
-                             placeholder="BRU"
-                             render-label="false" fieldSize="lg"
-                             value="">
-                    <f:facet name="append">
-                        <h:outputText value="Airport code"/>
-                    </f:facet>
-                </b:inputText>
-                    <b:commandButton value="Create" action=""/>
+                    </b:inputText>
+                    <!--<b:selectOneMenu mediumScreen="one-third"-->
+                                     <!--render-label="false" fieldSize="lg" value="#{airportBean.country.region}">-->
+                        <!--<f:selectItems value="#{airportBean.allRegionNames}" var="seat" itemLabel=""-->
+                                       <!--itemValue="#{airportBean.region}"/>-->
+                        <!--<f:facet name="append">-->
+                            <!--<h:outputText value="Region"/>-->
+                        <!--</f:facet>-->
+                    <!--</b:selectOneMenu>-->
+                    <b:inputText mediumScreen="two-thirds" placeholder="Brussels" typeahead="true"
+                                 typeaheadValues="#{airportBean.allCityNames}"
+                                 fieldSize="lg"
+                                 value="#{airportBean.cityName}"
+                                 id="cityName">
+                        <f:facet name="prepend">
+                            <h:outputText value="City"/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText mediumScreen="two-thirds" typeahead="true"
+                                 typeaheadValues="#{airportBean.allAirportNames}"
+                                 placeholder="Brussels Airport"
+                                 render-label="false" fieldSize="lg"
+                                 value="#{airportBean.airportName}"
+                                 id="airportName">
+                        <f:facet name="prepend">
+                            <h:outputText value="Airport"/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText mediumScreen="one-third"
+                                 placeholder="BRU"
+                                 render-label="false" fieldSize="lg"
+                                 value="#{airportBean.airportCode}">
+                        <f:facet name="append">
+                            <h:outputText value="Airport code"/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:commandButton value="Create" action="#{airportBean.createAirport()}"/>
                 </b:form>
             </b:jumbotron>
         </ui:define>
